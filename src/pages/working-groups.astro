@@ -25,6 +25,7 @@ const sections = sectionsFrom(page);
 const hero = sections.hero ?? {};
 const join = sections.join ?? {};
 const sprints = sections.sprints ?? {};
+const directoryNote = sections.directory_note ?? "";
 const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
 const seo = getSeoMeta(page, {
 	siteTitle,
@@ -181,7 +182,7 @@ const seo = getSeoMeta(page, {
 				style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;"
 			>
 				<span class="bgin-mono" data-filter-count>Showing {groups.length} of {groups.length} working groups</span>
-				<span class="bgin-mono" style="color: var(--ink-mute);">Kickoff session · 02 Dec 2025</span>
+				{directoryNote && <span class="bgin-mono" style="color: var(--ink-mute);">{directoryNote}</span>}
 			</div>
 		</div>
 	</section>

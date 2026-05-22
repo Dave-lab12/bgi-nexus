@@ -1,5 +1,10 @@
 ---
-import { getEmDashCollection, getEmDashEntry, getSeoMeta, getSiteSettings } from "emdash";
+import {
+	getEmDashCollection,
+	getEmDashEntry,
+	getSeoMeta,
+	getSiteSettings,
+} from "emdash";
 import Base from "../layouts/Base.astro";
 import LotusBloom from "../components/LotusBloom.astro";
 import UpcomingEventTile from "../components/UpcomingEventTile.astro";
@@ -41,7 +46,8 @@ const events = sortByOrder(eventsResult.entries as any[]);
 const groups = sortByOrder(groupsResult.entries as any[]);
 const projects = sortByOrder(projectsResult.entries as any[]);
 const upcomingEvents = events.filter((event) => !event.data.past);
-const featuredEvent = upcomingEvents.find((event) => event.data.featured) ?? upcomingEvents[0];
+const featuredEvent =
+	upcomingEvents.find((event) => event.data.featured) ?? upcomingEvents[0];
 const homeProjects = projects.slice(0, 6);
 const projectTags = ["All", ...termsFrom(homeProjects)];
 const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
@@ -69,20 +75,29 @@ const today = new Date().toLocaleDateString("en-GB", {
 	pageTitle={seo.ogTitle}
 	description={seo.description}
 	canonical={seo.canonical}
-	content={page ? { collection: "pages", id: page.data.id, slug: "home" } : undefined}
+	content={page
+		? { collection: "pages", id: page.data.id, slug: "home" }
+		: undefined}
 >
 	{
 		tickerItems.length > 0 && (
 			<div class="bgin-ticker">
-				<span class="live"><span class="dot" /> Live</span>
+				<span class="live">
+					<span class="dot" /> Live
+				</span>
 				<div class="bgin-ticker-rail">
 					<div class="bgin-ticker-track">
 						{[...tickerItems, ...tickerItems].map((item) => (
-							<span><em>{item.who}</em>{item.what}</span>
+							<span>
+								<em>{item.who}</em>
+								{item.what}
+							</span>
 						))}
 					</div>
 				</div>
-				<span style="color: rgba(245,239,226,0.45); flex-shrink: 0;">{today}</span>
+				<span style="color: rgba(245,239,226,0.45); flex-shrink: 0;">
+					{today}
+				</span>
 			</div>
 		)
 	}
@@ -95,28 +110,36 @@ const today = new Date().toLocaleDateString("en-GB", {
 			style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1.25fr 1fr; gap: 72px; align-items: center;"
 		>
 			<div>
-				<div
+				<!-- <div
 					class="bgin-eyebrow"
 					style="margin-bottom: 24px; display: inline-flex; align-items: center; gap: 10px;"
 					{...page?.edit?.sections}
 				>
 					<span class="bgin-dot" style="background: var(--brand-blue);" />
 					{hero.eyebrow}
-				</div>
+				</div> -->
 				<h1
 					class="bgin-display"
 					style="font-size: 80px; margin-bottom: 28px;"
 					{...page?.edit?.title}
 				>
 					{hero.headline_line_1}<br />
-					{hero.headline_line_2} <em>{hero.headline_emphasis}</em>
+					{hero.headline_line_2}
+					<em>{hero.headline_emphasis}</em>
 				</h1>
-				<p class="bgin-lede" style="max-width: 540px; margin-bottom: 40px;">
+				<p
+					class="bgin-lede"
+					style="max-width: 540px; margin-bottom: 40px;"
+				>
 					{hero.lead}
 				</p>
 				<div style="display: flex; gap: 14px;">
-					<a class="bgin-btn primary" href={hero.primary_url}>{hero.primary_label}</a>
-					<a class="bgin-btn secondary" href={hero.secondary_url}>{hero.secondary_label}</a>
+					<a class="bgin-btn primary" href={hero.primary_url}
+						>{hero.primary_label}</a
+					>
+					<a class="bgin-btn secondary" href={hero.secondary_url}
+						>{hero.secondary_label}</a
+					>
 				</div>
 			</div>
 			<UpcomingEventTile event={featuredEvent} kind="live" />
@@ -128,30 +151,32 @@ const today = new Date().toLocaleDateString("en-GB", {
 			style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 96px; align-items: start;"
 		>
 			<div>
-				<div class="bgin-mono" style="margin-bottom: 24px; display: block;">
+				<div
+					class="bgin-mono"
+					style="margin-bottom: 24px; display: block;"
+				>
 					{about.eyebrow}
 				</div>
 				<h2 class="bgin-h2" style="font-size: 40px;">
-					{about.title} <em>{about.emphasis}</em>
+					{about.title}
+					<em>{about.emphasis}</em>
 				</h2>
 			</div>
 			<div style="font-size: 17px; line-height: 1.7; color: var(--ink);">
 				<p style="margin-top: 0; margin-bottom: 18px;">{about.body}</p>
-				<p style="margin: 0 0 28px; color: var(--ink-soft);">{about.body_soft}</p>
+				<p style="margin: 0 0 28px; color: var(--ink-soft);">
+					{about.body_soft}
+				</p>
 				<div
 					style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding-top: 32px; border-top: 1px solid var(--rule);"
 				>
 					{
 						asArray(about.principles).map((item) => (
 							<div>
-								<div
-									style="font-family: var(--font-display); font-size: 22px; color: var(--ink); margin-bottom: 6px;"
-								>
+								<div style="font-family: var(--font-display); font-size: 22px; color: var(--ink); margin-bottom: 6px;">
 									{item.word}
 								</div>
-								<div
-									style="font-size: 13px; color: var(--ink-soft); line-height: 1.55;"
-								>
+								<div style="font-size: 13px; color: var(--ink-soft); line-height: 1.55;">
 									{item.body}
 								</div>
 							</div>
@@ -172,17 +197,18 @@ const today = new Date().toLocaleDateString("en-GB", {
 						{sections.pillars?.eyebrow}
 					</div>
 					<h2 class="bgin-h2" style="font-size: 40px;">
-						{sections.pillars?.title} <em>{sections.pillars?.emphasis}</em>
+						{sections.pillars?.title}
+						<em>{sections.pillars?.emphasis}</em>
 					</h2>
 				</div>
 			</div>
-			<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+			<div
+				style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;"
+			>
 				{
 					pillars.map((pillar) => (
 						<article class="bgin-card hover" style="padding: 28px;">
-							<div
-								style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;"
-							>
+							<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
 								<span class="bgin-mono">{pillar.num}</span>
 								<div style="text-align: right;">
 									<div
@@ -199,9 +225,7 @@ const today = new Date().toLocaleDateString("en-GB", {
 									</span>
 								</div>
 							</div>
-							<h3
-								style="font-family: var(--font-display); font-size: 26px; font-weight: 400; line-height: 1.12; margin: 0 0 12px; color: var(--ink);"
-							>
+							<h3 style="font-family: var(--font-display); font-size: 26px; font-weight: 400; line-height: 1.12; margin: 0 0 12px; color: var(--ink);">
 								{pillar.title}
 							</h3>
 							<p style="font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0;">
@@ -214,12 +238,18 @@ const today = new Date().toLocaleDateString("en-GB", {
 		</div>
 	</section>
 
-	<section id="working-groups" class="bgin-section" style="max-width: 1280px; margin: 0 auto;">
+	<section
+		id="working-groups"
+		class="bgin-section"
+		style="max-width: 1280px; margin: 0 auto;"
+	>
 		<div
 			style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 96px; align-items: end; margin-bottom: 48px;"
 		>
 			<div>
-				<div class="bgin-eyebrow" style="margin-bottom: 12px;">Working groups</div>
+				<div class="bgin-eyebrow" style="margin-bottom: 12px;">
+					Working groups
+				</div>
 				<h2 class="bgin-h2" style="font-size: 40px;">
 					Initial topics for <em>beneficial AGI.</em>
 				</h2>
@@ -230,17 +260,19 @@ const today = new Date().toLocaleDateString("en-GB", {
 				{sections.working_groups?.intro}
 			</p>
 		</div>
-		<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+		<div
+			style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;"
+		>
 			{
 				groups.map((group) => (
 					<article
 						class="bgin-card hover"
 						style={`border-top-color: ${group.data.active ? "var(--brand-blue)" : "var(--rule)"}; border-top-width: 3px; border-top-style: solid; cursor: pointer;`}
 					>
-						<div
-							style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;"
-						>
-							<span class="bgin-mono">WG · {group.id.replace("wg-", "").toUpperCase()}</span>
+						<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+							<span class="bgin-mono">
+								WG · {group.id.replace("wg-", "").toUpperCase()}
+							</span>
 							<span
 								style={`display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; color: ${group.data.active ? "var(--brand-blue)" : "var(--ink-mute)"};`}
 							>
@@ -251,37 +283,46 @@ const today = new Date().toLocaleDateString("en-GB", {
 								{group.data.active ? "Active" : "Open"}
 							</span>
 						</div>
-						<h3
-							style="font-family: var(--font-display); font-size: 24px; font-weight: 400; line-height: 1.15; margin: 0 0 14px; color: var(--ink);"
-						>
+						<h3 style="font-family: var(--font-display); font-size: 24px; font-weight: 400; line-height: 1.15; margin: 0 0 14px; color: var(--ink);">
 							{group.data.name}
 						</h3>
 						<p style="font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 20px;">
 							{group.data.summary}
 						</p>
-						<div
-							style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-top: 16px; border-top: 1px solid var(--rule); margin-bottom: 16px;"
-						>
+						<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-top: 16px; border-top: 1px solid var(--rule); margin-bottom: 16px;">
 							<div>
 								<span
 									class="bgin-mono"
 									style="letter-spacing: 0.08em; text-transform: none; font-size: 11px; color: var(--ink-mute); display: block; margin-bottom: 4px;"
-									>Cycle</span
 								>
-								<div style="font-size: 13px; color: var(--ink-soft);">{group.data.cycle}</div>
+									Cycle
+								</span>
+								<div style="font-size: 13px; color: var(--ink-soft);">
+									{group.data.cycle}
+								</div>
 							</div>
 							<div>
 								<span
 									class="bgin-mono"
 									style="letter-spacing: 0.08em; text-transform: none; font-size: 11px; color: var(--ink-mute); display: block; margin-bottom: 4px;"
-									>Seats</span
 								>
-								<div style="font-size: 13px; color: var(--ink-soft);">{group.data.seats}</div>
+									Seats
+								</span>
+								<div style="font-size: 13px; color: var(--ink-soft);">
+									{group.data.seats}
+								</div>
 							</div>
 						</div>
 						<div style="display: flex; justify-content: space-between; align-items: center;">
-							<a class="bgin-arrow" href="/working-groups">Read more <span aria-hidden="true">→</span></a>
-							<span class="bgin-mono" style="font-size: 10px; color: var(--ink-mute); letter-spacing: 0.1em;">↗ open</span>
+							<a class="bgin-arrow" href="/working-groups">
+								Read more <span aria-hidden="true">→</span>
+							</a>
+							<span
+								class="bgin-mono"
+								style="font-size: 10px; color: var(--ink-mute); letter-spacing: 0.1em;"
+							>
+								↗ open
+							</span>
 						</div>
 					</article>
 				))
@@ -295,7 +336,9 @@ const today = new Date().toLocaleDateString("en-GB", {
 				style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 96px; align-items: end; margin-bottom: 36px;"
 			>
 				<div>
-					<div class="bgin-eyebrow" style="margin-bottom: 12px;">Events</div>
+					<div class="bgin-eyebrow" style="margin-bottom: 12px;">
+						Events
+					</div>
 					<h2 class="bgin-h2" style="font-size: 40px;">
 						Get involved in BGI Nexus <em>events.</em>
 					</h2>
@@ -306,12 +349,16 @@ const today = new Date().toLocaleDateString("en-GB", {
 					{sections.events?.intro}
 				</p>
 			</div>
-			<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+			<div
+				style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;"
+			>
 				{
 					upcomingEvents.slice(0, 4).map((event) => {
 						const isFeature = event.data.featured;
-						const eventHref = event.data.link_url || "/events";
-						const eventLabel = event.data.link_text || (isFeature ? "Register" : "Event page");
+						const eventHref = `/events/${event.id}`;
+						const eventLabel = isFeature
+							? "Register"
+							: "View event";
 						return (
 							<article
 								class="bgin-card hover"
@@ -322,19 +369,22 @@ const today = new Date().toLocaleDateString("en-GB", {
 										class="bgin-display"
 										style={`font-size: 44px; line-height: 0.95; color: ${isFeature ? "var(--brand-blue)" : "var(--ink)"};`}
 									>
-										{event.data.day_range || event.data.date_day}
+										{event.data.day_range ||
+											event.data.date_day}
 									</div>
 									<div>
 										<span
 											class="bgin-mono"
 											style="font-size: 11px; letter-spacing: 0.16em; color: var(--ink-soft);"
-											>{event.data.date_month}</span
 										>
+											{event.data.date_month}
+										</span>
 										<span
 											class="bgin-mono"
 											style="font-size: 10px; letter-spacing: 0.12em; color: var(--ink-mute); display: block; margin-top: 2px;"
-											>{event.data.date_year}</span
 										>
+											{event.data.date_year}
+										</span>
 									</div>
 								</div>
 								<span
@@ -349,21 +399,24 @@ const today = new Date().toLocaleDateString("en-GB", {
 									)}
 									{event.data.kind}
 								</span>
-								<h3
-									style="font-family: var(--font-display); font-size: 19px; font-weight: 400; line-height: 1.2; margin: 0 0 12px; color: var(--ink); flex: 1;"
-								>
+								<h3 style="font-family: var(--font-display); font-size: 19px; font-weight: 400; line-height: 1.2; margin: 0 0 12px; color: var(--ink); flex: 1;">
 									{event.data.title}
 								</h3>
 								<div style="font-size: 13px; color: var(--ink-soft); margin-bottom: 6px;">
-									{event.data.location} · {event.data.duration}
+									{event.data.location} ·{" "}
+									{event.data.duration}
 								</div>
 								<span
 									class="bgin-mono"
 									style="font-size: 10px; color: var(--ink-mute); letter-spacing: 0.08em; text-transform: none; margin-bottom: 16px; display: block;"
-									>{event.data.host}</span
 								>
+									{event.data.host}
+								</span>
 								<div style="padding-top: 14px; border-top: 1px solid var(--rule); margin-top: auto;">
-									<a class="bgin-arrow" href={eventHref}>{eventLabel} <span aria-hidden="true">→</span></a>
+									<a class="bgin-arrow" href={eventHref}>
+										{eventLabel}{" "}
+										<span aria-hidden="true">→</span>
+									</a>
 								</div>
 							</article>
 						);
@@ -374,7 +427,9 @@ const today = new Date().toLocaleDateString("en-GB", {
 				style="margin-top: 28px; display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-top: 1px solid var(--rule);"
 			>
 				<span class="bgin-mono">BGI Nexus public calendar</span>
-				<a class="bgin-arrow" href="/events">All events <span aria-hidden="true">→</span></a>
+				<a class="bgin-arrow" href="/events"
+					>All events <span aria-hidden="true">→</span></a
+				>
 			</div>
 		</div>
 	</section>
@@ -397,11 +452,17 @@ const today = new Date().toLocaleDateString("en-GB", {
 				>
 					{quote.line_1}<br />
 					{quote.line_2}<br />
-					{quote.line_3} <em>{quote.emphasis}</em>
+					{quote.line_3}
+					<em>{quote.emphasis}</em>
 				</blockquote>
 			</div>
-			<div style="border-left: 1px solid var(--rule-on-dark); padding-left: 48px;">
-				<span class="bgin-mono on-dark" style="margin-bottom: 14px; display: block;">
+			<div
+				style="border-left: 1px solid var(--rule-on-dark); padding-left: 48px;"
+			>
+				<span
+					class="bgin-mono on-dark"
+					style="margin-bottom: 14px; display: block;"
+				>
 					{quote.side_label}
 				</span>
 				<p
@@ -409,7 +470,9 @@ const today = new Date().toLocaleDateString("en-GB", {
 				>
 					{quote.side_body}
 				</p>
-				<a class="bgin-btn primary on-dark" href={quote.cta_url}>{quote.cta_label}</a>
+				<a class="bgin-btn primary on-dark" href={quote.cta_url}
+					>{quote.cta_label}</a
+				>
 			</div>
 		</div>
 	</section>
@@ -420,9 +483,12 @@ const today = new Date().toLocaleDateString("en-GB", {
 				style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 96px; align-items: end; margin-bottom: 36px;"
 			>
 				<div>
-					<div class="bgin-eyebrow" style="margin-bottom: 12px;">Sponsored projects</div>
+					<div class="bgin-eyebrow" style="margin-bottom: 12px;">
+						Sponsored projects
+					</div>
 					<h2 class="bgin-h2" style="font-size: 40px;">
-						What building beneficial AI <em>looks like</em>, in practice.
+						What building beneficial AI <em>looks like</em>, in
+						practice.
 					</h2>
 				</div>
 				<p
@@ -432,16 +498,23 @@ const today = new Date().toLocaleDateString("en-GB", {
 				</p>
 			</div>
 			<div class="bgin-filter" data-filter-scope="home-projects">
-				<div style="display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;">
+				<div
+					style="display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;"
+				>
 					{
 						projectTags.map((tag) => (
-							<button class={`bgin-chip${tag === "All" ? " active" : ""}`} data-filter-value={tag}>
+							<button
+								class={`bgin-chip${tag === "All" ? " active" : ""}`}
+								data-filter-value={tag}
+							>
 								{tag}
 							</button>
 						))
 					}
 				</div>
-				<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+				<div
+					style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;"
+				>
 					{
 						homeProjects.map((project) => (
 							<article
@@ -450,50 +523,57 @@ const today = new Date().toLocaleDateString("en-GB", {
 								data-filter-item
 								data-filter-tags={project.data.tag}
 							>
-								<div
-									style="aspect-ratio: 16 / 9; background: var(--canvas-shade); border-radius: 4px; margin-bottom: 18px; position: relative; overflow: hidden; border: 1px solid var(--rule);"
-								>
-									<div
-										style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 48px; color: var(--brand-blue); opacity: 0.4;"
-									>
+								<div style="aspect-ratio: 16 / 9; background: var(--canvas-shade); border-radius: 4px; margin-bottom: 18px; position: relative; overflow: hidden; border: 1px solid var(--rule);">
+									<div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 48px; color: var(--brand-blue); opacity: 0.4;">
 										✦
 									</div>
 									<span
 										class="bgin-mono"
 										style="position: absolute; top: 12px; left: 14px; font-size: 10px; color: var(--ink-mute);"
-										>BGI Nexus funded project</span
 									>
+										BGI Nexus funded project
+									</span>
 									<span
 										class="bgin-mono"
 										style="position: absolute; bottom: 12px; right: 14px; font-size: 10px; color: var(--brand-blue);"
-										>{project.data.project_code}</span
 									>
+										{project.data.project_code}
+									</span>
 								</div>
-								<div
-									style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;"
-								>
-									<span class="bgin-mono">{project.data.tag.toUpperCase()}</span>
+								<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+									<span class="bgin-mono">
+										{project.data.tag.toUpperCase()}
+									</span>
 									<span
 										class="bgin-mono"
 										style="color: var(--ink-mute); letter-spacing: 0.08em; text-transform: none; font-size: 11px;"
-										>by {project.data.project_byline}</span
 									>
+										by {project.data.project_byline}
+									</span>
 								</div>
-								<h3
-									style="font-family: var(--font-display); font-size: 22px; font-weight: 400; line-height: 1.15; margin: 0 0 10px; color: var(--ink);"
-								>
+								<h3 style="font-family: var(--font-display); font-size: 22px; font-weight: 400; line-height: 1.15; margin: 0 0 10px; color: var(--ink);">
 									{project.data.title}
 								</h3>
 								<p style="font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 18px;">
 									{project.data.impact}
 								</p>
-								<div
-									style="padding-top: 14px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center;"
-								>
-									<span class="bgin-mono" style="font-size: 10px; color: var(--ink-mute);">
+								<div style="padding-top: 14px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center;">
+									<span
+										class="bgin-mono"
+										style="font-size: 10px; color: var(--ink-mute);"
+									>
 										● {project.data.display_status}
 									</span>
-									<a class="bgin-arrow" href={project.data.url || "/sponsored-projects"}>Project page <span aria-hidden="true">→</span></a>
+									<a
+										class="bgin-arrow"
+										href={
+											project.data.url ||
+											"/sponsored-projects"
+										}
+									>
+										Project page{" "}
+										<span aria-hidden="true">→</span>
+									</a>
 								</div>
 							</article>
 						))
@@ -503,29 +583,42 @@ const today = new Date().toLocaleDateString("en-GB", {
 					style="margin-top: 28px; display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-top: 1px solid var(--rule);"
 				>
 					<span class="bgin-mono" data-filter-count>
-						Showing {homeProjects.length} of {projects.length} sponsored projects
+						Showing {homeProjects.length} of {projects.length} sponsored
+						projects
 					</span>
-					<a class="bgin-arrow" href="/sponsored-projects">All sponsored projects <span aria-hidden="true">→</span></a>
+					<a class="bgin-arrow" href="/sponsored-projects"
+						>All sponsored projects <span aria-hidden="true">→</span
+						></a
+					>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<section id="contact" class="bgin-section" style="padding-top: 64px; padding-bottom: 96px;">
+	<section
+		id="contact"
+		class="bgin-section"
+		style="padding-top: 64px; padding-bottom: 96px;"
+	>
 		<div
 			style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; padding: 56px; border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; background: var(--canvas);"
 		>
 			<div>
-				<div class="bgin-eyebrow" style="margin-bottom: 16px;">Contact</div>
+				<div class="bgin-eyebrow" style="margin-bottom: 16px;">
+					Contact
+				</div>
 				<h2 class="bgin-h2" style="font-size: 36px;">
-					{contact.title} <em>{contact.emphasis}</em>
+					{contact.title}
+					<em>{contact.emphasis}</em>
 				</h2>
 				<p
 					style="color: var(--ink-soft); font-size: 15px; line-height: 1.6; margin-top: 16px; max-width: 460px;"
 				>
 					{contact.body}
 				</p>
-				<div style="margin-top: 28px; display: flex; gap: 18px; flex-wrap: wrap;">
+				<div
+					style="margin-top: 28px; display: flex; gap: 18px; flex-wrap: wrap;"
+				>
 					<a
 						href="mailto:bginexus@singularitynet.io"
 						style="font-family: var(--font-mono); font-size: 13px; color: var(--brand-blue); text-decoration: none; border-bottom: 1px solid var(--brand-blue); padding-bottom: 2px;"
@@ -535,17 +628,38 @@ const today = new Date().toLocaleDateString("en-GB", {
 				</div>
 			</div>
 			<div>
-				<div class="bgin-mono" style="margin-bottom: 14px; display: block;">
+				<div
+					class="bgin-mono"
+					style="margin-bottom: 14px; display: block;"
+				>
 					Register for updates
 				</div>
 				<form class="bgin-subscribe" data-subscribe-form>
-					<input type="email" placeholder="you@your-domain.io" required />
-					<button class="bgin-btn primary" type="submit">Subscribe →</button>
+					<input
+						type="email"
+						placeholder="you@your-domain.io"
+						required
+					/>
+					<button class="bgin-btn primary" type="submit"
+						>Subscribe →</button
+					>
 				</form>
-				<div style="display: flex; gap: 18px; margin-top: 24px; flex-wrap: wrap;">
-					<a class="bgin-mono" href="https://bgicollective.singularitynet.io/Discord">↗ Discord</a>
-					<a class="bgin-mono" href="https://t.me/+8PKlTLYeQac4ZWVh">↗ Telegram</a>
-					<a class="bgin-mono" href="https://www.linkedin.com/groups/12964136/">↗ LinkedIn</a>
+				<div
+					style="display: flex; gap: 18px; margin-top: 24px; flex-wrap: wrap;"
+				>
+					<a
+						class="bgin-mono"
+						href="https://bgicollective.singularitynet.io/Discord"
+						>↗ Discord</a
+					>
+					<a class="bgin-mono" href="https://t.me/+8PKlTLYeQac4ZWVh"
+						>↗ Telegram</a
+					>
+					<a
+						class="bgin-mono"
+						href="https://www.linkedin.com/groups/12964136/"
+						>↗ LinkedIn</a
+					>
 				</div>
 			</div>
 		</div>
@@ -563,14 +677,20 @@ const today = new Date().toLocaleDateString("en-GB", {
 				button.addEventListener("click", () => {
 					const value = button.getAttribute("data-filter-value");
 					let visible = 0;
-					buttons.forEach((b) => b.classList.toggle("active", b === button));
+					buttons.forEach((b) =>
+						b.classList.toggle("active", b === button),
+					);
 					items.forEach((item) => {
-						const tags = item.getAttribute("data-filter-tags") || "";
-						const show = value === "All" || tags.split(",").includes(value || "");
+						const tags =
+							item.getAttribute("data-filter-tags") || "";
+						const show =
+							value === "All" ||
+							tags.split(",").includes(value || "");
 						item.toggleAttribute("hidden", !show);
 						if (show) visible += 1;
 					});
-					if (count) count.textContent = `Showing ${visible} of ${total} sponsored projects`;
+					if (count)
+						count.textContent = `Showing ${visible} of ${total} sponsored projects`;
 				});
 			});
 		});

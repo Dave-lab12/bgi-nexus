@@ -146,6 +146,27 @@
           "slug": "link_url",
           "label": "Link URL",
           "type": "string"
+        },
+        {
+          "slug": "lede",
+          "label": "Short description",
+          "type": "text",
+          "searchable": true
+        },
+        {
+          "slug": "programme",
+          "label": "Programme",
+          "type": "json"
+        },
+        {
+          "slug": "hosts",
+          "label": "Hosts & Speakers",
+          "type": "json"
+        },
+        {
+          "slug": "themes",
+          "label": "Themes",
+          "type": "json"
         }
       ]
     },
@@ -443,10 +464,10 @@
               "headline_line_2": "Gets",
               "headline_emphasis": "Built.",
               "lead": "From idea to impact. We connect builders with funding, expertise, and community to turn beneficial AI projects into reality.",
-              "primary_label": "Submit Your Idea",
-              "primary_url": "/ideation-challenge#submit",
-              "secondary_label": "View Guidelines",
-              "secondary_url": "/ideation-challenge#guidelines"
+              "primary_label": "Join a working group",
+              "primary_url": "/working-groups",
+              "secondary_label": "What is BGI?",
+              "secondary_url": "/about"
             },
             "about": {
               "eyebrow": "※ BGI Nexus",
@@ -680,7 +701,8 @@
               "emphasis": "meetups.",
               "body": "Each topic is intended to expand into ongoing collaboration and quarterly meetups, giving the community a recurring rhythm for practical work.",
               "body_soft": "The kickoff session marks the beginning of a series of collaborative working groups focused on guiding and governing AGI toward beneficial outcomes for humanity."
-            }
+            },
+            "directory_note": "Kickoff session · 02 Dec 2025"
           }
         }
       },
@@ -733,7 +755,9 @@
               "label": "※ Stay Connected",
               "title": "Get updates on funded projects,",
               "emphasis": "grant rounds, and community events.",
-              "body": "Subscribe for BGI Nexus updates, community events, and future grant-round announcements."
+              "body": "Subscribe for BGI Nexus updates, community events, and future grant-round announcements.",
+              "connect_options": ["Contributor", "Builder", "Researcher", "Funder", "Curious"],
+              "update_options": ["Working groups", "Events", "Projects", "General"]
             },
             "faq_intro": {
               "label": "※ Quick links",
@@ -761,12 +785,12 @@
           "time": "12:00 UTC",
           "host": "BGI Nexus",
           "tag": "Event",
-          "display_status": "Learn More",
+          "display_status": "Recording available",
           "body": "Monthly community updates, grant progress, and open Q&A.",
           "featured": false,
-          "past": false,
-          "link_text": "Learn More",
-          "link_url": "https://www.bginexus.io/events/1j9kmmysy3s5dym",
+          "past": true,
+          "link_text": "View recording",
+          "link_url": "",
           "sort_order": 10
         }
       },
@@ -785,12 +809,12 @@
           "time": "12:00 UTC",
           "host": "BGI Nexus",
           "tag": "Event",
-          "display_status": "Learn More",
+          "display_status": "Recording available",
           "body": "Monthly community updates, grant progress, and open Q&A.",
           "featured": false,
-          "past": false,
-          "link_text": "Learn More",
-          "link_url": "https://www.bginexus.io/events/63dr9nvtp2nbbhv",
+          "past": true,
+          "link_text": "View recording",
+          "link_url": "",
           "sort_order": 20
         }
       },
@@ -809,11 +833,11 @@
           "time": "19:00 UTC",
           "host": "BGI Nexus community",
           "tag": "Working groups",
-          "display_status": "Register",
+          "display_status": "Recording available",
           "body": "Join us for the first working-group meetup in the BGI Nexus community. This kickoff session launches a series of practical, collaborative working groups focused on guiding and governing AGI toward beneficial outcomes for humanity.",
           "featured": false,
-          "past": false,
-          "link_text": "Register for Kickoff",
+          "past": true,
+          "link_text": "View recording",
           "link_url": "https://mailchi.mp/singularitynet.io/x4xss53zgt",
           "sort_order": 30
         }

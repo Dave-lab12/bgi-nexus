@@ -31,6 +31,12 @@ const registration = sections.registration ?? {};
 const faqIntro = sections.faq_intro ?? {};
 const channels = sortByOrder(channelsResult.entries as any[]);
 const faqs = sortByOrder(faqsResult.entries as any[]);
+const connectOptions: string[] = Array.isArray(registration.connect_options)
+	? registration.connect_options
+	: ["Contributor", "Builder", "Researcher", "Funder", "Curious"];
+const updateOptions: string[] = Array.isArray(registration.update_options)
+	? registration.update_options
+	: ["Working groups", "Events", "Projects", "General"];
 const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
 const seo = getSeoMeta(page, {
 	siteTitle,
@@ -136,7 +142,7 @@ const seo = getSeoMeta(page, {
 					</div>
 					<div style="display: flex; flex-wrap: wrap; gap: 8px;" data-segmented-field>
 						{
-							["Contributor", "Builder", "Researcher", "Funder", "Curious"].map((option, index) => (
+							connectOptions.map((option, index) => (
 								<button
 									type="button"
 									class={`bgin-chip${index === 0 ? " active" : ""}`}
@@ -161,7 +167,7 @@ const seo = getSeoMeta(page, {
 					</div>
 					<div style="display: flex; flex-wrap: wrap; gap: 8px;" data-segmented-field>
 						{
-							["Working groups", "Events", "Projects", "General"].map((option, index) => (
+							updateOptions.map((option, index) => (
 								<button
 									type="button"
 									class={`bgin-chip${index === 0 ? " active" : ""}`}

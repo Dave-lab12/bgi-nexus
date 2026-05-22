@@ -21,6 +21,7 @@ interface Props {
 }
 
 const { event = null, kind = "editorial" } = Astro.props;
+const eventId = "id" in (event ?? {}) ? (event as { id?: string }).id : undefined;
 const data = "data" in (event ?? {}) ? (event as { data: EventData }).data : (event as EventData | null);
 const isLive = kind === "live";
 const dateDay = data?.day_range || data?.date_day || "01";
@@ -33,8 +34,8 @@ const body =
 const duration = data?.duration || "90 min";
 const location = data?.location || "Virtual";
 const time = data?.time || "12:00 UTC";
-const eventHref = data?.link_url || "/events";
-const linkText = data?.link_text || "Learn More";
+const eventHref = eventId ? `/events/${eventId}` : "/events";
+const linkText = isLive ? "Register" : "View event";
 const status = data?.display_status || "Free · open registration";
 ---
 

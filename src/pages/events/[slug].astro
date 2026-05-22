@@ -1,0 +1,486 @@
+---
+import { getEmDashCollection, getEmDashEntry, getSeoMeta, getSiteSettings } from "emdash";
+import Base from "../../layouts/Base.astro";
+import LotusBloom from "../../components/LotusBloom.astro";
+import { asArray, sortByOrder } from "../../lib/content";
+import { resolveStarterSiteIdentity } from "../../utils/site-identity";
+
+const { slug } = Astro.params;
+
+const eventResult = await getEmDashEntry("events", slug!);
+if (Astro.cache?.enabled && eventResult.cacheHint) Astro.cache.set(eventResult.cacheHint);
+
+const event = eventResult.entry as any;
+if (!event) return Astro.redirect("/events");
+
+const upcomingResult = await getEmDashCollection("events", {
+	status: "published",
+	orderBy: { sort_order: "asc" },
+});
+if (Astro.cache?.enabled && upcomingResult.cacheHint) Astro.cache.set(upcomingResult.cacheHint);
+
+const allEvents = sortByOrder(upcomingResult.entries as any[]);
+const related = allEvents
+	.filter((e) => !e.data.past && e.id !== event.id)
+	.slice(0, 3);
+
+const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
+const seo = getSeoMeta(event, {
+	siteTitle,
+	siteUrl: Astro.url.origin,
+	path: `/events/${slug}`,
+});
+
+const e = event.data;
+const programme = asArray(e.programme);
+const hosts = asArray(e.hosts);
+const themes = asArray(e.themes);
+const isPast = e.past;
+const dateDisplay = `${e.date_day} ${e.date_month} ${e.date_year}`;
+---
+
+<Base
+	title={seo.title}
+	pageTitle={seo.ogTitle}
+	description={seo.description}
+	canonical={seo.canonical}
+	active="Events"
+	content={{ collection: "events", id: event.data.id, slug: slug }}
+>
+	<!-- Breadcrumb -->
+	<div style="padding: 28px var(--gutter) 0;">
+		<div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 12px;">
+			<a
+				href="/events"
+				style="font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); text-decoration: none; letter-spacing: 0.16em; text-transform: uppercase;"
+			>Events</a>
+			<span style="color: var(--ink-mute); font-size: 10px;">/</span>
+			<span class="bgin-mono" style="color: var(--ink);">{e.kind}</span>
+		</div>
+	</div>
+
+	<!-- Hero -->
+	<section
+		class="bgin-section"
+		style="padding-top: 48px; padding-bottom: var(--space-12);"
+	>
+		<div
+			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: end;"
+		>
+			<div>
+				<span class="bgin-mono" style="margin-bottom: 16px; display: block; color: var(--brand-blue);">
+					{!isPast && (
+						<span
+							class="bgin-dot"
+							style="background: var(--brand-blue); margin-right: 8px; animation: bgin-blink 2s var(--ease-standard) infinite;"
+						/>
+					)}
+					{e.kind}{e.featured ? " · Featured upcoming" : ""}
+				</span>
+				<h1
+					class="bgin-display"
+					style="font-size: 80px; margin-bottom: 28px; letter-spacing: -0.018em;"
+					{...event.edit?.title}
+				>
+					{e.title}
+				</h1>
+				<p class="bgin-lede" style="max-width: 660px; margin-bottom: 8px;">
+					{e.lede || e.body}
+				</p>
+			</div>
+
+			<aside style="border-top: 1px solid var(--rule); padding-top: 28px; padding-bottom: 8px;">
+				<div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 18px;">
+					<div
+						class="bgin-display"
+						style="font-size: 80px; line-height: 0.95; color: var(--brand-blue); letter-spacing: -0.018em;"
+					>
+						{e.day_range || e.date_day}
+					</div>
+					<div>
+						<span
+							class="bgin-mono"
+							style="font-size: 13px; letter-spacing: 0.2em; color: var(--ink-soft);"
+						>
+							{e.date_month} · {e.date_year}
+						</span>
+						{e.time && (
+							<span
+								class="bgin-mono"
+								style="font-size: 11px; color: var(--ink-mute); display: block; margin-top: 4px;"
+							>
+								{e.time} · {e.duration}
+							</span>
+						)}
+					</div>
+				</div>
+
+				<div
+					style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; padding-top: 18px; border-top: 1px solid var(--rule);"
+				>
+					<div>
+						<span
+							class="bgin-mono"
+							style="display: block; margin-bottom: 4px; color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em;"
+							>Format</span
+						>
+						<div style="font-size: 13px; color: var(--ink);">{e.location}</div>
+					</div>
+					<div>
+						<span
+							class="bgin-mono"
+							style="display: block; margin-bottom: 4px; color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em;"
+							>Duration</span
+						>
+						<div style="font-size: 13px; color: var(--ink);">{e.duration}</div>
+					</div>
+				</div>
+
+				{isPast ? (
+					<div style="display: flex; gap: 12px;">
+						{e.link_url ? (
+							<a class="bgin-btn primary" href={e.link_url} target="_blank" rel="noopener">
+								{e.link_text || "View recording"} →
+							</a>
+						) : (
+							<span
+								class="bgin-mono"
+								style="color: var(--ink-mute); padding: 12px 0; display: block;"
+							>
+								Recording coming soon
+							</span>
+						)}
+					</div>
+				) : (
+					<div style="display: flex; gap: 12px;">
+						{e.link_url ? (
+							<a class="bgin-btn primary" href={e.link_url} target="_blank" rel="noopener" style="flex: 1; text-align: center; justify-content: center;">
+								{e.link_text || "Register — free"} →
+							</a>
+						) : (
+							<a class="bgin-btn primary" href="/contact" style="flex: 1; text-align: center;">
+								Register — free →
+							</a>
+						)}
+					</div>
+				)}
+			</aside>
+		</div>
+	</section>
+
+	<!-- About -->
+	<section class="bgin-section bgin-band">
+		<div
+			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 96px;"
+		>
+			<div>
+				<span class="bgin-mono" style="margin-bottom: 18px; display: block;">※ About this event</span>
+				<h2 class="bgin-h2" style="font-size: 36px;">
+					What we're <em>circling.</em>
+				</h2>
+			</div>
+			<div style="font-size: 17px; line-height: 1.65; color: var(--ink);">
+				<p style="margin-top: 0; margin-bottom: 20px;">{e.body}</p>
+				{e.host && (
+					<p style="margin: 0; color: var(--ink-soft); font-size: 14px;">
+						Hosted by <strong style="color: var(--ink);">{e.host}</strong>
+					</p>
+				)}
+				{themes.length > 0 && (
+					<div
+						style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--rule);"
+					>
+						{themes.map((t: any) => (
+							<div>
+								<div
+									style="font-family: var(--font-display); font-size: 22px; color: var(--ink); margin-bottom: 6px;"
+								>
+									{t.word}
+								</div>
+								<div style="font-size: 13.5px; color: var(--ink-soft); line-height: 1.55;">
+									{t.body}
+								</div>
+							</div>
+						))}
+					</div>
+				)}
+			</div>
+		</div>
+	</section>
+
+	<!-- Programme (only if set in CMS) -->
+	{programme.length > 0 && (
+		<section class="bgin-section">
+			<div style="max-width: 1200px; margin: 0 auto;">
+				<div
+					style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 36px;"
+				>
+					<div>
+						<div class="bgin-eyebrow" style="margin-bottom: 12px;">Programme</div>
+						<h2 class="bgin-h2" style="font-size: 36px;">
+							The shape of the <em>session.</em>
+						</h2>
+					</div>
+					<span class="bgin-mono">All times {e.time?.split(" ").pop() || "UTC"} · {e.duration}</span>
+				</div>
+				<div style="border-top: 1px solid var(--rule);">
+					{programme.map((item: any) => (
+						<article
+							style="display: grid; grid-template-columns: 120px 1fr 240px; gap: 40px; padding: 28px 0; border-bottom: 1px solid var(--rule); align-items: start;"
+						>
+							<div>
+								<div
+									class="bgin-display"
+									style="font-size: 28px; line-height: 1; color: var(--brand-blue);"
+								>
+									{item.time}
+								</div>
+								<span
+									class="bgin-mono"
+									style="margin-top: 6px; color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em; font-size: 11px;"
+								>
+									{item.dur}
+								</span>
+							</div>
+							<div>
+								<h3
+									style="font-family: var(--font-display); font-size: 22px; font-weight: 400; line-height: 1.2; margin: 0 0 10px; color: var(--ink);"
+								>
+									{item.title}
+								</h3>
+								<p style="font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); margin: 0;">
+									{item.body}
+								</p>
+							</div>
+							<div>
+								{item.speaker ? (
+									<>
+										<span
+											class="bgin-mono"
+											style="display: block; margin-bottom: 6px; color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em; font-size: 11px;"
+										>
+											Speaker
+										</span>
+										<div style="font-size: 13.5px; color: var(--ink); line-height: 1.4;">
+											{item.speaker}
+										</div>
+									</>
+								) : (
+									<span class="bgin-mono" style="color: var(--ink-mute);">Working groups</span>
+								)}
+							</div>
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+
+	<!-- Hosts (only if set in CMS) -->
+	{hosts.length > 0 && (
+		<section class="bgin-section bgin-band">
+			<div style="max-width: 1200px; margin: 0 auto;">
+				<div
+					style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 36px;"
+				>
+					<div class="bgin-eyebrow">Hosts &amp; speakers</div>
+					<span class="bgin-mono">Hosted by · {e.host}</span>
+				</div>
+				<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+					{hosts.map((h: any) => (
+						<article class="bgin-card flush" style="padding: 28px; background: var(--canvas);">
+							<div
+								style="width: 56px; height: 56px; border-radius: 999px; background: var(--canvas-shade); border: 1px solid var(--rule); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: var(--brand-blue); font-family: var(--font-display); font-size: 22px;"
+							>
+								{h.name.split(" ").map((w: string) => w[0]).join("").slice(0, 2)}
+							</div>
+							<h3
+								style="font-family: var(--font-display); font-size: 22px; font-weight: 400; line-height: 1.2; margin: 0 0 6px; color: var(--ink);"
+							>
+								{h.name}
+							</h3>
+							<span class="bgin-mono" style="margin-bottom: 12px; display: block; color: var(--brand-blue);">
+								{h.role}
+							</span>
+							<p style="font-size: 14px; line-height: 1.55; color: var(--ink-soft); margin: 0;">
+								{h.bio}
+							</p>
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+
+	<!-- Registration CTA (dark band) — only for upcoming events -->
+	{!isPast && (
+		<section
+			class="bgin-section bgin-impact"
+			style="position: relative; overflow: hidden; padding-top: var(--space-12); padding-bottom: var(--space-12);"
+		>
+			<LotusBloom strength="subtle" />
+			<div
+				style="position: relative; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 96px; align-items: center;"
+			>
+				<div>
+					<div class="bgin-eyebrow on-dark" style="margin-bottom: 18px;">Take part</div>
+					<h2 class="bgin-h2" style="font-size: 48px; color: var(--ink-on-dark);">
+						A seat at the <em style="color: var(--brand-blue-bright);">table.</em>
+					</h2>
+					<p
+						style="color: rgba(245,239,226,0.78); font-size: 16px; line-height: 1.65; margin: 20px 0 0; max-width: 480px;"
+					>
+						Registration is free and open to all. After signing up you'll receive the event link and any joining details directly.
+					</p>
+					<div
+						style="display: grid; grid-template-columns: repeat(3, auto); gap: 28px; margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--rule-on-dark);"
+					>
+						<div>
+							<span class="bgin-mono on-dark" style="display: block; margin-bottom: 6px;">Date</span>
+							<div style="font-family: var(--font-display); font-size: 18px; color: var(--ink-on-dark);">
+								{dateDisplay}
+							</div>
+						</div>
+						{e.time && (
+							<div>
+								<span class="bgin-mono on-dark" style="display: block; margin-bottom: 6px;">Time</span>
+								<div style="font-family: var(--font-display); font-size: 18px; color: var(--ink-on-dark);">
+									{e.time}
+								</div>
+							</div>
+						)}
+						<div>
+							<span class="bgin-mono on-dark" style="display: block; margin-bottom: 6px;">Where</span>
+							<div style="font-family: var(--font-display); font-size: 18px; color: var(--ink-on-dark);">
+								{e.location}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div
+					style="background: rgba(245,239,226,0.04); border: 1px solid var(--rule-on-dark); border-radius: 6px; padding: 40px;"
+				>
+					<span
+						class="bgin-mono on-dark"
+						style="margin-bottom: 18px; display: block; color: var(--brand-blue-bright);"
+					>
+						● Open registration · free
+					</span>
+					{e.link_url ? (
+						<a
+							class="bgin-btn primary"
+							href={e.link_url}
+							target="_blank"
+							rel="noopener"
+							style="display: block; text-align: center; margin-bottom: 18px;"
+						>
+							{e.link_text || "Register now"} →
+						</a>
+					) : (
+						<a
+							class="bgin-btn primary"
+							href="/contact"
+							style="display: block; text-align: center; margin-bottom: 18px;"
+						>
+							Register via contact form →
+						</a>
+					)}
+					<div
+						style="display: flex; gap: 18px; flex-wrap: wrap; padding-top: 20px; border-top: 1px solid var(--rule-on-dark);"
+					>
+						<span class="bgin-mono on-dark" style="color: rgba(245,239,226,0.55);">bginexus@singularitynet.io</span>
+					</div>
+				</div>
+			</div>
+		</section>
+	)}
+
+	<!-- Past event recording CTA -->
+	{isPast && (
+		<section
+			class="bgin-section bgin-impact"
+			style="padding-top: var(--space-12); padding-bottom: var(--space-12);"
+		>
+			<div
+				style="max-width: 1000px; margin: 0 auto; text-align: center;"
+			>
+				<div class="bgin-eyebrow on-dark" style="margin-bottom: 18px; justify-content: center;">Past event</div>
+				<h2 class="bgin-h2" style="font-size: 40px; color: var(--ink-on-dark); margin-bottom: 20px;">
+					This event has <em style="color: var(--brand-blue-bright);">concluded.</em>
+				</h2>
+				<p style="color: rgba(245,239,226,0.7); font-size: 16px; line-height: 1.65; margin: 0 auto 32px; max-width: 520px;">
+					Check back for a recording or subscribe to stay updated on future events.
+				</p>
+				<div style="display: flex; gap: 14px; justify-content: center;">
+					{e.link_url && (
+						<a class="bgin-btn primary" href={e.link_url} target="_blank" rel="noopener">
+							{e.link_text || "View recording"} →
+						</a>
+					)}
+					<a class="bgin-btn primary on-dark" href="/contact">Stay connected</a>
+				</div>
+			</div>
+		</section>
+	)}
+
+	<!-- Related / Upcoming events -->
+	{related.length > 0 && (
+		<section class="bgin-section" style="padding-top: 64px; padding-bottom: 96px;">
+			<div style="max-width: 1200px; margin: 0 auto;">
+				<div
+					style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 32px;"
+				>
+					<div class="bgin-eyebrow">Also coming up</div>
+					<a class="bgin-arrow" href="/events">All events <span aria-hidden="true">→</span></a>
+				</div>
+				<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+					{related.map((rel: any) => (
+						<a
+							href={`/events/${rel.id}`}
+							class="bgin-card hover flush"
+							style="padding: 24px; display: block; text-decoration: none; color: inherit; cursor: pointer;"
+						>
+							<div
+								style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px;"
+							>
+								<div
+									class="bgin-display"
+									style="font-size: 40px; line-height: 0.95; color: var(--ink);"
+								>
+									{rel.data.day_range || rel.data.date_day}
+								</div>
+								<div>
+									<span
+										class="bgin-mono"
+										style="font-size: 11px; letter-spacing: 0.16em; color: var(--ink-soft);"
+									>
+										{rel.data.date_month}
+									</span>
+									<span
+										class="bgin-mono"
+										style="font-size: 10px; letter-spacing: 0.12em; color: var(--ink-mute); display: block; margin-top: 2px;"
+									>
+										{rel.data.date_year}
+									</span>
+								</div>
+							</div>
+							<span class="bgin-mono" style="margin-bottom: 10px; display: block; color: var(--ink-soft);">
+								{rel.data.kind}
+							</span>
+							<h3
+								style="font-family: var(--font-display); font-size: 19px; font-weight: 400; line-height: 1.2; margin: 0 0 8px; color: var(--ink);"
+							>
+								{rel.data.title}
+							</h3>
+							<div style="font-size: 13px; color: var(--ink-soft);">{rel.data.location}</div>
+							<div style="padding-top: 14px; border-top: 1px solid var(--rule); margin-top: 14px;">
+								<span class="bgin-arrow" style="color: var(--brand-blue);">View event <span aria-hidden="true">→</span></span>
+							</div>
+						</a>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+</Base>

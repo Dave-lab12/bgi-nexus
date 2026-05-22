@@ -121,9 +121,9 @@ const seo = getSeoMeta(page, {
 							</div>
 						</div>
 						<div style="text-align: right;">
-							<a class="bgin-btn primary" href={featured.data.link_url || "/contact#register"}>{featured.data.link_text || "Register"} →</a>
+							<a class="bgin-btn primary" href={`/events/${featured.id}`}>{featured.data.link_text || "Register"} →</a>
 							<div style="margin-top: 16px;">
-								<a class="bgin-arrow" href={featured.data.link_url || "#all-events"}>Event page <span aria-hidden="true">→</span></a>
+								<a class="bgin-arrow" href={`/events/${featured.id}`}>Event page <span aria-hidden="true">→</span></a>
 							</div>
 						</div>
 					</article>
@@ -173,7 +173,7 @@ const seo = getSeoMeta(page, {
 				{
 					upcoming.map((event, index) => (
 						<a
-							href={event.data.link_url || "#"}
+							href={`/events/${event.id}`}
 							style={`display: grid; grid-template-columns: 100px 140px 1fr 160px 140px; gap: 24px; padding: 28px 32px; align-items: center; border-bottom: ${index < upcoming.length - 1 ? "1px solid var(--rule)" : "0"}; text-decoration: none; color: inherit; transition: background 180ms var(--ease-standard);`}
 						>
 							<div>
@@ -250,9 +250,13 @@ const seo = getSeoMeta(page, {
 								<div style="font-family: var(--font-display); font-size: 18px; color: var(--ink-soft);">
 									{event.data.title}
 								</div>
-								<span class="bgin-mono" style="color: var(--ink-mute); text-align: right;">
-									Recording →
-								</span>
+								<a
+									href={`/events/${event.id}`}
+									class="bgin-arrow"
+									style="color: var(--ink-mute); text-align: right; text-decoration: none;"
+								>
+									View <span aria-hidden="true">→</span>
+								</a>
 							</div>
 						))}
 					</div>
