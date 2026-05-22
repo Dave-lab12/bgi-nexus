@@ -40,6 +40,9 @@ export interface Event {
   featured?: boolean;
   past?: boolean;
   sort_order?: number;
+  time?: string;
+  link_text?: string;
+  link_url?: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -101,6 +104,7 @@ export interface SponsoredProject {
   round?: string;
   featured?: boolean;
   sort_order?: number;
+  url?: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;

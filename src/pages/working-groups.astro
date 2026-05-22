@@ -81,7 +81,7 @@ const seo = getSeoMeta(page, {
 				<div style="display: flex; gap: 8px;">
 					<button class="bgin-chip active" data-filter-value="All">All</button>
 					<button class="bgin-chip" data-filter-value="Active">Active</button>
-					<button class="bgin-chip" data-filter-value="Sprint-based">Sprint-based</button>
+					<button class="bgin-chip" data-filter-value="Initial topic">Initial topic</button>
 				</div>
 			</div>
 			<div style="background: var(--canvas); border: 1px solid var(--rule); border-radius: 6px;">
@@ -91,7 +91,7 @@ const seo = getSeoMeta(page, {
 						const filters = [
 							"All",
 							group.data.active ? "Active" : "Open",
-							group.data.cycle?.toLowerCase().includes("sprint") ? "Sprint-based" : "",
+							group.data.cycle?.toLowerCase().includes("initial") ? "Initial topic" : "",
 						]
 							.filter(Boolean)
 							.join(",");
@@ -167,9 +167,9 @@ const seo = getSeoMeta(page, {
 									</div>
 								</div>
 								<div style="text-align: right;">
-									<a class="bgin-btn primary" href="/contact#register">Join session →</a>
+									<a class="bgin-btn primary" href="/events">Join session →</a>
 									<div style="margin-top: 14px;">
-										<a class="bgin-arrow" href="/working-groups">Group page <span aria-hidden="true">→</span></a>
+										<a class="bgin-arrow" href="/contact">Stay connected <span aria-hidden="true">→</span></a>
 									</div>
 								</div>
 							</article>
@@ -181,7 +181,7 @@ const seo = getSeoMeta(page, {
 				style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;"
 			>
 				<span class="bgin-mono" data-filter-count>Showing {groups.length} of {groups.length} working groups</span>
-				<span class="bgin-mono" style="color: var(--ink-mute);">Last cadence review · 12 May 2026</span>
+				<span class="bgin-mono" style="color: var(--ink-mute);">Kickoff session · 02 Dec 2025</span>
 			</div>
 		</div>
 	</section>
@@ -254,8 +254,8 @@ const seo = getSeoMeta(page, {
 					{sprints.body_soft}
 				</p>
 				<div style="display: flex; gap: 14px; margin-top: 28px;">
-					<a class="bgin-btn primary" href="/events">View sprint brief →</a>
-					<a class="bgin-btn primary on-dark" href="/events">All sprints</a>
+					<a class="bgin-btn primary" href="/events">View events →</a>
+					<a class="bgin-btn primary on-dark" href="/contact">Stay connected</a>
 				</div>
 			</div>
 		</div>

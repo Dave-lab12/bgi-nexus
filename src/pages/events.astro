@@ -95,7 +95,7 @@ const seo = getSeoMeta(page, {
 							<span
 								class="bgin-mono"
 								style="margin-top: 6px; font-size: 11px; color: var(--ink-mute); display: block;"
-								>16:00 GMT · {featured.data.duration}</span
+								>{featured.data.time || "12:00 UTC"} · {featured.data.duration}</span
 							>
 						</div>
 						<div>
@@ -117,13 +117,13 @@ const seo = getSeoMeta(page, {
 							<div style="display: flex; gap: 24px; margin-top: 24px;">
 								<span class="bgin-mono">{featured.data.location} · {featured.data.duration}</span>
 								<span class="bgin-mono">Free · open registration</span>
-								<span class="bgin-mono" style="color: var(--ink-mute);">126 going</span>
+								<span class="bgin-mono" style="color: var(--ink-mute);">{featured.data.display_status}</span>
 							</div>
 						</div>
 						<div style="text-align: right;">
-							<a class="bgin-btn primary" href="/contact#register">Register →</a>
+							<a class="bgin-btn primary" href={featured.data.link_url || "/contact#register"}>{featured.data.link_text || "Register"} →</a>
 							<div style="margin-top: 16px;">
-								<a class="bgin-arrow" href="#all-events">Event page <span aria-hidden="true">→</span></a>
+								<a class="bgin-arrow" href={featured.data.link_url || "#all-events"}>Event page <span aria-hidden="true">→</span></a>
 							</div>
 						</div>
 					</article>
@@ -167,13 +167,13 @@ const seo = getSeoMeta(page, {
 					</div>
 					<h2 class="bgin-h2" style="font-size: 40px;">All events <em>this season.</em></h2>
 				</div>
-				<span class="bgin-mono">{upcoming.length} scheduled · May → June 2026</span>
+				<span class="bgin-mono">{upcoming.length} scheduled · BGI Nexus public calendar</span>
 			</div>
 			<div style="background: var(--canvas); border: 1px solid var(--rule); border-radius: 6px;">
 				{
 					upcoming.map((event, index) => (
 						<a
-							href="#"
+							href={event.data.link_url || "#"}
 							style={`display: grid; grid-template-columns: 100px 140px 1fr 160px 140px; gap: 24px; padding: 28px 32px; align-items: center; border-bottom: ${index < upcoming.length - 1 ? "1px solid var(--rule)" : "0"}; text-decoration: none; color: inherit; transition: background 180ms var(--ease-standard);`}
 						>
 							<div>
@@ -184,7 +184,7 @@ const seo = getSeoMeta(page, {
 									{event.data.day_range || event.data.date_day}
 								</div>
 								<span class="bgin-mono" style="margin-top: 4px; font-size: 11px; color: var(--ink-soft);">
-									{event.data.date_month} '26
+									{event.data.date_month} '{String(event.data.date_year || "").slice(-2)}
 								</span>
 							</div>
 							<span
@@ -228,36 +228,38 @@ const seo = getSeoMeta(page, {
 		</div>
 	</section>
 
-	<section class="bgin-section" style="padding-top: 64px;">
-		<div style="max-width: 1200px; margin: 0 auto;">
-			<div
-				style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 28px;"
-			>
-				<span class="bgin-mono">※ Past · April 2026 onward</span>
-				<a class="bgin-arrow" href="#all-events">Full archive <span aria-hidden="true">→</span></a>
-			</div>
-			<div style="border-top: 1px solid var(--rule);">
-				{
-					past.map((event) => (
-						<div
-							style="display: grid; grid-template-columns: 120px 200px 1fr 140px; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--rule); align-items: center;"
-						>
-							<div class="bgin-display" style="font-size: 22px; color: var(--ink-soft);">
-								{event.data.date_day} {event.data.date_month}
+	{
+		past.length > 0 && (
+			<section class="bgin-section" style="padding-top: 64px;">
+				<div style="max-width: 1200px; margin: 0 auto;">
+					<div
+						style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 28px;"
+					>
+						<span class="bgin-mono">※ Past events</span>
+						<a class="bgin-arrow" href="#all-events">Full archive <span aria-hidden="true">→</span></a>
+					</div>
+					<div style="border-top: 1px solid var(--rule);">
+						{past.map((event) => (
+							<div
+								style="display: grid; grid-template-columns: 120px 200px 1fr 140px; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--rule); align-items: center;"
+							>
+								<div class="bgin-display" style="font-size: 22px; color: var(--ink-soft);">
+									{event.data.date_day} {event.data.date_month}
+								</div>
+								<span class="bgin-mono" style="color: var(--ink-mute);">{event.data.kind}</span>
+								<div style="font-family: var(--font-display); font-size: 18px; color: var(--ink-soft);">
+									{event.data.title}
+								</div>
+								<span class="bgin-mono" style="color: var(--ink-mute); text-align: right;">
+									Recording →
+								</span>
 							</div>
-							<span class="bgin-mono" style="color: var(--ink-mute);">{event.data.kind}</span>
-							<div style="font-family: var(--font-display); font-size: 18px; color: var(--ink-soft);">
-								{event.data.title}
-							</div>
-							<span class="bgin-mono" style="color: var(--ink-mute); text-align: right;">
-								Recording →
-							</span>
-						</div>
-					))
-				}
-			</div>
-		</div>
-	</section>
+						))}
+					</div>
+				</div>
+			</section>
+		)
+	}
 
 	<section class="bgin-section" style="padding-top: 64px; padding-bottom: 96px;">
 		<div style="max-width: 1000px; margin: 0 auto; text-align: center;">

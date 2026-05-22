@@ -9,6 +9,15 @@ export default defineConfig({
 	adapter: node({
 		mode: "standalone",
 	}),
+	vite: {
+		optimizeDeps: {
+			esbuildOptions: {
+				define: {
+					"process.env.NODE_ENV": JSON.stringify("development"),
+				},
+			},
+		},
+	},
 	image: {
 		layout: "constrained",
 		responsiveStyles: true,

@@ -13,8 +13,7 @@ export interface StarterSiteIdentitySettings {
 }
 
 const DEFAULT_SITE_TITLE = "BGI Nexus";
-const DEFAULT_SITE_TAGLINE =
-	"Beneficial general intelligence — a nexus of minds.";
+const DEFAULT_SITE_TAGLINE = "Beneficial AI";
 
 export function resolveStarterSiteIdentity(settings?: StarterSiteIdentitySettings) {
 	return {

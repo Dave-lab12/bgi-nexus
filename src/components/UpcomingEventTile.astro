@@ -7,8 +7,12 @@ interface EventData {
 	day_range?: string;
 	location?: string;
 	duration?: string;
+	time?: string;
 	host?: string;
 	body?: string;
+	display_status?: string;
+	link_text?: string;
+	link_url?: string;
 }
 
 interface Props {
@@ -25,13 +29,17 @@ const dateYear = data?.date_year || "2026";
 const title = data?.title || "Healthy human-AI ecosystems";
 const body =
 	data?.body ||
-	"A virtual gathering on how AI can support — not strain — the relationships, institutions, and ecologies it touches. Hosted by the BGI Nexus working group leads.";
+	"Monthly community updates, grant progress, and open Q&A.";
 const duration = data?.duration || "90 min";
 const location = data?.location || "Virtual";
+const time = data?.time || "12:00 UTC";
+const eventHref = data?.link_url || "/events";
+const linkText = data?.link_text || "Learn More";
+const status = data?.display_status || "Free · open registration";
 ---
 
 <a
-	href="/events"
+	href={eventHref}
 	class="bgin-event-tile"
 	style="display: block; text-decoration: none; border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; background: var(--canvas); padding: 28px; color: var(--ink); transition: transform 180ms var(--ease-standard), box-shadow 180ms var(--ease-standard);"
 >
@@ -72,7 +80,7 @@ const location = data?.location || "Virtual";
 			<div
 				style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); margin-top: 4px;"
 			>
-				16:00 GMT · {duration}
+				{time} · {duration}
 			</div>
 		</div>
 	</div>
@@ -97,19 +105,19 @@ const location = data?.location || "Virtual";
 							class="bgin-dot"
 							style="background: var(--brand-blue); margin-right: 8px;"
 						/>
-						126 going · seats open
+						{status}
 					</span>
 					<span class="bgin-arrow" style="pointer-events: none;">
-						Register <span aria-hidden="true">→</span>
+						{linkText} <span aria-hidden="true">→</span>
 					</span>
 				</>
 			) : (
 				<>
 					<span class="bgin-mono" style="color: var(--ink-mute);">
-						Free · open registration
+						{status}
 					</span>
 					<span class="bgin-arrow" style="pointer-events: none;">
-						Event page <span aria-hidden="true">→</span>
+						{linkText} <span aria-hidden="true">→</span>
 					</span>
 				</>
 			)
