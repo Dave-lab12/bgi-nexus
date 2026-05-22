@@ -3,7 +3,61 @@
 
 /// <reference types="emdash/locals" />
 
-import type { PortableTextBlock } from "emdash";
+import type { ContentBylineCredit, PortableTextBlock } from "emdash";
+
+export interface Channel {
+  id: string;
+  slug: string | null;
+  status: string;
+  name: string;
+  handle?: string;
+  summary?: string;
+  cta?: string;
+  url?: string;
+  sort_order?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
+export interface Event {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  date_day?: string;
+  date_month?: string;
+  date_year?: string;
+  day_range?: string;
+  kind?: string;
+  location?: string;
+  duration?: string;
+  host?: string;
+  tag?: string;
+  display_status?: string;
+  body?: string;
+  featured?: boolean;
+  past?: boolean;
+  sort_order?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
+export interface Faq {
+  id: string;
+  slug: string | null;
+  status: string;
+  question: string;
+  answer?: string;
+  sort_order?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
 
 export interface Page {
   id: string;
@@ -11,9 +65,11 @@ export interface Page {
   status: string;
   title: string;
   content?: PortableTextBlock[];
+  sections?: unknown;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
 }
 
 export interface Post {
@@ -21,17 +77,63 @@ export interface Post {
   slug: string | null;
   status: string;
   title: string;
-  featured_image?: { id: string; src?: string; alt?: string; width?: number; height?: number };
+  featured_image?: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
   content?: PortableTextBlock[];
   excerpt?: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
+export interface SponsoredProject {
+  id: string;
+  slug: string | null;
+  status: string;
+  project_code?: string;
+  tag?: string;
+  title: string;
+  project_byline?: string;
+  fund?: string;
+  summary?: string;
+  impact?: string;
+  display_status?: string;
+  round?: string;
+  featured?: boolean;
+  sort_order?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
+export interface WorkingGroup {
+  id: string;
+  slug: string | null;
+  status: string;
+  name: string;
+  cycle?: string;
+  time?: string;
+  seats?: string;
+  summary?: string;
+  leads?: unknown;
+  topics?: unknown;
+  active?: boolean;
+  sort_order?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
 }
 
 declare module "emdash" {
   interface EmDashCollections {
+    channels: Channel;
+    events: Event;
+    faqs: Faq;
     pages: Page;
     posts: Post;
+    projects: SponsoredProject;
+    working_groups: WorkingGroup;
   }
 }

@@ -1,0 +1,96 @@
+---
+const a = 0.9;
+const b = 0.2;
+const points = [];
+
+for (let i = 0; i < 90; i += 1) {
+	const theta = i * 0.18;
+	const r = a * Math.exp(b * theta);
+	if (r > 48) break;
+	points.push({
+		x: 50 + r * Math.cos(theta),
+		y: 50 + r * Math.sin(theta),
+		r,
+		theta,
+	});
+}
+
+const anchors = [points[10], points[22], points[34], points[46], points[58], points[70], points[82]].filter(Boolean);
+const labels = [
+	"Wonder",
+	"Connection",
+	"Resilience",
+	"Agency",
+	"Meaning",
+	"Creativity",
+	"Symbiosis",
+];
+const path = points.map((p) => `${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(" L ");
+---
+
+<div style="width: 100%; position: relative;">
+	<svg
+		viewBox="0 0 100 100"
+		style="width: 100%; height: auto; display: block;"
+		aria-hidden="true"
+	>
+		<defs>
+			<radialGradient id="spiral-bloom" cx="50%" cy="50%" r="50%">
+				<stop offset="0%" stop-color="#E879F9" stop-opacity="0.18" />
+				<stop offset="55%" stop-color="#A78BFA" stop-opacity="0.08" />
+				<stop offset="100%" stop-color="#2DD4BF" stop-opacity="0" />
+			</radialGradient>
+		</defs>
+		<circle cx="50" cy="50" r="48" fill="url(#spiral-bloom)" />
+		<path
+			d={`M ${path}`}
+			stroke="var(--brand-blue)"
+			stroke-width="0.4"
+			fill="none"
+			stroke-linecap="round"
+			opacity="0.85"
+		/>
+		{
+			points
+				.filter((_, i) => i % 4 === 0)
+				.map((p) => (
+					<circle cx={p.x} cy={p.y} r="0.55" fill="rgba(31,18,71,0.35)" />
+				))
+		}
+		{
+			anchors.map((p) => (
+				<g>
+					<circle cx={p.x} cy={p.y} r="1.4" fill="var(--brand-blue)" />
+					<circle
+						cx={p.x}
+						cy={p.y}
+						r="2.8"
+						fill="none"
+						stroke="var(--brand-blue)"
+						stroke-width="0.15"
+						opacity="0.5"
+					/>
+				</g>
+			))
+		}
+		<circle cx="50" cy="50" r="2.2" fill="var(--brand-blue)" />
+		<circle
+			cx="50"
+			cy="50"
+			r="3.6"
+			fill="none"
+			stroke="var(--brand-blue)"
+			stroke-width="0.18"
+			opacity="0.45"
+		/>
+	</svg>
+	{
+		anchors.map((p, i) => (
+			<div
+				style={`position: absolute; left: ${p.x}%; top: ${p.y}%; transform: translate(-50%, -50%) translate(${Math.cos(p.theta) * 28}px, ${Math.sin(p.theta) * 28}px); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brand-blue); font-weight: 500; white-space: nowrap; pointer-events: none;`}
+			>
+				{labels[i]}
+			</div>
+		))
+	}
+</div>

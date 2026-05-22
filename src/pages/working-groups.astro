@@ -1,0 +1,287 @@
+---
+import { getEmDashCollection, getEmDashEntry, getSeoMeta, getSiteSettings } from "emdash";
+import Base from "../layouts/Base.astro";
+import { asArray, sectionsFrom, sortByOrder } from "../lib/content";
+import { resolveStarterSiteIdentity } from "../utils/site-identity";
+
+const setCache = (cacheHint: unknown) => {
+	if (Astro.cache?.enabled && cacheHint) Astro.cache.set(cacheHint as any);
+};
+
+const pageResult = await getEmDashEntry("pages", "working-groups");
+const groupsResult = await getEmDashCollection("working_groups", {
+	status: "published",
+	orderBy: { sort_order: "asc" },
+});
+
+setCache(pageResult.cacheHint);
+setCache(groupsResult.cacheHint);
+
+const page = pageResult.entry as any;
+if (!page) return Astro.redirect("/404");
+
+const groups = sortByOrder(groupsResult.entries as any[]);
+const sections = sectionsFrom(page);
+const hero = sections.hero ?? {};
+const join = sections.join ?? {};
+const sprints = sections.sprints ?? {};
+const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
+const seo = getSeoMeta(page, {
+	siteTitle,
+	siteUrl: Astro.url.origin,
+	path: "/working-groups",
+});
+---
+
+<Base
+	title={seo.title}
+	pageTitle={seo.ogTitle}
+	description={seo.description}
+	canonical={seo.canonical}
+	active="Working groups"
+	content={{ collection: "pages", id: page.data.id, slug: "working-groups" }}
+>
+	<section
+		class="bgin-section"
+		style="padding-top: var(--hero-y); padding-bottom: var(--space-12);"
+	>
+		<div
+			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: end;"
+		>
+			<div>
+				<div class="bgin-eyebrow" style="margin-bottom: 24px;" {...page.edit.sections}>
+					{hero.eyebrow}
+				</div>
+				<h1 class="bgin-display" style="font-size: 88px; margin-bottom: 28px;" {...page.edit.title}>
+					{hero.headline} <em>{hero.emphasis}</em> {hero.after}
+				</h1>
+				<p class="bgin-lede" style="max-width: 580px;">{hero.lead}</p>
+			</div>
+			<div style="border-left: 1px solid var(--rule); padding-left: 32px;">
+				<span class="bgin-mono" style="margin-bottom: 18px; display: block;">At a glance</span>
+				<div
+					style="font-family: var(--font-display); font-size: 64px; line-height: 1; color: var(--brand-blue); margin-bottom: 8px;"
+				>
+					{String(groups.length).padStart(2, "0")}
+				</div>
+				<div style="font-size: 14px; color: var(--ink-soft); margin-bottom: 24px;">
+					active working groups, open to new members
+				</div>
+				<a class="bgin-btn primary" href="#how-to-join">How to join →</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="bgin-section bgin-band">
+		<div class="bgin-filter" data-filter-scope="working-groups" style="max-width: 1280px; margin: 0 auto;">
+			<div
+				style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 28px;"
+			>
+				<div class="bgin-eyebrow">Directory</div>
+				<div style="display: flex; gap: 8px;">
+					<button class="bgin-chip active" data-filter-value="All">All</button>
+					<button class="bgin-chip" data-filter-value="Active">Active</button>
+					<button class="bgin-chip" data-filter-value="Sprint-based">Sprint-based</button>
+				</div>
+			</div>
+			<div style="background: var(--canvas); border: 1px solid var(--rule); border-radius: 6px;">
+				{
+					groups.map((group, index) => {
+						const topics = asArray(group.data.topics);
+						const filters = [
+							"All",
+							group.data.active ? "Active" : "Open",
+							group.data.cycle?.toLowerCase().includes("sprint") ? "Sprint-based" : "",
+						]
+							.filter(Boolean)
+							.join(",");
+						return (
+							<article
+								style={`padding: 36px 40px; border-bottom: ${index < groups.length - 1 ? "1px solid var(--rule)" : "0"}; display: grid; grid-template-columns: 1.6fr 1fr 1fr 160px; gap: 40px; align-items: start;`}
+								data-filter-item
+								data-filter-tags={filters}
+							>
+								<div>
+									<div style="display: flex; align-items: center; gap: 14px; margin-bottom: 14px;">
+										<span class="bgin-mono">WG · {group.id.replace("wg-", "").toUpperCase()}</span>
+										<span
+											style={`display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; color: ${group.data.active ? "var(--brand-blue)" : "var(--ink-mute)"};`}
+										>
+											<span
+												class="bgin-dot"
+												style={`background: ${group.data.active ? "var(--brand-blue)" : "var(--ink-mute)"};`}
+											/>
+											{group.data.active ? "Active" : "Open"}
+										</span>
+									</div>
+									<h3
+										style="font-family: var(--font-display); font-size: 30px; font-weight: 400; line-height: 1.1; margin: 0 0 12px; color: var(--ink); letter-spacing: -0.012em;"
+									>
+										{group.data.name}
+									</h3>
+									<p
+										style="font-size: 15px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 16px; max-width: 540px;"
+									>
+										{group.data.summary}
+									</p>
+									<div style="display: flex; gap: 8px; flex-wrap: wrap;">
+										{
+											topics.map((topic) => (
+												<span
+													class="bgin-chip"
+													style="cursor: default; padding: 4px 10px; font-size: 11px;"
+													>{topic}</span
+												>
+											))
+										}
+									</div>
+								</div>
+								<div>
+									<span
+										class="bgin-mono"
+										style="margin-bottom: 8px; display: block; color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em;"
+										>Cycle</span
+									>
+									<div style="font-size: 14px; color: var(--ink); margin-bottom: 14px;">{group.data.cycle}</div>
+									<span
+										class="bgin-mono"
+										style="margin-bottom: 8px; display: block; color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em;"
+										>Time</span
+									>
+									<div style="font-size: 14px; color: var(--ink-soft);">{group.data.time}</div>
+								</div>
+								<div>
+									<span
+										class="bgin-mono"
+										style="margin-bottom: 8px; display: block; color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em;"
+										>Seats</span
+									>
+									<div style="font-size: 14px; color: var(--ink); margin-bottom: 14px;">{group.data.seats}</div>
+									<span
+										class="bgin-mono"
+										style="margin-bottom: 8px; display: block; color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em;"
+										>Led by</span
+									>
+									<div style="font-size: 14px; color: var(--ink-soft);">
+										{asArray(group.data.leads).join(" · ")}
+									</div>
+								</div>
+								<div style="text-align: right;">
+									<a class="bgin-btn primary" href="/contact#register">Join session →</a>
+									<div style="margin-top: 14px;">
+										<a class="bgin-arrow" href="/working-groups">Group page <span aria-hidden="true">→</span></a>
+									</div>
+								</div>
+							</article>
+						);
+					})
+				}
+			</div>
+			<div
+				style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;"
+			>
+				<span class="bgin-mono" data-filter-count>Showing {groups.length} of {groups.length} working groups</span>
+				<span class="bgin-mono" style="color: var(--ink-mute);">Last cadence review · 12 May 2026</span>
+			</div>
+		</div>
+	</section>
+
+	<section id="how-to-join" class="bgin-section">
+		<div style="max-width: 1200px; margin: 0 auto;">
+			<div
+				style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 96px; align-items: start; margin-bottom: 56px;"
+			>
+				<div>
+					<span class="bgin-mono" style="margin-bottom: 18px; display: block;">{join.label}</span>
+					<h2 class="bgin-h2" style="font-size: 40px;">
+						{join.title} <em>{join.emphasis}</em>
+					</h2>
+				</div>
+				<p style="font-size: 17px; line-height: 1.65; color: var(--ink); margin: 0;">
+					{join.body}
+				</p>
+			</div>
+			<div
+				style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--rule);"
+			>
+				{
+					asArray(join.steps).map((step, index) => (
+						<div
+							style={`padding: 32px 28px 0 ${index > 0 ? "28px" : "0"}; border-right: ${index < asArray(join.steps).length - 1 ? "1px solid var(--rule)" : "0"};`}
+						>
+							<span
+								class="bgin-mono"
+								style="margin-bottom: 16px; display: block; color: var(--brand-blue);"
+								>{step.num}</span
+							>
+							<h3
+								style="font-family: var(--font-display); font-size: 24px; font-weight: 400; line-height: 1.15; margin: 0 0 12px; color: var(--ink);"
+							>
+								{step.title}
+							</h3>
+							<p style="font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0;">
+								{step.body}
+							</p>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section
+		class="bgin-section bgin-impact"
+		style="padding-top: var(--space-12); padding-bottom: var(--space-12);"
+	>
+		<div
+			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 96px; align-items: center;"
+		>
+			<div>
+				<div class="bgin-eyebrow on-dark" style="margin-bottom: 18px;">{sprints.eyebrow}</div>
+				<h2 class="bgin-h2" style="font-size: 44px; color: var(--ink-on-dark);">
+					{sprints.title} <em style="color: var(--brand-blue-bright);">{sprints.emphasis}</em>
+				</h2>
+			</div>
+			<div>
+				<p
+					style="font-size: 17px; line-height: 1.65; color: rgba(245,239,226,0.78); margin: 0; margin-bottom: 28px;"
+				>
+					{sprints.body}
+				</p>
+				<p
+					style="font-size: 15px; line-height: 1.7; color: rgba(245,239,226,0.6); margin: 0;"
+				>
+					{sprints.body_soft}
+				</p>
+				<div style="display: flex; gap: 14px; margin-top: 28px;">
+					<a class="bgin-btn primary" href="/events">View sprint brief →</a>
+					<a class="bgin-btn primary on-dark" href="/events">All sprints</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script>
+		document.querySelectorAll("[data-filter-scope]").forEach((scope) => {
+			const buttons = scope.querySelectorAll("[data-filter-value]");
+			const items = scope.querySelectorAll("[data-filter-item]");
+			const count = scope.querySelector("[data-filter-count]");
+			const total = items.length;
+
+			buttons.forEach((button) => {
+				button.addEventListener("click", () => {
+					const value = button.getAttribute("data-filter-value");
+					let visible = 0;
+					buttons.forEach((b) => b.classList.toggle("active", b === button));
+					items.forEach((item) => {
+						const tags = item.getAttribute("data-filter-tags") || "";
+						const show = value === "All" || tags.split(",").includes(value || "");
+						item.toggleAttribute("hidden", !show);
+						if (show) visible += 1;
+					});
+					if (count) count.textContent = `Showing ${visible} of ${total} working groups`;
+				});
+			});
+		});
+	</script>
+</Base>

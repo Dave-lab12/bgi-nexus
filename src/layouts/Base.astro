@@ -1,14 +1,14 @@
 ---
 import { getMenu, getSiteSettings } from "emdash";
 import {
-	WidgetArea,
-	EmDashHead,
-	EmDashBodyStart,
 	EmDashBodyEnd,
+	EmDashBodyStart,
+	EmDashHead,
 } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
-import LiveSearch from "emdash/ui/search";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
+import "../styles/tokens.css";
+import "../styles/bgi.css";
 
 interface Props {
 	title: string;
@@ -16,16 +16,48 @@ interface Props {
 	description?: string | null;
 	image?: string | null;
 	canonical?: string | null;
-	/** Pass content reference for plugin page contributions on content pages */
+	active?: string | null;
+	density?: "compact" | "comfortable" | "airy";
+	italicAccent?: string;
+	darkSurface?: string;
 	content?: { collection: string; id: string; slug?: string | null };
 }
 
-const { title, pageTitle, description, image, canonical, content } = Astro.props;
-const { siteTitle, siteTagline, siteLogo } = resolveStarterSiteIdentity(await getSiteSettings());
-const fullTitle = title.includes(siteTitle) ? title : `${title} — ${siteTitle}`;
-const pageDescription = description ?? siteTagline;
+const {
+	title,
+	pageTitle,
+	description,
+	image,
+	canonical,
+	active = null,
+	density = "comfortable",
+	italicAccent = "#367BA0",
+	darkSurface = "#1F127B",
+	content,
+} = Astro.props;
 
+const { siteTitle, siteTagline, siteLogo } = resolveStarterSiteIdentity(
+	await getSiteSettings(),
+);
+const fullTitle = title.includes(siteTitle) ? title : `${title} · ${siteTitle}`;
+const pageDescription = description ?? siteTagline;
 const menu = await getMenu("primary");
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const logoSrc = siteLogo?.url ?? "/assets/bgi-nexus-logo-circle.jpg";
+const logoAlt = siteLogo?.alt || siteTitle;
+const menuItems = menu?.items?.length
+	? menu.items
+	: [
+			{ label: "About", url: "/about", target: undefined },
+			{ label: "Events", url: "/events", target: undefined },
+			{ label: "Working groups", url: "/working-groups", target: undefined },
+			{
+				label: "Sponsored projects",
+				url: "/sponsored-projects",
+				target: undefined,
+			},
+			{ label: "Contact", url: "/contact", target: undefined },
+		];
 
 const pageCtx = createPublicPageContext({
 	Astro,
@@ -51,35 +83,112 @@ const pageCtx = createPublicPageContext({
 		{canonical && <link rel="canonical" href={canonical} />}
 		<EmDashHead page={pageCtx} />
 	</head>
-	<body>
+	<body class={`bgin-density-${density}`}>
 		<EmDashBodyStart page={pageCtx} />
 
-		<header>
-			<nav>
-				<a href="/">
-					{siteLogo
-						? <img src={siteLogo.url} alt={siteLogo.alt || siteTitle} style="height:48px;width:auto;margin:-8px 0;display:block;" />
-						: siteTitle
-					}
-				</a>
-				{
-					menu?.items.map((item) => (
-						<a href={item.url} target={item.target}>
-							{item.label}
-						</a>
-					))
-				}
-				<LiveSearch placeholder="Search..." collections={["posts", "pages"]} />
-			</nav>
-		</header>
+		<div
+			class="bgin-page"
+			style={`--italic-accent: ${italicAccent}; --italic-accent-dark: ${italicAccent}; --bg-impact: ${darkSurface};`}
+		>
+			<header>
+				<nav class="bgin-nav">
+					<a href="/" class="brand" style="text-decoration: none; border: 0;">
+						<img src={logoSrc} alt={logoAlt} />
+						<span class="brand-name">{siteTitle}</span>
+					</a>
+					<div class="links">
+						{
+							menuItems.map((item) => {
+								const itemPath = item.url?.replace(/\/$/, "") || "/";
+								const isActive = active === item.label || currentPath === itemPath;
+								return (
+									<a
+										href={item.url}
+										target={item.target}
+										class={isActive ? "active" : undefined}
+									>
+										{item.label}
+									</a>
+								);
+							})
+						}
+					</div>
+					<a class="bgin-btn primary" href="/working-groups">
+						Join a working group →
+					</a>
+				</nav>
+			</header>
 
-		<main>
-			<slot />
-		</main>
+			<main>
+				<slot />
+			</main>
 
-		<footer>
-			<WidgetArea name="sidebar" />
-		</footer>
+			<footer class="bgin-footer">
+				<div class="cols">
+					<div>
+						<div
+							style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px;"
+						>
+							<img
+								src={logoSrc}
+								alt=""
+								style="width: 36px; height: 36px; border-radius: 999px;"
+							/>
+							<span
+								style="font-family: var(--font-display); font-size: 18px; color: var(--ink-on-dark);"
+								>{siteTitle}</span
+							>
+						</div>
+						<p
+							style="color: rgba(245, 239, 226, 0.65); font-size: 14px; line-height: 1.6; margin: 0 0 18px; max-width: 280px;"
+						>
+							Top-of-funnel coordination layer for the SingularityNET
+							ecosystem. Beneficial general intelligence — a nexus of minds.
+						</p>
+						<span class="bgin-mono on-dark">Syn Jahan · 2026</span>
+					</div>
+					<div>
+						<h5>Surface</h5>
+						<ul>
+							<li><a href="/about">Pillars</a></li>
+							<li><a href="/working-groups">Working groups</a></li>
+							<li><a href="/working-groups">Open needs</a></li>
+							<li><a href="/events">Deep sprints</a></li>
+							<li><a href="/sponsored-projects">Ledger</a></li>
+						</ul>
+					</div>
+					<div>
+						<h5>Field</h5>
+						<ul>
+							<li><a href="/events">Journal</a></li>
+							<li><a href="/about">Frameworks</a></li>
+							<li><a href="/about">Brand book</a></li>
+							<li><a href="/about">Manifesto</a></li>
+						</ul>
+					</div>
+					<div>
+						<h5>Connect</h5>
+						<ul>
+							<li><a href="https://bgicollective.singularitynet.io/Discord">Discord</a></li>
+							<li><a href="https://t.me/bginexus">Telegram</a></li>
+							<li><a href="https://linkedin.com/groups/12964136">LinkedIn</a></li>
+							<li>
+								<a href="mailto:bginexus@singularitynet.io">
+									bginexus@singularitynet.io
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="meta">
+					<span>© 2026 BGI Nexus · An initiative of the SingularityNET ecosystem</span>
+					<span style="display: inline-flex; gap: 18px;">
+						<a href="#" style="color: rgba(245,239,226,0.55);">Privacy</a>
+						<a href="#" style="color: rgba(245,239,226,0.55);">Cookies</a>
+					</span>
+				</div>
+			</footer>
+		</div>
 
 		<EmDashBodyEnd page={pageCtx} />
 	</body>

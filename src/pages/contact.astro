@@ -1,0 +1,374 @@
+---
+import { getEmDashCollection, getEmDashEntry, getSeoMeta, getSiteSettings } from "emdash";
+import Base from "../layouts/Base.astro";
+import { sectionsFrom, sortByOrder } from "../lib/content";
+import { resolveStarterSiteIdentity } from "../utils/site-identity";
+
+const setCache = (cacheHint: unknown) => {
+	if (Astro.cache?.enabled && cacheHint) Astro.cache.set(cacheHint as any);
+};
+
+const pageResult = await getEmDashEntry("pages", "contact");
+const channelsResult = await getEmDashCollection("channels", {
+	status: "published",
+	orderBy: { sort_order: "asc" },
+});
+const faqsResult = await getEmDashCollection("faqs", {
+	status: "published",
+	orderBy: { sort_order: "asc" },
+});
+
+setCache(pageResult.cacheHint);
+setCache(channelsResult.cacheHint);
+setCache(faqsResult.cacheHint);
+
+const page = pageResult.entry as any;
+if (!page) return Astro.redirect("/404");
+
+const sections = sectionsFrom(page);
+const hero = sections.hero ?? {};
+const registration = sections.registration ?? {};
+const faqIntro = sections.faq_intro ?? {};
+const channels = sortByOrder(channelsResult.entries as any[]);
+const faqs = sortByOrder(faqsResult.entries as any[]);
+const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
+const seo = getSeoMeta(page, {
+	siteTitle,
+	siteUrl: Astro.url.origin,
+	path: "/contact",
+});
+---
+
+<Base
+	title={seo.title}
+	pageTitle={seo.ogTitle}
+	description={seo.description}
+	canonical={seo.canonical}
+	active="Contact"
+	content={{ collection: "pages", id: page.data.id, slug: "contact" }}
+>
+	<section
+		class="bgin-section"
+		style="padding-top: var(--hero-y); padding-bottom: var(--space-12);"
+	>
+		<div
+			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: end;"
+		>
+			<div>
+				<div class="bgin-eyebrow" style="margin-bottom: 24px;" {...page.edit.sections}>
+					{hero.eyebrow}
+				</div>
+				<h1 class="bgin-display" style="font-size: 88px; margin-bottom: 24px;" {...page.edit.title}>
+					{hero.headline} <em>{hero.emphasis}</em>
+				</h1>
+				<p class="bgin-lede" style="max-width: 580px;">{hero.lead}</p>
+			</div>
+			<div style="border-left: 1px solid var(--rule); padding-left: 32px;">
+				<span class="bgin-mono" style="margin-bottom: 14px; display: block;">Direct line</span>
+				<a
+					href="mailto:bginexus@singularitynet.io"
+					style="font-family: var(--font-display); font-size: 22px; color: var(--brand-blue); text-decoration: none; border-bottom: 1px solid var(--brand-blue); padding-bottom: 4px; line-height: 1.3; word-break: break-all;"
+				>
+					bginexus@<br />singularitynet.io
+				</a>
+				<span class="bgin-mono" style="margin-top: 24px; display: block; color: var(--ink-mute);">
+					Typical response · 2–3 days
+				</span>
+			</div>
+		</div>
+	</section>
+
+	<section id="register" class="bgin-section bgin-band">
+		<div
+			class="bgin-form-shell"
+			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start;"
+		>
+			<div>
+				<span class="bgin-mono" style="margin-bottom: 18px; display: block;">{registration.label}</span>
+				<h2 class="bgin-h2" style="font-size: 40px;">
+					{registration.title} <em>{registration.emphasis}</em>
+				</h2>
+				<p
+					style="font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 20px 0 0; max-width: 360px;"
+				>
+					{registration.body}
+				</p>
+			</div>
+			<form
+				data-contact-form
+				style="background: var(--canvas); border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; padding: 40px;"
+			>
+				<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 28px;">
+					<label style="display: block; margin-bottom: 0;">
+						<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+							<span
+								class="bgin-mono"
+								style="color: var(--ink); text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px;"
+							>
+								Your name<span style="color: var(--brand-blue); margin-left: 4px;">·</span>
+							</span>
+						</div>
+						<input class="bgin-input" name="name" type="text" placeholder="e.g. Mira Patel" required />
+						<span class="bgin-field-error" data-error-for="name">↘ Tell us what to call you.</span>
+					</label>
+					<label style="display: block; margin-bottom: 0;">
+						<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+							<span
+								class="bgin-mono"
+								style="color: var(--ink); text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px;"
+							>
+								Email<span style="color: var(--brand-blue); margin-left: 4px;">·</span>
+							</span>
+						</div>
+						<input class="bgin-input" name="email" type="email" placeholder="you@your-domain.io" required />
+						<span class="bgin-field-error" data-error-for="email">↘ We need a valid email to write back to.</span>
+					</label>
+				</div>
+
+				<div style="margin-bottom: 28px;">
+					<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+						<span
+							class="bgin-mono"
+							style="color: var(--ink); text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px;"
+						>
+							Where you're coming from
+						</span>
+					</div>
+					<div style="display: flex; flex-wrap: wrap; gap: 8px;" data-segmented-field>
+						{
+							["Contributor", "Builder", "Researcher", "Funder", "Curious"].map((option, index) => (
+								<button
+									type="button"
+									class={`bgin-chip${index === 0 ? " active" : ""}`}
+									style="padding: 8px 16px;"
+									data-segment-option
+								>
+									{option}
+								</button>
+							))
+						}
+					</div>
+				</div>
+
+				<div style="margin-bottom: 28px;">
+					<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+						<span
+							class="bgin-mono"
+							style="color: var(--ink); text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px;"
+						>
+							What pulls you toward BGI Nexus
+						</span>
+					</div>
+					<div style="display: flex; flex-wrap: wrap; gap: 8px;" data-segmented-field>
+						{
+							["Working groups", "Events", "Projects", "General"].map((option, index) => (
+								<button
+									type="button"
+									class={`bgin-chip${index === 0 ? " active" : ""}`}
+									style="padding: 8px 16px;"
+									data-segment-option
+								>
+									{option}
+								</button>
+							))
+						}
+					</div>
+				</div>
+
+				<label style="display: block; margin-bottom: 0;">
+					<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+						<span
+							class="bgin-mono"
+							style="color: var(--ink); text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px;"
+						>
+							Anything else
+						</span>
+						<span
+							class="bgin-mono"
+							style="color: var(--ink-mute); text-transform: none; letter-spacing: 0.06em; font-size: 11px;"
+							>optional</span
+						>
+					</div>
+					<textarea
+						class="bgin-input"
+						name="message"
+						placeholder="A line on what you're working on, or what you're looking for."
+						rows="4"
+						style="resize: vertical;"
+					></textarea>
+				</label>
+
+				<div
+					style="display: flex; justify-content: space-between; align-items: center; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--rule);"
+				>
+					<span
+						class="bgin-mono"
+						style="color: var(--ink-mute); text-transform: none; letter-spacing: 0.06em;"
+					>
+						✦ No marketing. No tracking. One email when we have something for you.
+					</span>
+					<button class="bgin-btn primary" type="submit">Register →</button>
+				</div>
+			</form>
+			<div
+				data-contact-success
+				hidden
+				style="max-width: 720px; margin: 0 auto; padding: 64px 56px; background: var(--canvas); border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; text-align: center;"
+			>
+				<span style="color: var(--brand-blue); font-size: 32px; line-height: 1; display: inline-block; margin-bottom: 20px;">✦</span>
+				<h2 class="bgin-h2" style="font-size: 36px; margin-bottom: 16px;">
+					A <em>loop</em> just opened.
+				</h2>
+				<p
+					style="font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 0 auto 28px; max-width: 480px;"
+					data-success-message
+				></p>
+				<div style="display: flex; gap: 14px; justify-content: center;">
+					<a class="bgin-btn primary" href="/working-groups">Browse working groups</a>
+					<button class="bgin-btn secondary" type="button" data-reset-contact-form>Send another</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="bgin-section">
+		<div style="max-width: 1200px; margin: 0 auto;">
+			<div
+				style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 32px;"
+			>
+				<div class="bgin-eyebrow">Community channels</div>
+				<span class="bgin-mono">Three places to find us, beyond the inbox</span>
+			</div>
+			<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+				{
+					channels.map((channel) => (
+						<a
+							href={channel.data.url || "#"}
+							class="bgin-card hover flush"
+							style="padding: 28px; display: block; text-decoration: none; color: inherit;"
+						>
+							<span class="bgin-mono" style="margin-bottom: 16px; display: block;">
+								↗ {channel.data.name}
+							</span>
+							<h3
+								style="font-family: var(--font-display); font-size: 22px; font-weight: 400; line-height: 1.2; margin: 0 0 12px; color: var(--ink);"
+							>
+								{channel.data.handle}
+							</h3>
+							<p style="font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 24px;">
+								{channel.data.summary}
+							</p>
+							<span class="bgin-arrow">{channel.data.cta} <span aria-hidden="true">→</span></span>
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="bgin-section bgin-band">
+		<div
+			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.6fr; gap: 96px; align-items: start;"
+		>
+			<div>
+				<span class="bgin-mono" style="margin-bottom: 18px; display: block;">{faqIntro.label}</span>
+				<h2 class="bgin-h2" style="font-size: 40px;">
+					{faqIntro.title} <em>{faqIntro.emphasis}</em>
+				</h2>
+				<p
+					style="font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 20px 0 0; max-width: 320px;"
+				>
+					{faqIntro.body}
+				</p>
+			</div>
+			<div data-faq-list>
+				{
+					faqs.map((faq, index) => (
+						<div style="border-bottom: 1px solid var(--rule);">
+							<button
+								type="button"
+								data-faq-button
+								aria-expanded={index === 0 ? "true" : "false"}
+								style="width: 100%; background: transparent; border: 0; padding: 24px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; text-align: left; color: var(--ink); font-family: var(--font-display); font-size: 22px; font-weight: 400; line-height: 1.25;"
+							>
+								<span>{faq.data.question}</span>
+								<span
+									style={`color: var(--brand-blue); margin-left: 24px; font-size: 18px; font-family: var(--font-body); transform: ${index === 0 ? "rotate(45deg)" : ""}; transition: transform 200ms var(--ease-standard);`}
+									>+</span
+								>
+							</button>
+							<div data-faq-panel hidden={index !== 0} style="padding-bottom: 24px; padding-right: 60px;">
+								<p style="font-size: 15.5px; line-height: 1.7; color: var(--ink-soft); margin: 0;">
+									{faq.data.answer}
+								</p>
+							</div>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<script>
+		document.querySelectorAll("[data-segmented-field]").forEach((field) => {
+			field.querySelectorAll("[data-segment-option]").forEach((option) => {
+				option.addEventListener("click", () => {
+					field
+						.querySelectorAll("[data-segment-option]")
+						.forEach((button) => button.classList.toggle("active", button === option));
+				});
+			});
+		});
+
+		const shell = document.querySelector<HTMLElement>(".bgin-form-shell");
+		const form = document.querySelector<HTMLFormElement>("[data-contact-form]");
+		const success = document.querySelector<HTMLElement>("[data-contact-success]");
+		const message = document.querySelector<HTMLElement>("[data-success-message]");
+		const reset = document.querySelector<HTMLButtonElement>("[data-reset-contact-form]");
+
+		if (form && success && shell) {
+			form.addEventListener("submit", (event) => {
+				event.preventDefault();
+				const nameInput = form.querySelector<HTMLInputElement>('[name="name"]');
+				const emailInput = form.querySelector<HTMLInputElement>('[name="email"]');
+				const name = nameInput?.value?.trim() || "";
+				const email = emailInput?.value?.trim() || "";
+				const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+				nameInput?.classList.toggle("error", !name);
+				emailInput?.classList.toggle("error", !emailValid);
+				form.querySelector('[data-error-for="name"]')?.toggleAttribute("data-visible", !name);
+				form.querySelector('[data-error-for="email"]')?.toggleAttribute("data-visible", !emailValid);
+				if (!name || !emailValid) return;
+
+				if (message) {
+					const firstName = name.split(" ")[0];
+					message.innerHTML = `Thanks, ${firstName}. We'll write back to <strong style="color: var(--ink);">${email}</strong> within a few days — and you'll see calendar invites for the next round of working group sessions land in your inbox.`;
+				}
+				form.hidden = true;
+				success.hidden = false;
+			});
+
+			reset?.addEventListener("click", () => {
+				form.reset();
+				form.hidden = false;
+				success.hidden = true;
+			});
+		}
+
+		document.querySelectorAll("[data-faq-list]").forEach((list) => {
+			const buttons = list.querySelectorAll("[data-faq-button]");
+			buttons.forEach((button) => {
+				button.addEventListener("click", () => {
+					const item = button.parentElement;
+					const panel = item?.querySelector<HTMLElement>("[data-faq-panel]");
+					const icon = button.querySelector<HTMLElement>("span:last-child");
+					const isOpen = button.getAttribute("aria-expanded") === "true";
+					button.setAttribute("aria-expanded", String(!isOpen));
+					if (panel) panel.hidden = isOpen;
+					if (icon) icon.style.transform = isOpen ? "" : "rotate(45deg)";
+				});
+			});
+		});
+	</script>
+</Base>

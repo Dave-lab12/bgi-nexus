@@ -1,0 +1,278 @@
+---
+import { getEmDashCollection, getEmDashEntry, getSeoMeta, getSiteSettings } from "emdash";
+import Base from "../layouts/Base.astro";
+import ProjectImage from "../components/ProjectImage.astro";
+import { sectionsFrom, sortByOrder, termsFrom } from "../lib/content";
+import { resolveStarterSiteIdentity } from "../utils/site-identity";
+
+const setCache = (cacheHint: unknown) => {
+	if (Astro.cache?.enabled && cacheHint) Astro.cache.set(cacheHint as any);
+};
+
+const pageResult = await getEmDashEntry("pages", "sponsored-projects");
+const projectsResult = await getEmDashCollection("projects", {
+	status: "published",
+	orderBy: { sort_order: "asc" },
+});
+
+setCache(pageResult.cacheHint);
+setCache(projectsResult.cacheHint);
+
+const page = pageResult.entry as any;
+if (!page) return Astro.redirect("/404");
+
+const projects = sortByOrder(projectsResult.entries as any[]);
+const featured = projects.find((project) => project.data.featured) ?? projects[0];
+const tags = ["All", ...termsFrom(projects)];
+const sections = sectionsFrom(page);
+const hero = sections.hero ?? {};
+const round = sections.round ?? {};
+const funding = sections.funding ?? {};
+const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
+const seo = getSeoMeta(page, {
+	siteTitle,
+	siteUrl: Astro.url.origin,
+	path: "/sponsored-projects",
+});
+const deployed = projects.reduce((sum, project) => {
+	const amount = Number(String(project.data.fund ?? "").replace(/[^0-9.]/g, ""));
+	return sum + (Number.isFinite(amount) ? amount : 0);
+}, 0);
+---
+
+<Base
+	title={seo.title}
+	pageTitle={seo.ogTitle}
+	description={seo.description}
+	canonical={seo.canonical}
+	active="Sponsored projects"
+	content={{ collection: "pages", id: page.data.id, slug: "sponsored-projects" }}
+>
+	<section
+		class="bgin-section"
+		style="padding-top: var(--hero-y); padding-bottom: var(--space-12);"
+	>
+		<div
+			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: end;"
+		>
+			<div>
+				<div class="bgin-eyebrow" style="margin-bottom: 24px;" {...page.edit.sections}>
+					{hero.eyebrow}
+				</div>
+				<h1 class="bgin-display" style="font-size: 88px; margin-bottom: 28px;" {...page.edit.title}>
+					{hero.headline} <em>{hero.emphasis}</em>
+				</h1>
+				<p class="bgin-lede" style="max-width: 620px;">{hero.lead}</p>
+			</div>
+			<div
+				style="border-left: 1px solid var(--rule); padding-left: 32px; display: flex; flex-direction: column; gap: 18px;"
+			>
+				<span class="bgin-mono">Round 01 · 2024</span>
+				<div>
+					<div class="bgin-display" style="font-size: 52px; line-height: 1; color: var(--brand-blue);">
+						{projects.length}
+					</div>
+					<span
+						class="bgin-mono"
+						style="margin-top: 4px; font-size: 12px; color: var(--ink-soft); text-transform: none; letter-spacing: 0.08em;"
+						>funded teams</span
+					>
+				</div>
+				<div>
+					<div class="bgin-display" style="font-size: 36px; line-height: 1; color: var(--ink);">
+						${deployed.toLocaleString("en-US")}
+					</div>
+					<span
+						class="bgin-mono"
+						style="margin-top: 4px; font-size: 12px; color: var(--ink-soft); text-transform: none; letter-spacing: 0.08em;"
+						>deployed to community-selected projects</span
+					>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="bgin-section bgin-band">
+		<div style="max-width: 1200px; margin: 0 auto;">
+			<div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 96px; margin-bottom: 56px;">
+				<div>
+					<span class="bgin-mono" style="margin-bottom: 18px; display: block;">
+						{round.label}
+					</span>
+					<h2 class="bgin-h2" style="font-size: 40px;">
+						{round.title} <em>{round.emphasis}</em> {round.after}
+					</h2>
+				</div>
+				<div style="font-size: 17px; line-height: 1.65; color: var(--ink);">
+					<p style="margin-top: 0;">{round.body}</p>
+					<p style="margin: 0; color: var(--ink-soft); font-style: italic;">
+						{round.body_soft}
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{
+		featured && (
+			<section class="bgin-section">
+				<div style="max-width: 1280px; margin: 0 auto;">
+					<span class="bgin-mono" style="margin-bottom: 24px; display: block;">
+						● Featured · in active build
+					</span>
+					<article
+						style="background: var(--canvas); border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; padding: 32px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center;"
+					>
+						<ProjectImage code={featured.data.project_code} tag={featured.data.tag} large />
+						<div>
+							<div style="display: flex; justify-content: space-between; margin-bottom: 16px;">
+								<span class="bgin-mono" style="color: var(--brand-blue);">{featured.data.tag}</span>
+								<span class="bgin-mono" style="color: var(--ink-mute);">{featured.data.round}</span>
+							</div>
+							<h2 class="bgin-h2" style="font-size: 40px; margin-bottom: 16px;">
+								{featured.data.title}
+							</h2>
+							<p style="font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 0 0 20px;">
+								{featured.data.summary}
+							</p>
+							<div
+								style="padding: 20px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px;"
+							>
+								<span
+									class="bgin-mono"
+									style="margin-bottom: 8px; display: block; color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em;"
+									>Impact today</span
+								>
+								<div
+									style="font-family: var(--font-display); font-size: 22px; line-height: 1.2; color: var(--ink);"
+								>
+									{featured.data.impact}
+								</div>
+							</div>
+							<div style="display: flex; gap: 14px;">
+								<a class="bgin-btn primary" href="#projects">Project page →</a>
+								<a class="bgin-btn secondary" href="#projects">By the team</a>
+							</div>
+						</div>
+					</article>
+				</div>
+			</section>
+		)
+	}
+
+	<section id="projects" class="bgin-section bgin-band">
+		<div class="bgin-filter" data-filter-scope="projects" style="max-width: 1280px; margin: 0 auto;">
+			<div
+				style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 28px;"
+			>
+				<div class="bgin-eyebrow">The cohort · all {projects.length} projects</div>
+				<span class="bgin-mono" data-filter-count>Showing {projects.length} of {projects.length}</span>
+			</div>
+			<div style="display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;">
+				{
+					tags.map((tag) => (
+						<button class={`bgin-chip${tag === "All" ? " active" : ""}`} data-filter-value={tag}>
+							{tag}
+						</button>
+					))
+				}
+			</div>
+			<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+				{
+					projects.map((project) => (
+						<article
+							class="bgin-card hover flush"
+							style="padding: 20px; display: flex; flex-direction: column;"
+							data-filter-item
+							data-filter-tags={project.data.tag}
+						>
+							<ProjectImage code={project.data.project_code} tag={project.data.tag} />
+							<div style="padding: 20px 4px 0;">
+								<div
+									style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;"
+								>
+									<span class="bgin-mono" style="color: var(--brand-blue);">{project.data.tag}</span>
+									<span
+										class="bgin-mono"
+										style="color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em; font-size: 11px;"
+										>by {project.data.project_byline}</span
+									>
+								</div>
+								<h3
+									style="font-family: var(--font-display); font-size: 22px; font-weight: 400; line-height: 1.15; margin: 0 0 10px; color: var(--ink);"
+								>
+									{project.data.title}
+								</h3>
+								<p style="font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 18px;">
+									{project.data.summary}
+								</p>
+								<div
+									style="padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 16px;"
+								>
+									<span
+										class="bgin-mono"
+										style="margin-bottom: 6px; display: block; color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em; font-size: 11px;"
+										>Impact</span
+									>
+									<div style="font-size: 13px; line-height: 1.5; color: var(--ink);">
+										{project.data.impact}
+									</div>
+								</div>
+								<div style="display: flex; justify-content: space-between; align-items: center;">
+									<span class="bgin-mono" style="font-size: 11px; color: var(--ink-mute);">
+										● {project.data.display_status}
+									</span>
+									<a class="bgin-arrow" href="#projects">Project page <span aria-hidden="true">→</span></a>
+								</div>
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="bgin-section">
+		<div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+			<div class="bgin-eyebrow" style="margin-bottom: 16px; justify-content: center;">
+				{funding.eyebrow}
+			</div>
+			<h2 class="bgin-h2" style="font-size: 44px; margin-bottom: 24px;">
+				{funding.title} <em>{funding.emphasis}</em>
+			</h2>
+			<p
+				style="font-size: 17px; line-height: 1.65; color: var(--ink-soft); margin: 0; max-width: 720px; margin-left: auto; margin-right: auto;"
+			>
+				{funding.body}
+			</p>
+			<div style="display: flex; gap: 14px; margin-top: 36px; justify-content: center;">
+				<a class="bgin-btn primary" href="/working-groups">Working groups →</a>
+				<a class="bgin-btn secondary" href="/contact">Contact us</a>
+			</div>
+		</div>
+	</section>
+
+	<script>
+		document.querySelectorAll("[data-filter-scope]").forEach((scope) => {
+			const buttons = scope.querySelectorAll("[data-filter-value]");
+			const items = scope.querySelectorAll("[data-filter-item]");
+			const count = scope.querySelector("[data-filter-count]");
+			const total = items.length;
+
+			buttons.forEach((button) => {
+				button.addEventListener("click", () => {
+					const value = button.getAttribute("data-filter-value");
+					let visible = 0;
+					buttons.forEach((b) => b.classList.toggle("active", b === button));
+					items.forEach((item) => {
+						const tags = item.getAttribute("data-filter-tags") || "";
+						const show = value === "All" || tags.split(",").includes(value || "");
+						item.toggleAttribute("hidden", !show);
+						if (show) visible += 1;
+					});
+					if (count) count.textContent = `Showing ${visible} of ${total}`;
+				});
+			});
+		});
+	</script>
+</Base>

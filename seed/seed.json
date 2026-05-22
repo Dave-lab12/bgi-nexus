@@ -1,232 +1,1078 @@
 {
-	"$schema": "https://emdashcms.com/seed.schema.json",
-	"version": "1",
-	"meta": {
-		"name": "Starter",
-		"description": "A minimal EmDash starter with posts and pages",
-		"author": "EmDash"
-	},
-	"settings": {
-		"title": "My Site",
-		"tagline": "Built with EmDash"
-	},
-	"collections": [
-		{
-			"slug": "posts",
-			"label": "Posts",
-			"labelSingular": "Post",
-			"supports": ["drafts", "revisions", "search", "seo"],
-			"fields": [
-				{
-					"slug": "title",
-					"label": "Title",
-					"type": "string",
-					"required": true,
-					"searchable": true
-				},
-				{
-					"slug": "featured_image",
-					"label": "Featured Image",
-					"type": "image"
-				},
-				{
-					"slug": "content",
-					"label": "Content",
-					"type": "portableText",
-					"searchable": true
-				},
-				{
-					"slug": "excerpt",
-					"label": "Excerpt",
-					"type": "text"
-				}
-			]
-		},
-		{
-			"slug": "pages",
-			"label": "Pages",
-			"labelSingular": "Page",
-			"supports": ["drafts", "revisions", "search"],
-			"fields": [
-				{
-					"slug": "title",
-					"label": "Title",
-					"type": "string",
-					"required": true,
-					"searchable": true
-				},
-				{
-					"slug": "content",
-					"label": "Content",
-					"type": "portableText",
-					"searchable": true
-				}
-			]
-		}
-	],
-	"taxonomies": [
-		{
-			"name": "category",
-			"label": "Categories",
-			"labelSingular": "Category",
-			"hierarchical": true,
-			"collections": ["posts"],
-			"terms": [
-				{
-					"slug": "general",
-					"label": "General"
-				},
-				{
-					"slug": "updates",
-					"label": "Updates"
-				}
-			]
-		},
-		{
-			"name": "tag",
-			"label": "Tags",
-			"labelSingular": "Tag",
-			"hierarchical": false,
-			"collections": ["posts"],
-			"terms": [
-				{
-					"slug": "starter",
-					"label": "Starter"
-				},
-				{
-					"slug": "example",
-					"label": "Example"
-				}
-			]
-		}
-	],
-	"menus": [
-		{
-			"name": "primary",
-			"label": "Primary Navigation",
-			"items": [
-				{
-					"type": "custom",
-					"label": "Home",
-					"url": "/"
-				},
-				{
-					"type": "custom",
-					"label": "Posts",
-					"url": "/posts"
-				},
-				{
-					"type": "custom",
-					"label": "About",
-					"url": "/about"
-				}
-			]
-		}
-	],
-	"widgetAreas": [
-		{
-			"name": "sidebar",
-			"label": "Sidebar",
-			"description": "Sidebar widget area",
-			"widgets": [
-				{
-					"type": "component",
-					"componentId": "core:search",
-					"title": "Search"
-				},
-				{
-					"type": "component",
-					"componentId": "core:categories",
-					"title": "Categories"
-				},
-				{
-					"type": "component",
-					"componentId": "core:recent-posts",
-					"title": "Recent Posts",
-					"settings": {
-						"count": 5
-					}
-				}
-			]
-		}
-	],
-	"content": {
-		"pages": [
-			{
-				"id": "about",
-				"slug": "about",
-				"status": "published",
-				"data": {
-					"title": "About",
-					"content": [
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "This is the about page. Edit it in the admin panel or replace this template with your own design.",
-									"_key": "k1"
-								}
-							],
-							"_key": "k0"
-						}
-					]
-				}
-			}
-		],
-		"posts": [
-			{
-				"id": "post-1",
-				"slug": "welcome",
-				"status": "published",
-				"data": {
-					"title": "Welcome",
-					"excerpt": "Your first post. Replace this with your own content.",
-					"content": [
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "This is a starter post. The templates in this project show the basic patterns for querying and rendering EmDash content. Replace them with your own design.",
-									"_key": "k1"
-								}
-							],
-							"_key": "k0"
-						},
-						{
-							"_type": "block",
-							"style": "h2",
-							"children": [
-								{
-									"_type": "span",
-									"text": "What to do next",
-									"_key": "k3"
-								}
-							],
-							"_key": "k2"
-						},
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "Open the admin panel to add content, or edit the Astro pages in src/pages to change how content is displayed.",
-									"_key": "k5"
-								}
-							],
-							"_key": "k4"
-						}
-					]
-				},
-				"taxonomies": {
-					"category": ["general"],
-					"tag": ["starter", "example"]
-				}
-			}
-		]
-	}
+  "$schema": "https://emdashcms.com/seed.schema.json",
+  "version": "1",
+  "meta": {
+    "name": "BGI Nexus",
+    "description": "BGI Nexus site content and schema",
+    "author": "BGI Nexus"
+  },
+  "settings": {
+    "title": "BGI Nexus",
+    "tagline": "Beneficial general intelligence — a nexus of minds."
+  },
+  "collections": [
+    {
+      "slug": "pages",
+      "label": "Pages",
+      "labelSingular": "Page",
+      "supports": ["drafts", "revisions", "search", "seo"],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText",
+          "searchable": true
+        },
+        {
+          "slug": "sections",
+          "label": "Page Sections",
+          "type": "json"
+        }
+      ]
+    },
+    {
+      "slug": "events",
+      "label": "Events",
+      "labelSingular": "Event",
+      "supports": ["drafts", "revisions", "search", "seo"],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        { "slug": "date_day", "label": "Date Day", "type": "string" },
+        { "slug": "date_month", "label": "Date Month", "type": "string" },
+        { "slug": "date_year", "label": "Date Year", "type": "string" },
+        { "slug": "day_range", "label": "Day Range", "type": "string" },
+        {
+          "slug": "kind",
+          "label": "Kind",
+          "type": "string",
+          "searchable": true
+        },
+        { "slug": "location", "label": "Location", "type": "string" },
+        { "slug": "duration", "label": "Duration", "type": "string" },
+        { "slug": "host", "label": "Host", "type": "string" },
+        { "slug": "tag", "label": "Tag", "type": "string" },
+				{ "slug": "display_status", "label": "Status", "type": "string" },
+        { "slug": "body", "label": "Body", "type": "text", "searchable": true },
+        { "slug": "featured", "label": "Featured", "type": "boolean" },
+        { "slug": "past", "label": "Past Event", "type": "boolean" },
+        { "slug": "sort_order", "label": "Sort Order", "type": "integer" }
+      ]
+    },
+    {
+      "slug": "working_groups",
+      "label": "Working Groups",
+      "labelSingular": "Working Group",
+      "supports": ["drafts", "revisions", "search", "seo"],
+      "fields": [
+        {
+          "slug": "name",
+          "label": "Name",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        { "slug": "cycle", "label": "Cycle", "type": "string" },
+        { "slug": "time", "label": "Time", "type": "string" },
+        { "slug": "seats", "label": "Seats", "type": "string" },
+        {
+          "slug": "summary",
+          "label": "Summary",
+          "type": "text",
+          "searchable": true
+        },
+        { "slug": "leads", "label": "Leads", "type": "json" },
+        { "slug": "topics", "label": "Topics", "type": "json" },
+        { "slug": "active", "label": "Active", "type": "boolean" },
+        { "slug": "sort_order", "label": "Sort Order", "type": "integer" }
+      ]
+    },
+    {
+      "slug": "projects",
+      "label": "Sponsored Projects",
+      "labelSingular": "Sponsored Project",
+      "supports": ["drafts", "revisions", "search", "seo"],
+      "fields": [
+        { "slug": "project_code", "label": "Project Code", "type": "string" },
+        { "slug": "tag", "label": "Tag", "type": "string", "searchable": true },
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+				{ "slug": "project_byline", "label": "Byline", "type": "string" },
+        { "slug": "fund", "label": "Funding", "type": "string" },
+        {
+          "slug": "summary",
+          "label": "Summary",
+          "type": "text",
+          "searchable": true
+        },
+        {
+          "slug": "impact",
+          "label": "Impact",
+          "type": "text",
+          "searchable": true
+        },
+				{ "slug": "display_status", "label": "Status", "type": "string" },
+        { "slug": "round", "label": "Round", "type": "string" },
+        { "slug": "featured", "label": "Featured", "type": "boolean" },
+        { "slug": "sort_order", "label": "Sort Order", "type": "integer" }
+      ]
+    },
+    {
+      "slug": "channels",
+      "label": "Channels",
+      "labelSingular": "Channel",
+      "supports": ["drafts", "revisions", "search"],
+      "fields": [
+        {
+          "slug": "name",
+          "label": "Name",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        { "slug": "handle", "label": "Handle", "type": "string" },
+        {
+          "slug": "summary",
+          "label": "Summary",
+          "type": "text",
+          "searchable": true
+        },
+        { "slug": "cta", "label": "CTA", "type": "string" },
+        { "slug": "url", "label": "URL", "type": "string" },
+        { "slug": "sort_order", "label": "Sort Order", "type": "integer" }
+      ]
+    },
+    {
+      "slug": "faqs",
+      "label": "FAQs",
+      "labelSingular": "FAQ",
+      "supports": ["drafts", "revisions", "search"],
+      "fields": [
+        {
+          "slug": "question",
+          "label": "Question",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "answer",
+          "label": "Answer",
+          "type": "text",
+          "searchable": true
+        },
+        { "slug": "sort_order", "label": "Sort Order", "type": "integer" }
+      ]
+    }
+  ],
+  "taxonomies": [],
+  "menus": [
+    {
+      "name": "primary",
+      "label": "Primary Navigation",
+      "items": [
+        { "type": "custom", "label": "About", "url": "/about" },
+        { "type": "custom", "label": "Events", "url": "/events" },
+        {
+          "type": "custom",
+          "label": "Working groups",
+          "url": "/working-groups"
+        },
+        {
+          "type": "custom",
+          "label": "Sponsored projects",
+          "url": "/sponsored-projects"
+        },
+        { "type": "custom", "label": "Contact", "url": "/contact" }
+      ]
+    }
+  ],
+  "widgetAreas": [],
+  "content": {
+    "pages": [
+      {
+        "id": "home",
+        "slug": "home",
+        "status": "published",
+        "data": {
+          "title": "BGI Nexus",
+          "content": [],
+          "sections": {
+            "ticker": {
+              "items": [
+                {
+                  "who": "WG · Pluralistic value systems",
+                  "what": "pledged 14h sprint capacity"
+                },
+                {
+                  "who": "Need · Governance whitepaper",
+                  "what": "matched to 2 contributors"
+                },
+                {
+                  "who": "Grant · Round 04",
+                  "what": "opened — 8 days remaining"
+                },
+                {
+                  "who": "Attestation #1041",
+                  "what": "recorded · loop closed"
+                },
+                {
+                  "who": "Sprint · Omni-Win Agent v0.3",
+                  "what": "starts in 6 days"
+                },
+                {
+                  "who": "WG · Multi-agent alignment",
+                  "what": "session published"
+                },
+                {
+                  "who": "Pledge · 4 designers",
+                  "what": "available next month"
+                },
+                { "who": "Attestation #1042", "what": "awaiting confirmation" }
+              ]
+            },
+            "hero": {
+              "eyebrow": "Create · Align · Support",
+              "headline_line_1": "Collective action",
+              "headline_line_2": "toward",
+              "headline_emphasis": "beneficial general intelligence.",
+              "lead": "BGI Nexus is a community platform to support the development of narrow AI and beneficial AGI that serves all of humanity — through working groups, crowd-funding, and community-led action.",
+              "primary_label": "Join a working group →",
+              "primary_url": "#working-groups",
+              "secondary_label": "What is BGI?",
+              "secondary_url": "#about"
+            },
+            "about": {
+              "eyebrow": "※ What is BGI?",
+              "title": "Where beneficial AI",
+              "emphasis": "gets built.",
+              "body": "BGI Nexus is where beneficial AI gets built. We connect bold ideas with the funding, expertise, and community needed to turn them into real-world impact.",
+              "body_soft": "As a global, community-driven initiative, BGI Nexus supports the development of beneficial AI and AGI through collaborative building, transparent governance, and aligned resourcing — so that the power of AI can serve humanity, the biosphere, and future generations.",
+              "principles": [
+                {
+                  "word": "Purpose",
+                  "body": "AI in service of flourishing life — not extraction."
+                },
+                {
+                  "word": "Openness",
+                  "body": "Transparent governance, open frameworks, shared tools."
+                },
+                {
+                  "word": "Plurality",
+                  "body": "Many value systems, many voices — held without collapse."
+                }
+              ]
+            },
+            "pillars": {
+              "eyebrow": "How the nexus works",
+              "title": "Three ways the community",
+              "emphasis": "shows up.",
+              "items": [
+                {
+                  "num": "01",
+                  "title": "Working groups",
+                  "count": "06",
+                  "label": "open to new members",
+                  "body": "A space for members to connect expertise, share resources and ideas, and take part in focused discussions on key topics."
+                },
+                {
+                  "num": "02",
+                  "title": "Sponsored projects",
+                  "count": "10",
+                  "label": "in active build · 2025",
+                  "body": "Community-funded teams building AI that serves humanity and the biosphere — from health to climate to language access."
+                },
+                {
+                  "num": "03",
+                  "title": "Shared frameworks",
+                  "count": "02",
+                  "label": "frameworks · open draft",
+                  "body": "The Spiral of Flourishing and the AI Safety & Ethics framework. Open-source tools any builder can adopt."
+                }
+              ]
+            },
+            "working_groups": {
+              "intro": "BGI Nexus working groups bring people together to support progress towards beneficial AI. We provide a space for members to connect expertise, share resources and ideas, and take part in focused discussions on key topics."
+            },
+            "events": {
+              "intro": "BGI Nexus events create opportunities for members to connect and take part in conversations that support progress towards beneficial AI."
+            },
+            "quote": {
+              "lotus": "subtle",
+              "eyebrow": "From the V5 book",
+              "line_1": "A loop just closed.",
+              "line_2": "A pledge was matched with a need.",
+              "line_3": "Both parties",
+              "emphasis": "confirmed.",
+              "side_label": "✦ Attestation #1041",
+              "side_body": "This is the unit of progress on the nexus. Not papers, not roadmaps — confirmed loops. The ledger records each one, and the field hums a little louder.",
+              "cta_label": "Read the protocol →",
+              "cta_url": "/about"
+            },
+            "projects": {
+              "intro": "Through our community-centred funding model, BGI Nexus supports builders creating AI, AGI, and related technologies that are open, ethical, and designed for real-world impact."
+            },
+            "contact": {
+              "title": "Questions, ideas,",
+              "emphasis": "or hello.",
+              "body": "Register for updates on funded projects, working group sessions, and community events — or write to us directly."
+            }
+          }
+        }
+      },
+      {
+        "id": "about",
+        "slug": "about",
+        "status": "published",
+        "data": {
+          "title": "About",
+          "content": [],
+          "sections": {
+            "hero": {
+              "eyebrow": "About BGI Nexus",
+              "headline": "Where beneficial AI",
+              "emphasis": "gets built."
+            },
+            "what": {
+              "label": "01 · General information",
+              "title": "What is",
+              "emphasis": "BGI?",
+              "body": "BGI Nexus is where beneficial AI gets built. We connect bold ideas with the funding, expertise, and community needed to turn them into real-world impact.",
+              "body_soft": "As a global, community-driven initiative, BGI Nexus supports the development of beneficial AI and AGI through collaborative building, transparent governance, and aligned resourcing — so that the power of AI can serve humanity, the biosphere, and future generations."
+            },
+            "principles": {
+              "label": "02 · Principles",
+              "title": "Principles of",
+              "emphasis": "BGI.",
+              "body": "At BGI Nexus, we believe AI should be developed in the service of flourishing life. That means building technologies guided by purpose, openness, human agency, fairness, and shared responsibility. Our principles encourage a shift away from extractive, short-term thinking and toward systems that are regenerative, inclusive, and designed to strengthen people, communities, and the living world.",
+              "items": [
+                {
+                  "word": "Purpose",
+                  "body": "Technologies in the service of flourishing life — not extraction. Built for what they enable, not what they extract."
+                },
+                {
+                  "word": "Openness",
+                  "body": "Transparent governance, open frameworks, open source. The work is visible by default."
+                },
+                {
+                  "word": "Human agency",
+                  "body": "AI as a faithful ally — never a replacement for what is most valuable in human experience."
+                },
+                {
+                  "word": "Fairness",
+                  "body": "Aligned resourcing across the field. Pluralistic value systems, held without collapse."
+                },
+                {
+                  "word": "Shared responsibility",
+                  "body": "Community-driven decisions, distributed stewardship, accountability that survives scale."
+                }
+              ]
+            },
+            "spiral": {
+              "lotus": "subtle",
+              "label": "03 · A living framework",
+              "title": "The spiral of",
+              "emphasis": "flourishing.",
+              "body": "The Spiral of Flourishing expresses our vision for human-AI symbiosis. It offers a living framework for shaping AI in ways that preserve wonder, deepen connection, strengthen resilience, and open new possibilities for meaning and creativity.",
+              "body_soft": "By linking values with design, it helps guide the development of technologies that do not replace what is most valuable in human experience, but become a faithful ally to it.",
+              "primary_label": "Read the framework →",
+              "primary_url": "/about",
+              "secondary_label": "Working groups",
+              "secondary_url": "/working-groups"
+            },
+            "cta": {
+              "eyebrow": "Take part",
+              "title": "The principles only",
+              "emphasis": "hold",
+              "after": "if the community shows up.",
+              "body": "Working groups are the way in. Sessions are open. Bring what you bring.",
+              "primary_label": "Join a working group →",
+              "primary_url": "/working-groups",
+              "secondary_label": "See upcoming events",
+              "secondary_url": "/events"
+            }
+          }
+        }
+      },
+      {
+        "id": "events",
+        "slug": "events",
+        "status": "published",
+        "data": {
+          "title": "Events",
+          "content": [],
+          "sections": {
+            "hero": {
+              "eyebrow": "Events",
+              "headline": "Get involved in",
+              "emphasis": "BGI Nexus",
+              "after": "events.",
+              "lead": "BGI Nexus events create opportunities for members to connect and take part in conversations that support progress towards beneficial AI."
+            },
+            "working_groups": {
+              "label": "※ Working groups",
+              "title": "Where the",
+              "emphasis": "conversations",
+              "after": "happen.",
+              "body": "BGI Nexus working groups bring people together to support progress towards beneficial AI. We provide a space for members to connect expertise, share resources and ideas, and take part in focused discussions on key topics."
+            },
+            "subscribe": {
+              "eyebrow": "Stay in the loop",
+              "title": "Hear when a session",
+              "emphasis": "opens.",
+              "body": "Calendar invites for working group sessions, virtual events, and convenings. No marketing."
+            }
+          }
+        }
+      },
+      {
+        "id": "working-groups",
+        "slug": "working-groups",
+        "status": "published",
+        "data": {
+          "title": "Working groups",
+          "content": [],
+          "sections": {
+            "hero": {
+              "eyebrow": "Working groups",
+              "headline": "Where",
+              "emphasis": "the work",
+              "after": "is happening.",
+              "lead": "BGI Nexus working groups bring people together to support progress towards beneficial AI. We provide a space for members to connect expertise, share resources and ideas, and take part in focused discussions on key topics."
+            },
+            "join": {
+              "label": "※ How to join",
+              "title": "The door is",
+              "emphasis": "open.",
+              "body": "There is no application form. Working groups are open by design — that is how we route trust across decentralised work. Read the directory, find a session, show up. Bring what you bring.",
+              "steps": [
+                {
+                  "num": "01",
+                  "title": "Pick a group",
+                  "body": "Read the directory. Pick the working group whose questions match your capacity or curiosity. There is no application."
+                },
+                {
+                  "num": "02",
+                  "title": "Show up to a session",
+                  "body": "Sessions are open. Drop in. Listen first if you like — that is a valid contribution in itself."
+                },
+                {
+                  "num": "03",
+                  "title": "Bring what you bring",
+                  "body": "Research, design, build, facilitation, capital, time. Pledges become attestations as the loop closes."
+                },
+                {
+                  "num": "04",
+                  "title": "Stay or leave gently",
+                  "body": "Cadence is opt-in. Take a season off if you need to. The work goes on. The door is open."
+                }
+              ]
+            },
+            "sprints": {
+              "eyebrow": "Deep sprints",
+              "title": "Time-boxed",
+              "emphasis": "focus.",
+              "body": "Some working groups run on a sprint cadence rather than a weekly one. Sprints are 2–5 days of focused work on a single brief — useful when a group is converging or a framework is maturing.",
+              "body_soft": "The next sprint — Omni-Win Design Agent v0.3 — opens 18 May 2026."
+            }
+          }
+        }
+      },
+      {
+        "id": "sponsored-projects",
+        "slug": "sponsored-projects",
+        "status": "published",
+        "data": {
+          "title": "Sponsored projects",
+          "content": [],
+          "sections": {
+            "hero": {
+              "eyebrow": "Sponsored projects",
+              "headline": "What building beneficial AI",
+              "emphasis": "looks like.",
+              "lead": "Our projects show what building beneficial AI looks like in practice. Through our community-centred funding model, BGI Nexus supports builders creating AI, AGI, and related technologies that are open, ethical, and designed for real-world impact."
+            },
+            "round": {
+              "label": "※ Round 01 · 2024",
+              "title": "A compassionate",
+              "emphasis": "future,",
+              "after": "funded by the field.",
+              "body": "From August to December 2024, the BGI Nexus community came together to fund the first wave of beneficial AI projects. Through peer review and democratic voting, the community deployed nearly half a million dollars to support ten innovative teams.",
+              "body_soft": "From social and environmental solutions to safer and more compassionate AI systems, each project contributes to a more democratic ecosystem of innovation that benefits people, societies, and the biosphere."
+            },
+            "funding": {
+              "eyebrow": "※ Funding model",
+              "title": "Community-centred.",
+              "emphasis": "Field-selected.",
+              "body": "Round 01 closed in December 2024. Future rounds will be announced through working groups and the events calendar. Builders interested in being considered for a future round can introduce themselves through the working groups that match their work."
+            }
+          }
+        }
+      },
+      {
+        "id": "contact",
+        "slug": "contact",
+        "status": "published",
+        "data": {
+          "title": "Contact",
+          "content": [],
+          "sections": {
+            "hero": {
+              "eyebrow": "Contact",
+              "headline": "Say",
+              "emphasis": "hello.",
+              "lead": "Questions, ideas, projects you're working on, working groups you want to start — we'd love to hear from you. The fastest way in is a working group session, but the inbox is open too."
+            },
+            "registration": {
+              "label": "※ Registration",
+              "title": "Register to join the",
+              "emphasis": "field.",
+              "body": "A short form, no tracking. We'll add you to the calendar invites for upcoming working group sessions and write back with a personal note."
+            },
+            "faq_intro": {
+              "label": "※ Common questions",
+              "title": "Before you",
+              "emphasis": "write.",
+              "body": "A few questions we hear most weeks. Quick answers, so the inbox is reserved for the conversations that need it."
+            }
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "id": "event-agi-human-flourishing-weekly",
+        "slug": "agi-human-flourishing-weekly",
+        "status": "published",
+        "data": {
+          "title": "AGI for human flourishing · weekly",
+          "date_day": "20",
+          "date_month": "MAY",
+          "date_year": "2026",
+          "kind": "Working group session",
+          "location": "Virtual",
+          "duration": "90 min",
+          "host": "Hosted by Syn Jahan + WG leads",
+          "tag": "Session",
+          "display_status": "Open",
+          "featured": false,
+          "past": false,
+          "sort_order": 10
+        }
+      },
+      {
+        "id": "event-healthy-human-ai-ecosystems",
+        "slug": "healthy-human-ai-ecosystems",
+        "status": "published",
+        "data": {
+          "title": "Healthy human-AI ecosystems",
+          "date_day": "01",
+          "date_month": "JUN",
+          "date_year": "2026",
+          "kind": "Virtual event",
+          "location": "Virtual",
+          "duration": "90 min",
+          "host": "BGI Nexus working groups",
+          "tag": "Event",
+          "display_status": "Featured",
+          "body": "A virtual gathering on how AI can support — not strain — the relationships, institutions, and ecologies it touches. Panels, working sessions, and a closing reflection.",
+          "featured": true,
+          "past": false,
+          "sort_order": 20
+        }
+      },
+      {
+        "id": "event-pluralistic-value-systems-fortnightly",
+        "slug": "pluralistic-value-systems-fortnightly",
+        "status": "published",
+        "data": {
+          "title": "Pluralistic value systems · fortnightly",
+          "date_day": "17",
+          "date_month": "JUN",
+          "date_year": "2026",
+          "kind": "Working group session",
+          "location": "Virtual",
+          "duration": "90 min",
+          "host": "Open to members",
+          "tag": "Session",
+          "display_status": "Open",
+          "featured": false,
+          "past": false,
+          "sort_order": 30
+        }
+      },
+      {
+        "id": "event-bgi-mini-hackathon",
+        "slug": "bgi-mini-hackathon",
+        "status": "published",
+        "data": {
+          "title": "BGI mini-hackathon",
+          "date_day": "26",
+          "date_month": "JUN",
+          "date_year": "2026",
+          "day_range": "26—28",
+          "kind": "Mini-hackathon",
+          "location": "Hybrid · Lisbon + remote",
+          "duration": "48 hours",
+          "host": "Open call · seats limited",
+          "tag": "Hackathon",
+          "display_status": "Apply",
+          "body": "Three days of focused build time. Cross-disciplinary teams, real briefs from the working groups, light-touch facilitation. Outputs feed back into the field.",
+          "featured": false,
+          "past": false,
+          "sort_order": 40
+        }
+      },
+      {
+        "id": "event-past-agi-human-flourishing",
+        "slug": "past-agi-human-flourishing",
+        "status": "published",
+        "data": {
+          "title": "AGI for human flourishing · weekly",
+          "date_day": "06",
+          "date_month": "MAY",
+          "date_year": "2026",
+          "kind": "Working group session",
+          "location": "Virtual",
+          "display_status": "Past",
+          "past": true,
+          "sort_order": 100
+        }
+      },
+      {
+        "id": "event-past-spirals-opening",
+        "slug": "past-spirals-opening",
+        "status": "published",
+        "data": {
+          "title": "Spirals of flourishing · semester opening",
+          "date_day": "29",
+          "date_month": "APR",
+          "date_year": "2026",
+          "kind": "Convening",
+          "location": "Hybrid · invite + open seats",
+          "display_status": "Past",
+          "past": true,
+          "sort_order": 110
+        }
+      },
+      {
+        "id": "event-past-multi-agent-alignment",
+        "slug": "past-multi-agent-alignment",
+        "status": "published",
+        "data": {
+          "title": "Multi-agent alignment · weekly",
+          "date_day": "15",
+          "date_month": "APR",
+          "date_year": "2026",
+          "kind": "Working group session",
+          "location": "Virtual",
+          "display_status": "Past",
+          "past": true,
+          "sort_order": 120
+        }
+      }
+    ],
+    "working_groups": [
+      {
+        "id": "wg-flourishing",
+        "slug": "wg-flourishing",
+        "status": "published",
+        "data": {
+          "name": "AGI for human flourishing",
+          "cycle": "Weekly · Thursdays",
+          "time": "16:00 GMT · 90 min",
+          "seats": "14 contributors · open",
+          "summary": "Practical governance, guardrails, and conditions for beneficial AGI. The anchor working group — sets the cadence and the questions the rest of the field circles around.",
+          "leads": ["Syn Jahan", "Ben Goertzel"],
+          "topics": [
+            "Governance design",
+            "Guardrails",
+            "Conditions for emergence"
+          ],
+          "active": true,
+          "sort_order": 10
+        }
+      },
+      {
+        "id": "wg-pluralistic",
+        "slug": "wg-pluralistic",
+        "status": "published",
+        "data": {
+          "name": "Pluralistic value systems",
+          "cycle": "Fortnightly · Tuesdays",
+          "time": "18:00 GMT · 90 min",
+          "seats": "8 contributors · open",
+          "summary": "How does a multi-agent ecosystem hold many value systems without collapsing one onto another? Where philosophy, design, and protocol meet.",
+          "leads": ["Working group lead"],
+          "topics": [
+            "Plural values",
+            "Ecosystem alignment",
+            "Cultural plurality"
+          ],
+          "active": true,
+          "sort_order": 20
+        }
+      },
+      {
+        "id": "wg-political",
+        "slug": "wg-political",
+        "status": "published",
+        "data": {
+          "name": "Governance & political economy",
+          "cycle": "Monthly · third Wednesday",
+          "time": "15:00 GMT · 2 hr",
+          "seats": "2 seats remaining",
+          "summary": "Routing trust across decentralised contributors. Where policy meets protocol, and where the brand book lives next to the org chart.",
+          "leads": ["Working group lead"],
+          "topics": ["Policy", "Decentralised trust", "Political economy"],
+          "active": false,
+          "sort_order": 30
+        }
+      },
+      {
+        "id": "wg-multiagent",
+        "slug": "wg-multiagent",
+        "status": "published",
+        "data": {
+          "name": "Multi-agent alignment",
+          "cycle": "Weekly · Mondays",
+          "time": "17:00 GMT · 90 min",
+          "seats": "11 contributors · open",
+          "summary": "Beyond single-model alignment. Architectures, attestations, and contracts that hold a field together. The protocol layer of the work.",
+          "leads": ["Working group lead"],
+          "topics": [
+            "Multi-agent systems",
+            "Attestation protocols",
+            "Architecture"
+          ],
+          "active": true,
+          "sort_order": 40
+        }
+      },
+      {
+        "id": "wg-offernet",
+        "slug": "wg-offernet",
+        "status": "published",
+        "data": {
+          "name": "Offernet · resource matching",
+          "cycle": "Fortnightly · Fridays",
+          "time": "14:00 GMT · 90 min",
+          "seats": "6 contributors · open",
+          "summary": "Capacity meeting need. The resource layer of the nexus, drawing on offernet principles. Pledges, needs, and how the loops close.",
+          "leads": ["Working group lead"],
+          "topics": ["Resource matching", "Pledges & needs", "Offernet"],
+          "active": true,
+          "sort_order": 50
+        }
+      },
+      {
+        "id": "wg-omni",
+        "slug": "wg-omni",
+        "status": "published",
+        "data": {
+          "name": "Omni-Win Design Agent",
+          "cycle": "Sprint-based · next 18 May",
+          "time": "Async + 48hr sync",
+          "seats": "Sprint opening",
+          "summary": "The agent framework. Released as it matures. Open to scientific and design collaborators. Sprints are time-boxed; the rest is async.",
+          "leads": ["BGI Nexus working groups"],
+          "topics": ["Agent design", "Omni-Win framework", "Sprints"],
+          "active": false,
+          "sort_order": 60
+        }
+      }
+    ],
+    "projects": [
+      {
+        "id": "project-nigerguard",
+        "slug": "nigerguard",
+        "status": "published",
+        "data": {
+          "project_code": "P-01",
+          "tag": "Climate",
+          "title": "NigerGuard",
+          "project_byline": "BGI Team",
+          "fund": "$46,000",
+          "summary": "AI-powered climate resilience platform for vulnerable regions with early warning systems.",
+          "impact": "Protecting 250,000+ people across vulnerable regions.",
+          "display_status": "Active build",
+          "round": "Round 01 · 2024",
+          "featured": false,
+          "sort_order": 10
+        }
+      },
+      {
+        "id": "project-bionexus-gaia",
+        "slug": "bionexus-gaia",
+        "status": "published",
+        "data": {
+          "project_code": "P-02",
+          "tag": "Biodiversity",
+          "title": "Bionexus Gaia",
+          "project_byline": "BGI Team",
+          "fund": "$50,000",
+          "summary": "Advanced AI system for biodiversity regeneration and ecosystem recovery monitoring.",
+          "impact": "Monitoring 50+ restoration sites across 8 countries.",
+          "display_status": "Active build",
+          "round": "Round 01 · 2024",
+          "featured": true,
+          "sort_order": 20
+        }
+      },
+      {
+        "id": "project-aurora",
+        "slug": "aurora",
+        "status": "published",
+        "data": {
+          "project_code": "P-03",
+          "tag": "Carbon",
+          "title": "AURORA",
+          "project_byline": "BGI Team",
+          "fund": "$50,000",
+          "summary": "Decentralised AI platform bringing transparency to carbon credit markets through automated verification.",
+          "impact": "Verified $2.3M in carbon credits at 99.2% accuracy.",
+          "display_status": "Active build",
+          "round": "Round 01 · 2024",
+          "featured": false,
+          "sort_order": 30
+        }
+      },
+      {
+        "id": "project-glucosedao",
+        "slug": "glucosedao",
+        "status": "published",
+        "data": {
+          "project_code": "P-04",
+          "tag": "Health",
+          "title": "GlucoseDAO",
+          "project_byline": "BGI Team",
+          "fund": "$50,000",
+          "summary": "Open health platform democratising glucose data ownership while advancing diabetes research.",
+          "impact": "1,200+ users contributing anonymised glucose data.",
+          "display_status": "Active build",
+          "round": "Round 01 · 2024",
+          "featured": false,
+          "sort_order": 40
+        }
+      },
+      {
+        "id": "project-sign-language-translator-ai",
+        "slug": "sign-language-translator-ai",
+        "status": "published",
+        "data": {
+          "project_code": "P-05",
+          "tag": "Access",
+          "title": "Sign Language Translator AI",
+          "project_byline": "BGI Team",
+          "fund": "$50,000",
+          "summary": "AI-powered sign language translation system bridging communication gaps through real-time visual recognition.",
+          "impact": "95% accuracy rate across 15 sign language variants.",
+          "display_status": "Active build",
+          "round": "Round 01 · 2024",
+          "featured": false,
+          "sort_order": 50
+        }
+      },
+      {
+        "id": "project-lovelock-living-libraries",
+        "slug": "lovelock-living-libraries",
+        "status": "published",
+        "data": {
+          "project_code": "P-06",
+          "tag": "Knowledge",
+          "title": "Project Lovelock · Living Libraries",
+          "project_byline": "BGI Team",
+          "fund": "$48,888",
+          "summary": "Decentralised ecological knowledge repositories preserving indigenous wisdom and biodiversity data.",
+          "impact": "Knowledge from 30+ indigenous communities preserved.",
+          "display_status": "Active build",
+          "round": "Round 01 · 2024",
+          "featured": false,
+          "sort_order": 60
+        }
+      },
+      {
+        "id": "project-productivity-eeg-ai-agents",
+        "slug": "productivity-eeg-ai-agents",
+        "status": "published",
+        "data": {
+          "project_code": "P-07",
+          "tag": "Agency",
+          "title": "Productivity EEG-AI Agents",
+          "project_byline": "BGI Team",
+          "fund": "$50,000",
+          "summary": "Brain-signal-powered productivity system using EEG data and AI for cognitive enhancement.",
+          "impact": "15% average productivity gain in 200+ users.",
+          "display_status": "Active build",
+          "round": "Round 01 · 2024",
+          "featured": false,
+          "sort_order": 70
+        }
+      },
+      {
+        "id": "project-acropolis-os",
+        "slug": "acropolis-os",
+        "status": "published",
+        "data": {
+          "project_code": "P-08",
+          "tag": "Governance",
+          "title": "Acropolis OS · Autonomous Community AGI",
+          "project_byline": "BGI Team",
+          "fund": "$50,000",
+          "summary": "Operating system using AGI for democratic decision-making in autonomous communities.",
+          "impact": "Governance for 8 autonomous communities.",
+          "display_status": "Active build",
+          "round": "Round 01 · 2024",
+          "featured": false,
+          "sort_order": 80
+        }
+      },
+      {
+        "id": "project-think-inclusion-conferencing",
+        "slug": "think-inclusion-conferencing",
+        "status": "published",
+        "data": {
+          "project_code": "P-09",
+          "tag": "Access",
+          "title": "Think Inclusion Conferencing",
+          "project_byline": "BGI Team",
+          "fund": "$45,000",
+          "summary": "Inclusive design conferencing platform ensuring global events are accessible to people with disabilities.",
+          "impact": "25+ accessible events reaching 10,000+ participants.",
+          "display_status": "Active build",
+          "round": "Round 01 · 2024",
+          "featured": false,
+          "sort_order": 90
+        }
+      },
+      {
+        "id": "project-farmlingua",
+        "slug": "farmlingua",
+        "status": "published",
+        "data": {
+          "project_code": "P-10",
+          "tag": "Language",
+          "title": "Farmlingua",
+          "project_byline": "BGI Team",
+          "fund": "$45,000",
+          "summary": "Multilingual AI platform for smallholder farmers, breaking down language barriers in agricultural knowledge sharing.",
+          "impact": "500+ smallholder farmers across 12 countries.",
+          "display_status": "Active build",
+          "round": "Round 01 · 2024",
+          "featured": false,
+          "sort_order": 100
+        }
+      }
+    ],
+    "channels": [
+      {
+        "id": "channel-discord",
+        "slug": "discord",
+        "status": "published",
+        "data": {
+          "name": "Discord",
+          "handle": "bgicollective.singularitynet.io/Discord",
+          "summary": "Asynchronous conversation across the field. Pinned channels for each working group.",
+          "cta": "Join the server",
+          "url": "https://bgicollective.singularitynet.io/Discord",
+          "sort_order": 10
+        }
+      },
+      {
+        "id": "channel-telegram",
+        "slug": "telegram",
+        "status": "published",
+        "data": {
+          "name": "Telegram",
+          "handle": "t.me/bginexus",
+          "summary": "Lower-traffic announcements. Cadence notes for the working groups.",
+          "cta": "Open Telegram",
+          "url": "https://t.me/bginexus",
+          "sort_order": 20
+        }
+      },
+      {
+        "id": "channel-linkedin",
+        "slug": "linkedin",
+        "status": "published",
+        "data": {
+          "name": "LinkedIn",
+          "handle": "linkedin.com/groups/12964136",
+          "summary": "For the cross-institutional connective tissue. Funders, partners, organisations.",
+          "cta": "View group",
+          "url": "https://linkedin.com/groups/12964136",
+          "sort_order": 30
+        }
+      }
+    ],
+    "faqs": [
+      {
+        "id": "faq-technical-background",
+        "slug": "technical-background",
+        "status": "published",
+        "data": {
+          "question": "Do I need a technical background to take part?",
+          "answer": "No. Working groups need researchers, designers, facilitators, builders, and capital. Bring what you bring — listening is also a valid contribution.",
+          "sort_order": 10
+        }
+      },
+      {
+        "id": "faq-next-funding-round",
+        "slug": "next-funding-round",
+        "status": "published",
+        "data": {
+          "question": "Is there a next funding round?",
+          "answer": "Round 01 closed in December 2024. Future rounds will be announced through working groups and the events calendar. The fastest way to stay close is to register here or join a working group.",
+          "sort_order": 20
+        }
+      },
+      {
+        "id": "faq-partner",
+        "slug": "partner",
+        "status": "published",
+        "data": {
+          "question": "Can my organisation partner with BGI Nexus?",
+          "answer": "Yes — write to bginexus@singularitynet.io with a sentence on what you do and where you see the alignment. We respond to every email.",
+          "sort_order": 30
+        }
+      },
+      {
+        "id": "faq-start-working-group",
+        "slug": "start-working-group",
+        "status": "published",
+        "data": {
+          "question": "Can I start a new working group?",
+          "answer": "Yes. Show up to a few existing sessions first to see how the cadence works, then propose the new group at one. The community decides.",
+          "sort_order": 40
+        }
+      },
+      {
+        "id": "faq-recorded",
+        "slug": "recorded",
+        "status": "published",
+        "data": {
+          "question": "Are sessions recorded?",
+          "answer": "Most working group sessions are recorded with member consent and posted to the archive. Convenings are usually closed to encourage candour.",
+          "sort_order": 50
+        }
+      }
+    ]
+  }
 }
