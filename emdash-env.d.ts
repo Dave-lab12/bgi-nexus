@@ -21,6 +21,22 @@ export interface Channel {
   bylines?: ContentBylineCredit[];
 }
 
+export interface ContactMessage {
+  id: string;
+  slug: string | null;
+  status: string;
+  name: string;
+  email: string;
+  connect_as?: string;
+  interested_in?: string;
+  message?: string;
+  title?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
 export interface Event {
   id: string;
   slug: string | null;
@@ -111,6 +127,19 @@ export interface SponsoredProject {
   bylines?: ContentBylineCredit[];
 }
 
+export interface Subscriber {
+  id: string;
+  slug: string | null;
+  status: string;
+  email: string;
+  source?: string;
+  title?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
 export interface WorkingGroup {
   id: string;
   slug: string | null;
@@ -133,11 +162,13 @@ export interface WorkingGroup {
 declare module "emdash" {
   interface EmDashCollections {
     channels: Channel;
+    contact_messages: ContactMessage;
     events: Event;
     faqs: Faq;
     pages: Page;
     posts: Post;
     projects: SponsoredProject;
+    subscribers: Subscriber;
     working_groups: WorkingGroup;
   }
 }
