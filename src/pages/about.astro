@@ -2,12 +2,12 @@
 import { getEmDashEntry, getSeoMeta, getSiteSettings } from "emdash";
 import Base from "../layouts/Base.astro";
 import LotusBloom from "../components/LotusBloom.astro";
-import SpiralVisual from "../components/SpiralVisual.astro";
 import { asArray, sectionsFrom } from "../lib/content";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
 
 const pageResult = await getEmDashEntry("pages", "about");
-if (Astro.cache?.enabled && pageResult.cacheHint) Astro.cache.set(pageResult.cacheHint);
+if (Astro.cache?.enabled && pageResult.cacheHint)
+	Astro.cache.set(pageResult.cacheHint);
 
 const page = pageResult.entry as any;
 if (!page) return Astro.redirect("/404");
@@ -39,11 +39,20 @@ const seo = getSeoMeta(page, {
 		style="padding-top: var(--hero-y); padding-bottom: var(--space-12);"
 	>
 		<div style="max-width: 1200px; margin: 0 auto;">
-			<div class="bgin-eyebrow" style="margin-bottom: 24px;" {...page.edit.sections}>
+			<div
+				class="bgin-eyebrow"
+				style="margin-bottom: 24px;"
+				{...page.edit.sections}
+			>
 				{hero.eyebrow}
 			</div>
-			<h1 class="bgin-display" style="font-size: 88px; max-width: 1100px; margin-bottom: 0;" {...page.edit.title}>
-				{hero.headline} <em>{hero.emphasis}</em>
+			<h1
+				class="bgin-display"
+				style="font-size: 88px; max-width: 1100px; margin-bottom: 0;"
+				{...page.edit.title}
+			>
+				{hero.headline}
+				<em>{hero.emphasis}</em>
 			</h1>
 		</div>
 	</section>
@@ -56,16 +65,22 @@ const seo = getSeoMeta(page, {
 			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 96px;"
 		>
 			<div>
-				<span class="bgin-mono" style="margin-bottom: 18px; display: block;">
+				<span
+					class="bgin-mono"
+					style="margin-bottom: 18px; display: block;"
+				>
 					{what.label}
 				</span>
 				<h2 class="bgin-h2" style="font-size: 36px;">
-					{what.title} <em>{what.emphasis}</em>
+					{what.title}
+					<em>{what.emphasis}</em>
 				</h2>
 			</div>
 			<div style="font-size: 18px; line-height: 1.65; color: var(--ink);">
 				<p style="margin-top: 0; margin-bottom: 20px;">{what.body}</p>
-				<p style="margin: 0; color: var(--ink-soft);">{what.body_soft}</p>
+				<p style="margin: 0; color: var(--ink-soft);">
+					{what.body_soft}
+				</p>
 			</div>
 		</div>
 	</section>
@@ -76,15 +91,23 @@ const seo = getSeoMeta(page, {
 				style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 96px; margin-bottom: 56px;"
 			>
 				<div>
-					<span class="bgin-mono" style="margin-bottom: 18px; display: block;">
+					<span
+						class="bgin-mono"
+						style="margin-bottom: 18px; display: block;"
+					>
 						{principles.label}
 					</span>
 					<h2 class="bgin-h2" style="font-size: 36px;">
-						{principles.title} <em>{principles.emphasis}</em>
+						{principles.title}
+						<em>{principles.emphasis}</em>
 					</h2>
 				</div>
-				<div style="font-size: 17px; line-height: 1.7; color: var(--ink);">
-					<p style="margin-top: 0; margin-bottom: 0;">{principles.body}</p>
+				<div
+					style="font-size: 17px; line-height: 1.7; color: var(--ink);"
+				>
+					<p style="margin-top: 0; margin-bottom: 0;">
+						{principles.body}
+					</p>
 				</div>
 			</div>
 			<div
@@ -98,11 +121,10 @@ const seo = getSeoMeta(page, {
 							<span
 								class="bgin-mono"
 								style="margin-bottom: 16px; display: block; color: var(--brand-blue);"
-								>0{index + 1}</span
 							>
-							<h3
-								style="font-family: var(--font-display); font-size: 24px; font-weight: 400; line-height: 1.15; margin: 0 0 12px; color: var(--ink);"
-							>
+								0{index + 1}
+							</span>
+							<h3 style="font-family: var(--font-display); font-size: 24px; font-weight: 400; line-height: 1.15; margin: 0 0 12px; color: var(--ink);">
 								{item.word}
 							</h3>
 							<p style="font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); margin: 0;">
@@ -130,52 +152,109 @@ const seo = getSeoMeta(page, {
 				>
 					{spiral.label}
 				</span>
-				<h2 class="bgin-h2" style="font-size: 48px; color: var(--ink-on-dark);">
-					{spiral.title} <em style="color: var(--brand-blue-bright);">{spiral.emphasis}</em>
+				<h2
+					class="bgin-h2"
+					style="font-size: 48px; color: var(--ink-on-dark);"
+				>
+					{spiral.title}
+					<em style="color: var(--brand-blue-bright);"
+						>{spiral.emphasis}</em
+					>
 				</h2>
 				<div
 					style="font-size: 17px; line-height: 1.7; color: rgba(245,239,226,0.78); margin-top: 24px;"
 				>
-					<p style="margin-top: 0; margin-bottom: 18px;">{spiral.body}</p>
-					<p style="margin: 0; color: rgba(245,239,226,0.65);">{spiral.body_soft}</p>
+					<p
+						style="margin-top: 0; margin-bottom: 18px;color:  rgba(245,239,226,0.65);"
+					>
+						{spiral.body}
+					</p>
+					<p style="margin: 0; color: rgba(245,239,226,0.65);">
+						{spiral.body_soft}
+					</p>
 				</div>
 				<div style="display: flex; gap: 14px; margin-top: 36px;">
-					<a class="bgin-btn primary" href={spiral.primary_url}>{spiral.primary_label}</a>
-					<a class="bgin-btn primary on-dark" href={spiral.secondary_url}>{spiral.secondary_label}</a>
+					<a class="bgin-btn primary" href={spiral.primary_url}
+						>{spiral.primary_label}</a
+					>
+					<a
+						class="bgin-btn primary on-dark"
+						href={spiral.secondary_url}>{spiral.secondary_label}</a
+					>
 				</div>
 			</div>
 			<div
-				style="padding: 48px; background: rgba(245,239,226,0.04); border: 1px solid var(--rule-on-dark); border-radius: 6px; position: relative;"
+				style="background: rgba(245,239,226,0.05); border: 1px solid var(--rule-on-dark); border-radius: 6px; overflow: hidden;"
 			>
-				<span
-					class="bgin-mono on-dark"
-					style="position: absolute; top: 18px; left: 24px; color: rgba(245,239,226,0.45);"
-					>Spiral · v1.0</span
+				<div
+					style="display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--rule-on-dark);"
 				>
-				<span
-					class="bgin-mono on-dark"
-					style="position: absolute; top: 18px; right: 24px; color: rgba(245,239,226,0.45);"
-					>Open for contribution</span
-				>
-				<SpiralVisual />
+					<span
+						class="bgin-mono"
+						style="color: rgba(245,239,226,0.4); letter-spacing: 0.14em;"
+						>Spiral · v1.0</span
+					>
+					<span
+						class="bgin-mono"
+						style="color: var(--brand-blue-bright); letter-spacing: 0.14em;"
+						>Open for contribution</span
+					>
+				</div>
+				{
+					[
+						"Wonder",
+						"Connection",
+						"Resilience",
+						"Agency",
+						"Meaning",
+						"Creativity",
+						"Symbiosis",
+					].map((value, i) => (
+						<div
+							style={`display: flex; align-items: baseline; gap: 20px; padding: 18px 24px; ${i > 0 ? "border-top: 1px solid var(--rule-on-dark);" : ""}`}
+						>
+							<span style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; color: rgba(245,239,226,0.28); min-width: 24px; flex-shrink: 0;">
+								0{i + 1}
+							</span>
+							<span style="font-family: var(--font-display); font-size: 22px; font-weight: 400; color: rgba(245,239,226,0.82); line-height: 1;">
+								{value}
+							</span>
+						</div>
+					))
+				}
 			</div>
 		</div>
 	</section>
 
-	<section class="bgin-section" style="padding-top: 96px; padding-bottom: 96px;">
+	<section
+		class="bgin-section"
+		style="padding-top: 96px; padding-bottom: 96px;"
+	>
 		<div style="max-width: 1200px; margin: 0 auto; text-align: center;">
-			<div class="bgin-eyebrow" style="margin-bottom: 18px; justify-content: center;">
+			<div
+				class="bgin-eyebrow"
+				style="margin-bottom: 18px; justify-content: center;"
+			>
 				{cta.eyebrow}
 			</div>
-			<h2 class="bgin-h2" style="font-size: 56px; max-width: 880px; margin: 0 auto 24px;">
-				{cta.title} <em>{cta.emphasis}</em> {cta.after}
+			<h2
+				class="bgin-h2"
+				style="font-size: 56px; max-width: 880px; margin: 0 auto 24px;"
+			>
+				{cta.title}
+				<em>{cta.emphasis}</em>
+				{cta.after}
 			</h2>
 			<p class="bgin-lede" style="max-width: 580px; margin: 0 auto 36px;">
 				{cta.body}
 			</p>
 			<div style="display: flex; gap: 14px; justify-content: center;">
-				<a class="bgin-btn primary" href={cta.primary_url}>{cta.primary_label}</a>
-				<a class="bgin-btn secondary" href={cta.secondary_url}>{cta.secondary_label}</a>
+				<a class="bgin-btn primary" href={cta.primary_url}
+					>{cta.primary_label}</a
+				>
+				<a class="bgin-btn secondary" href={cta.secondary_url}
+					>{cta.secondary_label}</a
+				>
 			</div>
 		</div>
 	</section>

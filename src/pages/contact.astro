@@ -1,5 +1,10 @@
 ---
-import { getEmDashCollection, getEmDashEntry, getSeoMeta, getSiteSettings } from "emdash";
+import {
+	getEmDashCollection,
+	getEmDashEntry,
+	getSeoMeta,
+	getSiteSettings,
+} from "emdash";
 import Base from "../layouts/Base.astro";
 import { sectionsFrom, sortByOrder } from "../lib/content";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
@@ -61,23 +66,41 @@ const seo = getSeoMeta(page, {
 			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: end;"
 		>
 			<div>
-				<div class="bgin-eyebrow" style="margin-bottom: 24px;" {...page.edit.sections}>
+				<div
+					class="bgin-eyebrow"
+					style="margin-bottom: 24px;"
+					{...page.edit.sections}
+				>
 					{hero.eyebrow}
 				</div>
-				<h1 class="bgin-display" style="font-size: 88px; margin-bottom: 24px;" {...page.edit.title}>
-					{hero.headline} <em>{hero.emphasis}</em>
+				<h1
+					class="bgin-display"
+					style="font-size: 88px; margin-bottom: 24px;"
+					{...page.edit.title}
+				>
+					{hero.headline}
+					<em>{hero.emphasis}</em>
 				</h1>
 				<p class="bgin-lede" style="max-width: 580px;">{hero.lead}</p>
 			</div>
-			<div style="border-left: 1px solid var(--rule); padding-left: 32px;">
-				<span class="bgin-mono" style="margin-bottom: 14px; display: block;">Get in Touch</span>
+			<div
+				style="border-left: 1px solid var(--rule); padding-left: 32px;"
+			>
+				<span
+					class="bgin-mono"
+					style="margin-bottom: 14px; display: block;"
+					>Get in Touch</span
+				>
 				<a
 					href="mailto:bginexus@singularitynet.io"
 					style="font-family: var(--font-display); font-size: 22px; color: var(--brand-blue); text-decoration: none; border-bottom: 1px solid var(--brand-blue); padding-bottom: 4px; line-height: 1.3; word-break: break-all;"
 				>
 					bginexus@<br />singularitynet.io
 				</a>
-				<span class="bgin-mono" style="margin-top: 24px; display: block; color: var(--ink-mute);">
+				<span
+					class="bgin-mono"
+					style="margin-top: 24px; display: block; color: var(--ink-mute);"
+				>
 					Questions or want to get involved?
 				</span>
 			</div>
@@ -89,9 +112,14 @@ const seo = getSeoMeta(page, {
 			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start;"
 		>
 			<div>
-				<span class="bgin-mono" style="margin-bottom: 18px; display: block;">{registration.label}</span>
+				<span
+					class="bgin-mono"
+					style="margin-bottom: 18px; display: block;"
+					>{registration.label}</span
+				>
 				<h2 class="bgin-h2" style="font-size: 40px;">
-					{registration.title} <em>{registration.emphasis}</em>
+					{registration.title}
+					<em>{registration.emphasis}</em>
 				</h2>
 				<p
 					style="font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 20px 0 0; max-width: 360px;"
@@ -105,21 +133,38 @@ const seo = getSeoMeta(page, {
 					style="background: var(--canvas); border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; padding: 40px;"
 				>
 					<label style="display: block;">
-						<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+						<div
+							style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;"
+						>
 							<span
 								class="bgin-mono"
 								style="color: var(--ink); text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px;"
 							>
-								Email<span style="color: var(--brand-blue); margin-left: 4px;">·</span>
+								Email<span
+									style="color: var(--brand-blue); margin-left: 4px;"
+									>·</span
+								>
 							</span>
 						</div>
-						<input class="bgin-input" name="email" type="email" placeholder="you@your-domain.io" required />
-						<span class="bgin-field-error" data-error-for="sub-email">↘ We need a valid email address.</span>
+						<input
+							class="bgin-input"
+							name="email"
+							type="email"
+							placeholder="you@your-domain.io"
+							required
+						/>
+						<span
+							class="bgin-field-error"
+							data-error-for="sub-email"
+							>↘ We need a valid email address.</span
+						>
 					</label>
 					<div
 						style="display: flex; justify-content: flex-end; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--rule);"
 					>
-						<button class="bgin-btn primary" type="submit">Subscribe →</button>
+						<button class="bgin-btn primary" type="submit"
+							>Subscribe →</button
+						>
 					</div>
 				</form>
 				<div
@@ -127,12 +172,21 @@ const seo = getSeoMeta(page, {
 					hidden
 					style="padding: 48px 40px; background: var(--canvas); border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; text-align: center;"
 				>
-					<span style="color: var(--brand-blue); font-size: 28px; line-height: 1; display: inline-block; margin-bottom: 16px;">✦</span>
-					<h2 class="bgin-h2" style="font-size: 30px; margin-bottom: 12px;">You're <em>connected</em>.</h2>
+					<span
+						style="color: var(--brand-blue); font-size: 28px; line-height: 1; display: inline-block; margin-bottom: 16px;"
+						>✦</span
+					>
+					<h2
+						class="bgin-h2"
+						style="font-size: 30px; margin-bottom: 12px;"
+					>
+						You're <em>connected</em>.
+					</h2>
 					<p
 						style="font-size: 15px; line-height: 1.65; color: var(--ink-soft); margin: 0 auto;"
 						data-subscribe-message
-					></p>
+					>
+					</p>
 				</div>
 			</div>
 		</div>
@@ -144,49 +198,84 @@ const seo = getSeoMeta(page, {
 			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start;"
 		>
 			<div>
-				<span class="bgin-mono" style="margin-bottom: 18px; display: block;">※ Get in Touch</span>
+				<span
+					class="bgin-mono"
+					style="margin-bottom: 18px; display: block;"
+					>※ Get in Touch</span
+				>
 				<h2 class="bgin-h2" style="font-size: 40px;">
 					Send us a <em>message.</em>
 				</h2>
 				<p
 					style="font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 20px 0 0; max-width: 360px;"
 				>
-					Questions, ideas, or want to get involved? Tell us a bit about yourself and we'll be in touch.
+					Questions, ideas, or want to get involved? Tell us a bit
+					about yourself and we'll be in touch.
 				</p>
 			</div>
 			<form
 				data-contact-form
 				style="background: var(--canvas); border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; padding: 40px;"
 			>
-				<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 28px;">
+				<div
+					style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 28px;"
+				>
 					<label style="display: block; margin-bottom: 0;">
-						<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+						<div
+							style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;"
+						>
 							<span
 								class="bgin-mono"
 								style="color: var(--ink); text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px;"
 							>
-								Your name<span style="color: var(--brand-blue); margin-left: 4px;">·</span>
+								Your name<span
+									style="color: var(--brand-blue); margin-left: 4px;"
+									>·</span
+								>
 							</span>
 						</div>
-						<input class="bgin-input" name="name" type="text" placeholder="e.g. Your name" required />
-						<span class="bgin-field-error" data-error-for="name">↘ Tell us what to call you.</span>
+						<input
+							class="bgin-input"
+							name="name"
+							type="text"
+							placeholder="e.g. Your name"
+							required
+						/>
+						<span class="bgin-field-error" data-error-for="name"
+							>↘ Tell us what to call you.</span
+						>
 					</label>
 					<label style="display: block; margin-bottom: 0;">
-						<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+						<div
+							style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;"
+						>
 							<span
 								class="bgin-mono"
 								style="color: var(--ink); text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px;"
 							>
-								Email<span style="color: var(--brand-blue); margin-left: 4px;">·</span>
+								Email<span
+									style="color: var(--brand-blue); margin-left: 4px;"
+									>·</span
+								>
 							</span>
 						</div>
-						<input class="bgin-input" name="email" type="email" placeholder="you@your-domain.io" required />
-						<span class="bgin-field-error" data-error-for="email">↘ We need a valid email to write back to.</span>
+						<input
+							class="bgin-input"
+							name="email"
+							type="email"
+							placeholder="you@your-domain.io"
+							required
+						/>
+						<span class="bgin-field-error" data-error-for="email"
+							>↘ We need a valid email to write back to.</span
+						>
 					</label>
 				</div>
 
 				<div style="margin-bottom: 28px;">
-					<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+					<div
+						style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;"
+					>
 						<span
 							class="bgin-mono"
 							style="color: var(--ink); text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px;"
@@ -194,7 +283,11 @@ const seo = getSeoMeta(page, {
 							How you want to connect
 						</span>
 					</div>
-					<div style="display: flex; flex-wrap: wrap; gap: 8px;" data-segmented-field data-field-name="connectAs">
+					<div
+						style="display: flex; flex-wrap: wrap; gap: 8px;"
+						data-segmented-field
+						data-field-name="connectAs"
+					>
 						{
 							connectOptions.map((option, index) => (
 								<button
@@ -211,7 +304,9 @@ const seo = getSeoMeta(page, {
 				</div>
 
 				<div style="margin-bottom: 28px;">
-					<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+					<div
+						style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;"
+					>
 						<span
 							class="bgin-mono"
 							style="color: var(--ink); text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px;"
@@ -219,7 +314,11 @@ const seo = getSeoMeta(page, {
 							What would you like updates about?
 						</span>
 					</div>
-					<div style="display: flex; flex-wrap: wrap; gap: 8px;" data-segmented-field data-field-name="interestedIn">
+					<div
+						style="display: flex; flex-wrap: wrap; gap: 8px;"
+						data-segmented-field
+						data-field-name="interestedIn"
+					>
 						{
 							updateOptions.map((option, index) => (
 								<button
@@ -236,7 +335,9 @@ const seo = getSeoMeta(page, {
 				</div>
 
 				<label style="display: block; margin-bottom: 0;">
-					<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+					<div
+						style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;"
+					>
 						<span
 							class="bgin-mono"
 							style="color: var(--ink); text-transform: uppercase; letter-spacing: 0.18em; font-size: 11px;"
@@ -254,14 +355,15 @@ const seo = getSeoMeta(page, {
 						name="message"
 						placeholder="A line on what you're working on, or what you're looking for."
 						rows="4"
-						style="resize: vertical;"
-					></textarea>
+						style="resize: vertical;"></textarea>
 				</label>
 
 				<div
 					style="display: flex; justify-content: flex-end; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--rule);"
 				>
-					<button class="bgin-btn primary" type="submit">Send message →</button>
+					<button class="bgin-btn primary" type="submit"
+						>Send message →</button
+					>
 				</div>
 			</form>
 			<div
@@ -269,17 +371,28 @@ const seo = getSeoMeta(page, {
 				hidden
 				style="padding: 64px 56px; background: var(--canvas); border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; text-align: center;"
 			>
-				<span style="color: var(--brand-blue); font-size: 32px; line-height: 1; display: inline-block; margin-bottom: 20px;">✦</span>
-				<h2 class="bgin-h2" style="font-size: 36px; margin-bottom: 16px;">
+				<span
+					style="color: var(--brand-blue); font-size: 32px; line-height: 1; display: inline-block; margin-bottom: 20px;"
+					>✦</span
+				>
+				<h2
+					class="bgin-h2"
+					style="font-size: 36px; margin-bottom: 16px;"
+				>
 					Message <em>sent.</em>
 				</h2>
 				<p
 					style="font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 0 auto 28px; max-width: 480px;"
 					data-contact-message
-				></p>
+				>
+				</p>
 				<div style="display: flex; gap: 14px; justify-content: center;">
 					<a class="bgin-btn primary" href="/events">See events</a>
-					<button class="bgin-btn secondary" type="button" data-reset-contact-form>Send another</button>
+					<button
+						class="bgin-btn secondary"
+						type="button"
+						data-reset-contact-form>Send another</button
+					>
 				</div>
 			</div>
 		</div>
@@ -293,7 +406,9 @@ const seo = getSeoMeta(page, {
 				<div class="bgin-eyebrow">Follow Us</div>
 				<span class="bgin-mono">Discord, Telegram, and LinkedIn</span>
 			</div>
-			<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+			<div
+				style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;"
+			>
 				{
 					channels.map((channel) => (
 						<a
@@ -301,18 +416,22 @@ const seo = getSeoMeta(page, {
 							class="bgin-card hover flush"
 							style="padding: 28px; display: block; text-decoration: none; color: inherit;"
 						>
-							<span class="bgin-mono" style="margin-bottom: 16px; display: block;">
+							<span
+								class="bgin-mono"
+								style="margin-bottom: 16px; display: block;"
+							>
 								↗ {channel.data.name}
 							</span>
-							<h3
-								style="font-family: var(--font-display); font-size: 22px; font-weight: 400; line-height: 1.2; margin: 0 0 12px; color: var(--ink);"
-							>
+							<h3 style="font-family: var(--font-display); font-size: 22px; font-weight: 400; line-height: 1.2; margin: 0 0 12px; color: var(--ink);">
 								{channel.data.handle}
 							</h3>
 							<p style="font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 24px;">
 								{channel.data.summary}
 							</p>
-							<span class="bgin-arrow">{channel.data.cta} <span aria-hidden="true">→</span></span>
+							<span class="bgin-arrow">
+								{channel.data.cta}{" "}
+								<span aria-hidden="true">→</span>
+							</span>
 						</a>
 					))
 				}
@@ -325,9 +444,14 @@ const seo = getSeoMeta(page, {
 			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.6fr; gap: 96px; align-items: start;"
 		>
 			<div>
-				<span class="bgin-mono" style="margin-bottom: 18px; display: block;">{faqIntro.label}</span>
+				<span
+					class="bgin-mono"
+					style="margin-bottom: 18px; display: block;"
+					>{faqIntro.label}</span
+				>
 				<h2 class="bgin-h2" style="font-size: 40px;">
-					{faqIntro.title} <em>{faqIntro.emphasis}</em>
+					{faqIntro.title}
+					<em>{faqIntro.emphasis}</em>
 				</h2>
 				<p
 					style="font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 20px 0 0; max-width: 320px;"
@@ -348,10 +472,15 @@ const seo = getSeoMeta(page, {
 								<span>{faq.data.question}</span>
 								<span
 									style={`color: var(--brand-blue); margin-left: 24px; font-size: 18px; font-family: var(--font-body); transform: ${index === 0 ? "rotate(45deg)" : ""}; transition: transform 200ms var(--ease-standard);`}
-									>+</span
 								>
+									+
+								</span>
 							</button>
-							<div data-faq-panel hidden={index !== 0} style="padding-bottom: 24px; padding-right: 60px;">
+							<div
+								data-faq-panel
+								hidden={index !== 0}
+								style="padding-bottom: 24px; padding-right: 60px;"
+							>
 								<p style="font-size: 15.5px; line-height: 1.7; color: var(--ink-soft); margin: 0;">
 									{faq.data.answer}
 								</p>
@@ -365,22 +494,35 @@ const seo = getSeoMeta(page, {
 
 	<script>
 		// ── Subscribe form ──────────────────────────────────────────────
-		const subForm = document.querySelector<HTMLFormElement>("[data-subscribe-form]");
-		const subSuccess = document.querySelector<HTMLElement>("[data-subscribe-success]");
-		const subMsg = document.querySelector<HTMLElement>("[data-subscribe-message]");
+		const subForm = document.querySelector<HTMLFormElement>(
+			"[data-subscribe-form]",
+		);
+		const subSuccess = document.querySelector<HTMLElement>(
+			"[data-subscribe-success]",
+		);
+		const subMsg = document.querySelector<HTMLElement>(
+			"[data-subscribe-message]",
+		);
 
 		subForm?.addEventListener("submit", async (event) => {
 			event.preventDefault();
-			const emailInput = subForm.querySelector<HTMLInputElement>('[name="email"]');
-			const submitBtn = subForm.querySelector<HTMLButtonElement>('[type="submit"]');
+			const emailInput =
+				subForm.querySelector<HTMLInputElement>('[name="email"]');
+			const submitBtn =
+				subForm.querySelector<HTMLButtonElement>('[type="submit"]');
 			const email = emailInput?.value?.trim() || "";
 			const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 			emailInput?.classList.toggle("error", !emailValid);
-			subForm.querySelector('[data-error-for="sub-email"]')?.toggleAttribute("data-visible", !emailValid);
+			subForm
+				.querySelector('[data-error-for="sub-email"]')
+				?.toggleAttribute("data-visible", !emailValid);
 			if (!emailValid) return;
 
-			if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Subscribing…"; }
+			if (submitBtn) {
+				submitBtn.disabled = true;
+				submitBtn.textContent = "Subscribing…";
+			}
 
 			try {
 				const res = await fetch("/api/subscribe", {
@@ -392,17 +534,27 @@ const seo = getSeoMeta(page, {
 					const data = await res.json().catch(() => ({}));
 					throw new Error(data.error || "Something went wrong.");
 				}
-				if (subMsg) subMsg.innerHTML = `We'll keep <strong style="color: var(--ink);">${email}</strong> updated on funded projects, grant rounds, and community events.`;
+				if (subMsg)
+					subMsg.innerHTML = `We'll keep <strong style="color: var(--ink);">${email}</strong> updated on funded projects, grant rounds, and community events.`;
 				subForm.hidden = true;
 				if (subSuccess) subSuccess.hidden = false;
 			} catch (err) {
-				if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Subscribe →"; }
-				const errMsg = err instanceof Error ? err.message : "Something went wrong.";
-				let errEl = subForm.querySelector<HTMLElement>("[data-submit-error]");
+				if (submitBtn) {
+					submitBtn.disabled = false;
+					submitBtn.textContent = "Subscribe →";
+				}
+				const errMsg =
+					err instanceof Error
+						? err.message
+						: "Something went wrong.";
+				let errEl = subForm.querySelector<HTMLElement>(
+					"[data-submit-error]",
+				);
 				if (!errEl) {
 					errEl = document.createElement("p");
 					errEl.setAttribute("data-submit-error", "");
-					errEl.style.cssText = "color: var(--brand-red, #c0392b); font-size: 13px; margin: 12px 0 0; font-family: var(--font-mono);";
+					errEl.style.cssText =
+						"color: var(--brand-red, #c0392b); font-size: 13px; margin: 12px 0 0; font-family: var(--font-mono);";
 					submitBtn?.parentElement?.append(errEl);
 				}
 				errEl.textContent = `↘ ${errMsg}`;
@@ -411,66 +563,123 @@ const seo = getSeoMeta(page, {
 
 		// ── Contact form ────────────────────────────────────────────────
 		document.querySelectorAll("[data-segmented-field]").forEach((field) => {
-			field.querySelectorAll("[data-segment-option]").forEach((option) => {
-				option.addEventListener("click", () => {
-					field
-						.querySelectorAll("[data-segment-option]")
-						.forEach((btn) => btn.classList.toggle("active", btn === option));
+			field
+				.querySelectorAll("[data-segment-option]")
+				.forEach((option) => {
+					option.addEventListener("click", () => {
+						field
+							.querySelectorAll("[data-segment-option]")
+							.forEach((btn) =>
+								btn.classList.toggle("active", btn === option),
+							);
+					});
 				});
-			});
 		});
 
 		const shell = document.querySelector<HTMLElement>(".bgin-form-shell");
-		const contactForm = document.querySelector<HTMLFormElement>("[data-contact-form]");
-		const contactSuccess = document.querySelector<HTMLElement>("[data-contact-success]");
-		const contactMsg = document.querySelector<HTMLElement>("[data-contact-message]");
-		const reset = document.querySelector<HTMLButtonElement>("[data-reset-contact-form]");
+		const contactForm = document.querySelector<HTMLFormElement>(
+			"[data-contact-form]",
+		);
+		const contactSuccess = document.querySelector<HTMLElement>(
+			"[data-contact-success]",
+		);
+		const contactMsg = document.querySelector<HTMLElement>(
+			"[data-contact-message]",
+		);
+		const reset = document.querySelector<HTMLButtonElement>(
+			"[data-reset-contact-form]",
+		);
 
 		if (contactForm && contactSuccess && shell) {
 			contactForm.addEventListener("submit", async (event) => {
 				event.preventDefault();
-				const nameInput = contactForm.querySelector<HTMLInputElement>('[name="name"]');
-				const emailInput = contactForm.querySelector<HTMLInputElement>('[name="email"]');
-				const messageInput = contactForm.querySelector<HTMLTextAreaElement>('[name="message"]');
-				const submitBtn = contactForm.querySelector<HTMLButtonElement>('[type="submit"]');
+				const nameInput =
+					contactForm.querySelector<HTMLInputElement>(
+						'[name="name"]',
+					);
+				const emailInput =
+					contactForm.querySelector<HTMLInputElement>(
+						'[name="email"]',
+					);
+				const messageInput =
+					contactForm.querySelector<HTMLTextAreaElement>(
+						'[name="message"]',
+					);
+				const submitBtn =
+					contactForm.querySelector<HTMLButtonElement>(
+						'[type="submit"]',
+					);
 				const name = nameInput?.value?.trim() || "";
 				const email = emailInput?.value?.trim() || "";
 				const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 				nameInput?.classList.toggle("error", !name);
 				emailInput?.classList.toggle("error", !emailValid);
-				contactForm.querySelector('[data-error-for="name"]')?.toggleAttribute("data-visible", !name);
-				contactForm.querySelector('[data-error-for="email"]')?.toggleAttribute("data-visible", !emailValid);
+				contactForm
+					.querySelector('[data-error-for="name"]')
+					?.toggleAttribute("data-visible", !name);
+				contactForm
+					.querySelector('[data-error-for="email"]')
+					?.toggleAttribute("data-visible", !emailValid);
 				if (!name || !emailValid) return;
 
-				const connectAs = contactForm.querySelector<HTMLElement>('[data-field-name="connectAs"] .bgin-chip.active')?.textContent?.trim() || "";
-				const interestedIn = contactForm.querySelector<HTMLElement>('[data-field-name="interestedIn"] .bgin-chip.active')?.textContent?.trim() || "";
+				const connectAs =
+					contactForm
+						.querySelector<HTMLElement>(
+							'[data-field-name="connectAs"] .bgin-chip.active',
+						)
+						?.textContent?.trim() || "";
+				const interestedIn =
+					contactForm
+						.querySelector<HTMLElement>(
+							'[data-field-name="interestedIn"] .bgin-chip.active',
+						)
+						?.textContent?.trim() || "";
 				const message = messageInput?.value?.trim() || "";
 
-				if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Sending…"; }
+				if (submitBtn) {
+					submitBtn.disabled = true;
+					submitBtn.textContent = "Sending…";
+				}
 
 				try {
 					const res = await fetch("/api/contact", {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ name, email, connectAs, interestedIn, message }),
+						body: JSON.stringify({
+							name,
+							email,
+							connectAs,
+							interestedIn,
+							message,
+						}),
 					});
 					if (!res.ok) {
 						const data = await res.json().catch(() => ({}));
 						throw new Error(data.error || "Something went wrong.");
 					}
 					const firstName = name.split(" ")[0];
-					if (contactMsg) contactMsg.innerHTML = `Thanks, ${firstName}. We got your message and will follow up at <strong style="color: var(--ink);">${email}</strong>.`;
+					if (contactMsg)
+						contactMsg.innerHTML = `Thanks, ${firstName}. We got your message and will follow up at <strong style="color: var(--ink);">${email}</strong>.`;
 					contactForm.hidden = true;
 					contactSuccess.hidden = false;
 				} catch (err) {
-					if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Send message →"; }
-					const errMsg = err instanceof Error ? err.message : "Something went wrong.";
-					let errEl = contactForm.querySelector<HTMLElement>("[data-submit-error]");
+					if (submitBtn) {
+						submitBtn.disabled = false;
+						submitBtn.textContent = "Send message →";
+					}
+					const errMsg =
+						err instanceof Error
+							? err.message
+							: "Something went wrong.";
+					let errEl = contactForm.querySelector<HTMLElement>(
+						"[data-submit-error]",
+					);
 					if (!errEl) {
 						errEl = document.createElement("p");
 						errEl.setAttribute("data-submit-error", "");
-						errEl.style.cssText = "color: var(--brand-red, #c0392b); font-size: 13px; margin: 12px 0 0; font-family: var(--font-mono);";
+						errEl.style.cssText =
+							"color: var(--brand-red, #c0392b); font-size: 13px; margin: 12px 0 0; font-family: var(--font-mono);";
 						submitBtn?.parentElement?.append(errEl);
 					}
 					errEl.textContent = `↘ ${errMsg}`;
@@ -490,12 +699,16 @@ const seo = getSeoMeta(page, {
 			buttons.forEach((button) => {
 				button.addEventListener("click", () => {
 					const item = button.parentElement;
-					const panel = item?.querySelector<HTMLElement>("[data-faq-panel]");
-					const icon = button.querySelector<HTMLElement>("span:last-child");
-					const isOpen = button.getAttribute("aria-expanded") === "true";
+					const panel =
+						item?.querySelector<HTMLElement>("[data-faq-panel]");
+					const icon =
+						button.querySelector<HTMLElement>("span:last-child");
+					const isOpen =
+						button.getAttribute("aria-expanded") === "true";
 					button.setAttribute("aria-expanded", String(!isOpen));
 					if (panel) panel.hidden = isOpen;
-					if (icon) icon.style.transform = isOpen ? "" : "rotate(45deg)";
+					if (icon)
+						icon.style.transform = isOpen ? "" : "rotate(45deg)";
 				});
 			});
 		});
