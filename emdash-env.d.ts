@@ -133,7 +133,6 @@ export interface Subscriber {
   status: string;
   email: string;
   source?: string;
-  title?: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;

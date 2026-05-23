@@ -39,7 +39,6 @@ export const POST: APIRoute = async ({ request, url }) => {
 		},
 		body: JSON.stringify({
 			slug,
-			status: "published",
 			data: { title: `${name} <${email}>`, name, email, connect_as: connectAs, interested_in: interestedIn, message },
 		}),
 	});

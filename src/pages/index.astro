@@ -7,6 +7,7 @@ import {
 } from "emdash";
 import Base from "../layouts/Base.astro";
 import LotusBloom from "../components/LotusBloom.astro";
+import ProjectImage from "../components/ProjectImage.astro";
 import UpcomingEventTile from "../components/UpcomingEventTile.astro";
 import { asArray, sectionsFrom, sortByOrder, termsFrom } from "../lib/content";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
@@ -523,22 +524,13 @@ const today = new Date().toLocaleDateString("en-GB", {
 								data-filter-item
 								data-filter-tags={project.data.tag}
 							>
-								<div style="aspect-ratio: 16 / 9; background: var(--canvas-shade); border-radius: 4px; margin-bottom: 18px; position: relative; overflow: hidden; border: 1px solid var(--rule);">
-									<div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 48px; color: var(--brand-blue); opacity: 0.4;">
-										✦
-									</div>
-									<span
-										class="bgin-mono"
-										style="position: absolute; top: 12px; left: 14px; font-size: 10px; color: var(--ink-mute);"
-									>
-										BGI Nexus funded project
-									</span>
-									<span
-										class="bgin-mono"
-										style="position: absolute; bottom: 12px; right: 14px; font-size: 10px; color: var(--brand-blue);"
-									>
-										{project.data.project_code}
-									</span>
+								<div style="margin-bottom: 18px;">
+									<ProjectImage
+										code={project.data.project_code}
+										image={project.data.image}
+										tag={project.data.tag}
+										title={project.data.title}
+									/>
 								</div>
 								<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
 									<span class="bgin-mono">

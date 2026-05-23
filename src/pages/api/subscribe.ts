@@ -37,7 +37,7 @@ export const POST: APIRoute = async ({ request, url }) => {
 			"Content-Type": "application/json",
 			Authorization: `Bearer ${token}`,
 		},
-		body: JSON.stringify({ slug, data: { title: email, email, source } }),
+		body: JSON.stringify({ slug, data: { email, source } }),
 	});
 
 	if (res.status === 409) {

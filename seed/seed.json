@@ -261,6 +261,11 @@
           "searchable": true
         },
         {
+          "slug": "image",
+          "label": "Project Image",
+          "type": "image"
+        },
+        {
           "slug": "project_byline",
           "label": "Byline",
           "type": "string"

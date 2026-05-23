@@ -126,7 +126,13 @@ const impactStats = asArray(p.impact_stats);
 				</div>
 			</div>
 
-			<ProjectImage code={p.project_code} tag={p.tag} large />
+			<ProjectImage
+				code={p.project_code}
+				image={p.image}
+				tag={p.tag}
+				title={p.title}
+				large
+			/>
 		</div>
 	</section>
 
@@ -241,7 +247,7 @@ const impactStats = asArray(p.impact_stats);
 			<div style="max-width: 1200px; margin: 0 auto;">
 				<div class="bgin-eyebrow" style="margin-bottom: 32px;">Timeline</div>
 				<div style="border-top: 1px solid var(--rule);">
-					{timeline.map((phase: any, index: number) => (
+					{timeline.map((phase: any) => (
 						<div
 							style={`display: grid; grid-template-columns: 140px 160px 1fr; gap: 40px; padding: 28px 0; border-bottom: 1px solid var(--rule); align-items: start;`}
 						>
@@ -319,6 +325,14 @@ const impactStats = asArray(p.impact_stats);
 							class="bgin-card hover flush"
 							style="padding: 24px; display: block; text-decoration: none; color: inherit; cursor: pointer;"
 						>
+							<div style="margin-bottom: 18px;">
+								<ProjectImage
+									code={rel.data.project_code}
+									image={rel.data.image}
+									tag={rel.data.tag}
+									title={rel.data.title}
+								/>
+							</div>
 							<div
 								style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;"
 							>
