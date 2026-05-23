@@ -116,7 +116,31 @@ const pageCtx = createPublicPageContext({
 					<a class="bgin-btn primary" href="/contact">
 						Stay Connected →
 					</a>
+					<button class="bgin-nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
 				</nav>
+
+				<div class="bgin-nav-mobile" id="bgin-mobile-menu">
+					{
+						menuItems.map((item) => {
+							const itemPath = item.url?.replace(/\/$/, "") || "/";
+							const isActive = active === item.label || currentPath === itemPath;
+							return (
+								<a
+									href={item.url}
+									target={item.target}
+									class={isActive ? "active" : undefined}
+								>
+									{item.label}
+								</a>
+							);
+						})
+					}
+					<a class="bgin-btn primary" href="/contact">Stay Connected →</a>
+				</div>
 			</header>
 
 			<main>
@@ -189,5 +213,22 @@ const pageCtx = createPublicPageContext({
 		</div>
 
 		<EmDashBodyEnd page={pageCtx} />
+		<script>
+			const toggle = document.querySelector<HTMLButtonElement>(".bgin-nav-toggle");
+			const mobileMenu = document.getElementById("bgin-mobile-menu");
+			toggle?.addEventListener("click", () => {
+				const open = toggle.getAttribute("aria-expanded") === "true";
+				toggle.setAttribute("aria-expanded", String(!open));
+				mobileMenu?.classList.toggle("open", !open);
+				document.body.style.overflow = !open ? "hidden" : "";
+			});
+			mobileMenu?.querySelectorAll("a").forEach((a) => {
+				a.addEventListener("click", () => {
+					toggle?.setAttribute("aria-expanded", "false");
+					mobileMenu.classList.remove("open");
+					document.body.style.overflow = "";
+				});
+			});
+		</script>
 	</body>
 </html>

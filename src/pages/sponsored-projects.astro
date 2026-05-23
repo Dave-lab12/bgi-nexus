@@ -53,7 +53,8 @@ const deployed = projects.reduce((sum, project) => {
 		style="padding-top: var(--hero-y); padding-bottom: var(--space-12);"
 	>
 		<div
-			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: end;"
+			class="bgin-2col-left"
+		style="max-width: 1200px; margin: 0 auto; align-items: end;"
 		>
 			<div>
 				<div class="bgin-eyebrow" style="margin-bottom: 24px;" {...page.edit.sections}>
@@ -94,7 +95,7 @@ const deployed = projects.reduce((sum, project) => {
 
 	<section class="bgin-section bgin-band">
 		<div style="max-width: 1200px; margin: 0 auto;">
-			<div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 96px; margin-bottom: 56px;">
+			<div class="bgin-2col-right" style="margin-bottom: 56px;">
 				<div>
 					<span class="bgin-mono" style="margin-bottom: 18px; display: block;">
 						{round.label}
@@ -121,7 +122,8 @@ const deployed = projects.reduce((sum, project) => {
 						● Featured · in active build
 					</span>
 					<article
-						style="background: var(--canvas); border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; padding: 32px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center;"
+						class="bgin-2col-left bgin-inner-card-pad"
+					style="background: var(--canvas); border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; align-items: center;"
 					>
 						<ProjectImage
 							code={featured.data.project_code}
@@ -183,7 +185,7 @@ const deployed = projects.reduce((sum, project) => {
 					))
 				}
 			</div>
-			<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+			<div class="bgin-grid-3" style="gap: 20px;">
 				{
 					projects.map((project) => (
 						<article
@@ -256,7 +258,7 @@ const deployed = projects.reduce((sum, project) => {
 			>
 				{funding.body}
 			</p>
-			<div style="display: flex; gap: 14px; margin-top: 36px; justify-content: center;">
+			<div style="display: flex; gap: 14px; margin-top: 36px; justify-content: center; flex-wrap: wrap;">
 				<a class="bgin-btn primary" href="/working-groups">Working groups →</a>
 				<a class="bgin-btn secondary" href="/contact">Contact us</a>
 			</div>

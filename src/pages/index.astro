@@ -108,7 +108,8 @@ const today = new Date().toLocaleDateString("en-GB", {
 		style="padding-top: var(--hero-y); padding-bottom: var(--space-12);"
 	>
 		<div
-			style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1.25fr 1fr; gap: 72px; align-items: center;"
+			class="bgin-2col-left"
+			style="max-width: 1280px; margin: 0 auto; align-items: center;"
 		>
 			<div>
 				<!-- <div
@@ -134,7 +135,7 @@ const today = new Date().toLocaleDateString("en-GB", {
 				>
 					{hero.lead}
 				</p>
-				<div style="display: flex; gap: 14px;">
+				<div style="display: flex; gap: 14px; flex-wrap: wrap;">
 					<a class="bgin-btn primary" href={hero.primary_url}
 						>{hero.primary_label}</a
 					>
@@ -149,7 +150,8 @@ const today = new Date().toLocaleDateString("en-GB", {
 
 	<section id="about" class="bgin-section bgin-band">
 		<div
-			style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 96px; align-items: start;"
+			class="bgin-2col-right"
+		style="max-width: 1280px; margin: 0 auto; align-items: start;"
 		>
 			<div>
 				<div
@@ -169,7 +171,8 @@ const today = new Date().toLocaleDateString("en-GB", {
 					{about.body_soft}
 				</p>
 				<div
-					style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding-top: 32px; border-top: 1px solid var(--rule);"
+					class="bgin-grid-3"
+					style="padding-top: 32px; border-top: 1px solid var(--rule);"
 				>
 					{
 						asArray(about.principles).map((item) => (
@@ -203,9 +206,7 @@ const today = new Date().toLocaleDateString("en-GB", {
 					</h2>
 				</div>
 			</div>
-			<div
-				style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;"
-			>
+			<div class="bgin-grid-3">
 				{
 					pillars.map((pillar) => (
 						<article class="bgin-card hover" style="padding: 28px;">
@@ -245,7 +246,8 @@ const today = new Date().toLocaleDateString("en-GB", {
 		style="max-width: 1280px; margin: 0 auto;"
 	>
 		<div
-			style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 96px; align-items: end; margin-bottom: 48px;"
+			class="bgin-2col-right"
+			style="align-items: end; margin-bottom: 48px;"
 		>
 			<div>
 				<div class="bgin-eyebrow" style="margin-bottom: 12px;">
@@ -261,9 +263,7 @@ const today = new Date().toLocaleDateString("en-GB", {
 				{sections.working_groups?.intro}
 			</p>
 		</div>
-		<div
-			style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;"
-		>
+		<div class="bgin-grid-3">
 			{
 				groups.map((group) => (
 					<article
@@ -334,7 +334,8 @@ const today = new Date().toLocaleDateString("en-GB", {
 	<section id="events" class="bgin-section">
 		<div style="max-width: 1280px; margin: 0 auto;">
 			<div
-				style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 96px; align-items: end; margin-bottom: 36px;"
+				class="bgin-2col-right"
+				style="align-items: end; margin-bottom: 36px;"
 			>
 				<div>
 					<div class="bgin-eyebrow" style="margin-bottom: 12px;">
@@ -350,9 +351,7 @@ const today = new Date().toLocaleDateString("en-GB", {
 					{sections.events?.intro}
 				</p>
 			</div>
-			<div
-				style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;"
-			>
+			<div class="bgin-grid-4">
 				{
 					upcomingEvents.slice(0, 4).map((event) => {
 						const isFeature = event.data.featured;
@@ -441,7 +440,8 @@ const today = new Date().toLocaleDateString("en-GB", {
 	>
 		<LotusBloom strength={quote.lotus ?? "subtle"} />
 		<div
-			style="position: relative; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: center;"
+			class="bgin-2col-left"
+			style="position: relative; max-width: 1280px; margin: 0 auto; align-items: center;"
 		>
 			<div>
 				<div class="bgin-eyebrow on-dark" style="margin-bottom: 24px;">
@@ -457,9 +457,7 @@ const today = new Date().toLocaleDateString("en-GB", {
 					<em>{quote.emphasis}</em>
 				</blockquote>
 			</div>
-			<div
-				style="border-left: 1px solid var(--rule-on-dark); padding-left: 48px;"
-			>
+			<div class="bgin-side-panel-dark">
 				<span
 					class="bgin-mono on-dark"
 					style="margin-bottom: 14px; display: block;"
@@ -481,7 +479,8 @@ const today = new Date().toLocaleDateString("en-GB", {
 	<section id="sponsored-projects" class="bgin-section bgin-band">
 		<div style="max-width: 1280px; margin: 0 auto;">
 			<div
-				style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 96px; align-items: end; margin-bottom: 36px;"
+				class="bgin-2col-right"
+				style="align-items: end; margin-bottom: 36px;"
 			>
 				<div>
 					<div class="bgin-eyebrow" style="margin-bottom: 12px;">
@@ -513,9 +512,7 @@ const today = new Date().toLocaleDateString("en-GB", {
 						))
 					}
 				</div>
-				<div
-					style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;"
-				>
+				<div class="bgin-grid-3">
 					{
 						homeProjects.map((project) => (
 							<article
@@ -590,7 +587,8 @@ const today = new Date().toLocaleDateString("en-GB", {
 		style="padding-top: 64px; padding-bottom: 96px;"
 	>
 		<div
-			style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; padding: 56px; border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; background: var(--canvas);"
+			class="bgin-2col bgin-inner-card-pad"
+			style="max-width: 1280px; margin: 0 auto; align-items: center; border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; background: var(--canvas);"
 		>
 			<div>
 				<div class="bgin-eyebrow" style="margin-bottom: 16px;">

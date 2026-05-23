@@ -61,7 +61,8 @@ const impactStats = asArray(p.impact_stats);
 	<section class="bgin-section" style="padding-top: 48px; padding-bottom: var(--space-12);">
 		<div style="max-width: 1200px; margin: 0 auto;">
 			<div
-				style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: end; margin-bottom: 48px;"
+				class="bgin-2col-left"
+			style="align-items: end; margin-bottom: 48px;"
 			>
 				<div>
 					<span class="bgin-mono" style="margin-bottom: 16px; display: block; color: var(--brand-blue);">
@@ -86,7 +87,8 @@ const impactStats = asArray(p.impact_stats);
 					)}
 				</div>
 				<div
-					style="border-left: 1px solid var(--rule); padding-left: 32px; display: flex; flex-direction: column; gap: 16px; padding-bottom: 8px;"
+					class="bgin-side-panel"
+				style="display: flex; flex-direction: column; gap: 16px; padding-bottom: 8px;"
 				>
 					{p.fund && (
 						<div>
@@ -139,7 +141,8 @@ const impactStats = asArray(p.impact_stats);
 	<!-- Story / About -->
 	<section class="bgin-section bgin-band">
 		<div
-			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.6fr; gap: 96px; align-items: start;"
+			class="bgin-2col-right"
+		style="max-width: 1200px; margin: 0 auto; align-items: start;"
 		>
 			<div>
 				<span class="bgin-mono" style="margin-bottom: 18px; display: block;">※ The project</span>
@@ -168,7 +171,7 @@ const impactStats = asArray(p.impact_stats);
 			<div style="max-width: 1200px; margin: 0 auto;">
 				<div class="bgin-eyebrow" style="margin-bottom: 28px;">Impact</div>
 				<div
-					style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--rule);"
+					class="bgin-grid-steps"
 				>
 					{impactStats.map((stat: any, index: number) => (
 						<div
@@ -215,7 +218,7 @@ const impactStats = asArray(p.impact_stats);
 		<section class="bgin-section bgin-band">
 			<div style="max-width: 1200px; margin: 0 auto;">
 				<div class="bgin-eyebrow" style="margin-bottom: 28px;">Team</div>
-				<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+				<div class="bgin-grid-4">
 					{teamMembers.map((member: any) => (
 						<article class="bgin-card flush" style="padding: 24px;">
 							<div
@@ -249,7 +252,7 @@ const impactStats = asArray(p.impact_stats);
 				<div style="border-top: 1px solid var(--rule);">
 					{timeline.map((phase: any) => (
 						<div
-							style={`display: grid; grid-template-columns: 140px 160px 1fr; gap: 40px; padding: 28px 0; border-bottom: 1px solid var(--rule); align-items: start;`}
+							class="bgin-timeline-row"
 						>
 							<span
 								class="bgin-mono"
@@ -283,7 +286,8 @@ const impactStats = asArray(p.impact_stats);
 	<!-- CTA / Links -->
 	<section class="bgin-section bgin-band" style="padding-top: var(--space-12); padding-bottom: var(--space-12);">
 		<div
-			style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; padding: 56px; border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; background: var(--canvas);"
+			class="bgin-2col bgin-inner-card-pad"
+		style="max-width: 1000px; margin: 0 auto; align-items: center; border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; background: var(--canvas);"
 		>
 			<div>
 				<div class="bgin-eyebrow" style="margin-bottom: 16px;">Get involved</div>
@@ -318,7 +322,7 @@ const impactStats = asArray(p.impact_stats);
 					<div class="bgin-eyebrow">Other funded projects</div>
 					<a class="bgin-arrow" href="/sponsored-projects">All projects <span aria-hidden="true">→</span></a>
 				</div>
-				<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+				<div class="bgin-grid-3">
 					{related.map((rel: any) => (
 						<a
 							href={`/sponsored-projects/${rel.id}`}

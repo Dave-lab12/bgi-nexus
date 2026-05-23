@@ -121,6 +121,7 @@ export interface SponsoredProject {
   featured?: boolean;
   sort_order?: number;
   url?: string;
+  image?: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;

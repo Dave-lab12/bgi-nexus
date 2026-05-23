@@ -49,7 +49,8 @@ const seo = getSeoMeta(page, {
 		style="padding-top: var(--hero-y); padding-bottom: var(--space-12);"
 	>
 		<div
-			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: end;"
+			class="bgin-2col-left"
+		style="max-width: 1200px; margin: 0 auto; align-items: end;"
 		>
 			<div>
 				<div class="bgin-eyebrow" style="margin-bottom: 24px;" {...page.edit.sections}>
@@ -78,7 +79,8 @@ const seo = getSeoMeta(page, {
 						● Featured upcoming event
 					</span>
 					<article
-						style="background: var(--canvas); border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; padding: 48px; display: grid; grid-template-columns: 180px 1fr 200px; gap: 48px; align-items: center;"
+						class="bgin-featured-event-row"
+					style="background: var(--canvas); border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px;"
 					>
 						<div style="text-align: center; border-right: 1px solid var(--rule); padding-right: 48px;">
 							<div
@@ -134,7 +136,8 @@ const seo = getSeoMeta(page, {
 
 	<section id="working-groups-block" class="bgin-section">
 		<div
-			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 96px; align-items: start;"
+			class="bgin-2col-right"
+		style="max-width: 1200px; margin: 0 auto; align-items: start;"
 		>
 			<div>
 				<span class="bgin-mono" style="margin-bottom: 18px; display: block;">
@@ -148,7 +151,7 @@ const seo = getSeoMeta(page, {
 				<p style="font-size: 17px; line-height: 1.65; color: var(--ink); margin: 0;">
 					{workingGroups.body}
 				</p>
-				<div style="display: flex; gap: 14px; margin-top: 28px;">
+				<div style="display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap;">
 					<a class="bgin-btn primary" href="/working-groups">All working groups →</a>
 					<a class="bgin-arrow" href="/working-groups">How to join <span aria-hidden="true">→</span></a>
 				</div>
@@ -174,7 +177,8 @@ const seo = getSeoMeta(page, {
 					upcoming.map((event, index) => (
 						<a
 							href={`/events/${event.id}`}
-							style={`display: grid; grid-template-columns: 100px 140px 1fr 160px 140px; gap: 24px; padding: 28px 32px; align-items: center; border-bottom: ${index < upcoming.length - 1 ? "1px solid var(--rule)" : "0"}; text-decoration: none; color: inherit; transition: background 180ms var(--ease-standard);`}
+							class="bgin-events-row"
+					style={`border-bottom: ${index < upcoming.length - 1 ? "1px solid var(--rule)" : "0"}; text-decoration: none; color: inherit; transition: background 180ms var(--ease-standard);`}
 						>
 							<div>
 								<div
@@ -241,7 +245,7 @@ const seo = getSeoMeta(page, {
 					<div style="border-top: 1px solid var(--rule);">
 						{past.map((event) => (
 							<div
-								style="display: grid; grid-template-columns: 120px 200px 1fr 140px; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--rule); align-items: center;"
+								class="bgin-past-row"
 							>
 								<div class="bgin-display" style="font-size: 22px; color: var(--ink-soft);">
 									{event.data.date_day} {event.data.date_month}

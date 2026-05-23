@@ -62,7 +62,8 @@ const seo = getSeoMeta(page, {
 		style="padding-top: var(--space-12); padding-bottom: var(--space-12);"
 	>
 		<div
-			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 96px;"
+			class="bgin-2col-right"
+			style="max-width: 1200px; margin: 0 auto;"
 		>
 			<div>
 				<span
@@ -88,7 +89,8 @@ const seo = getSeoMeta(page, {
 	<section class="bgin-section">
 		<div style="max-width: 1200px; margin: 0 auto;">
 			<div
-				style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 96px; margin-bottom: 56px;"
+				class="bgin-2col-right"
+				style="margin-bottom: 56px;"
 			>
 				<div>
 					<span
@@ -110,9 +112,7 @@ const seo = getSeoMeta(page, {
 					</p>
 				</div>
 			</div>
-			<div
-				style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border-top: 1px solid var(--rule);"
-			>
+			<div class="bgin-grid-5">
 				{
 					asArray(principles.items).map((item, index) => (
 						<div
@@ -143,7 +143,8 @@ const seo = getSeoMeta(page, {
 	>
 		<LotusBloom strength={spiral.lotus ?? "subtle"} />
 		<div
-			style="position: relative; max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: center;"
+			class="bgin-2col"
+			style="position: relative; max-width: 1280px; margin: 0 auto; align-items: center;"
 		>
 			<div>
 				<span
@@ -173,7 +174,7 @@ const seo = getSeoMeta(page, {
 						{spiral.body_soft}
 					</p>
 				</div>
-				<div style="display: flex; gap: 14px; margin-top: 36px;">
+				<div style="display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap;">
 					<a class="bgin-btn primary" href={spiral.primary_url}
 						>{spiral.primary_label}</a
 					>
@@ -248,7 +249,7 @@ const seo = getSeoMeta(page, {
 			<p class="bgin-lede" style="max-width: 580px; margin: 0 auto 36px;">
 				{cta.body}
 			</p>
-			<div style="display: flex; gap: 14px; justify-content: center;">
+			<div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
 				<a class="bgin-btn primary" href={cta.primary_url}
 					>{cta.primary_label}</a
 				>

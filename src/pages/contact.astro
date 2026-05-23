@@ -63,7 +63,8 @@ const seo = getSeoMeta(page, {
 		style="padding-top: var(--hero-y); padding-bottom: var(--space-12);"
 	>
 		<div
-			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: end;"
+			class="bgin-2col-left"
+		style="max-width: 1200px; margin: 0 auto; align-items: end;"
 		>
 			<div>
 				<div
@@ -83,9 +84,7 @@ const seo = getSeoMeta(page, {
 				</h1>
 				<p class="bgin-lede" style="max-width: 580px;">{hero.lead}</p>
 			</div>
-			<div
-				style="border-left: 1px solid var(--rule); padding-left: 32px;"
-			>
+			<div class="bgin-side-panel">
 				<span
 					class="bgin-mono"
 					style="margin-bottom: 14px; display: block;"
@@ -109,7 +108,8 @@ const seo = getSeoMeta(page, {
 
 	<section id="subscribe" class="bgin-section bgin-band">
 		<div
-			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start;"
+			class="bgin-2col-right"
+			style="max-width: 1200px; margin: 0 auto; align-items: start;"
 		>
 			<div>
 				<span
@@ -194,8 +194,8 @@ const seo = getSeoMeta(page, {
 
 	<section id="contact" class="bgin-section">
 		<div
-			class="bgin-form-shell"
-			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start;"
+			class="bgin-form-shell bgin-2col-right"
+			style="max-width: 1200px; margin: 0 auto; align-items: start;"
 		>
 			<div>
 				<span
@@ -218,7 +218,8 @@ const seo = getSeoMeta(page, {
 				style="background: var(--canvas); border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; padding: 40px;"
 			>
 				<div
-					style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 28px;"
+					class="bgin-grid-form-2"
+					style="margin-bottom: 28px;"
 				>
 					<label style="display: block; margin-bottom: 0;">
 						<div
@@ -406,9 +407,7 @@ const seo = getSeoMeta(page, {
 				<div class="bgin-eyebrow">Follow Us</div>
 				<span class="bgin-mono">Discord, Telegram, and LinkedIn</span>
 			</div>
-			<div
-				style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;"
-			>
+			<div class="bgin-grid-3">
 				{
 					channels.map((channel) => (
 						<a
@@ -441,7 +440,8 @@ const seo = getSeoMeta(page, {
 
 	<section class="bgin-section bgin-band">
 		<div
-			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.6fr; gap: 96px; align-items: start;"
+			class="bgin-2col-right"
+			style="max-width: 1200px; margin: 0 auto; align-items: start;"
 		>
 			<div>
 				<span

@@ -650,3 +650,338 @@ textarea.bgin-input {
 .bgin-subscribe.on-dark input::placeholder {
   color: rgba(245, 239, 226, 0.45);
 }
+
+/* ============================================================
+   RESPONSIVE — Grid utilities, hamburger nav, breakpoints
+   ============================================================ */
+
+/* --- Hamburger / mobile nav overlay ----------------------- */
+.bgin-nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 6px;
+  margin-left: auto;
+}
+.bgin-nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition:
+    transform var(--dur-base) var(--ease-standard),
+    opacity var(--dur-base) var(--ease-standard);
+}
+.bgin-nav-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.bgin-nav-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.bgin-nav-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.bgin-nav-mobile {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--canvas);
+  z-index: 28;
+  padding: 88px 28px 40px;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.bgin-nav-mobile.open {
+  display: flex;
+}
+.bgin-nav-mobile a {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--ink);
+  text-decoration: none;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  padding: 18px 0;
+  line-height: 1.2;
+}
+.bgin-nav-mobile a:hover,
+.bgin-nav-mobile a.active {
+  color: var(--brand-blue);
+}
+.bgin-nav-mobile .bgin-btn {
+  margin-top: 24px;
+  align-self: flex-start;
+}
+
+/* --- Responsive grid utilities ----------------------------
+   These define columns only. Gaps and alignment come from
+   each instance's inline styles (or class defaults below).  */
+.bgin-2col-left  { display: grid; grid-template-columns: 1.4fr 1fr;  gap: 80px; }
+.bgin-2col-right { display: grid; grid-template-columns: 1fr 1.4fr;  gap: 80px; }
+.bgin-2col       { display: grid; grid-template-columns: 1fr 1fr;    gap: 64px; }
+.bgin-grid-3     { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.bgin-grid-4     { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.bgin-grid-5     { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border-top: 1px solid var(--rule); }
+.bgin-grid-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--rule); }
+.bgin-grid-form-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+
+/* Table-like list rows (layout + padding in class so they're responsive) */
+.bgin-events-row {
+  display: grid;
+  grid-template-columns: 100px 140px 1fr 160px 140px;
+  gap: 24px;
+  padding: 28px 32px;
+  align-items: center;
+}
+.bgin-past-row {
+  display: grid;
+  grid-template-columns: 120px 200px 1fr 140px;
+  gap: 24px;
+  padding: 20px 0;
+  align-items: center;
+  border-bottom: 1px solid var(--rule);
+}
+.bgin-wg-row {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 160px;
+  gap: 40px;
+  padding: 36px 40px;
+  align-items: start;
+}
+.bgin-featured-event-row {
+  display: grid;
+  grid-template-columns: 180px 1fr 200px;
+  gap: 48px;
+  padding: 48px;
+  align-items: center;
+}
+.bgin-programme-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 240px;
+  gap: 40px;
+  padding: 28px 0;
+  align-items: start;
+  border-bottom: 1px solid var(--rule);
+}
+.bgin-timeline-row {
+  display: grid;
+  grid-template-columns: 140px 160px 1fr;
+  gap: 40px;
+  padding: 28px 0;
+  align-items: start;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* Side panels (border-left on second col in 2-col grids) */
+.bgin-side-panel      { border-left: 1px solid var(--rule);         padding-left: 32px; }
+.bgin-side-panel-dark { border-left: 1px solid var(--rule-on-dark); padding-left: 48px; }
+
+/* Inner card padding (responsive) */
+.bgin-inner-card-pad { padding: 56px; }
+
+/* ============================================================
+   TABLET  ≤ 1024px
+   ============================================================ */
+@media (max-width: 1024px) {
+  /* Spacing */
+  .bgin-density-airy,
+  .bgin-density-comfortable,
+  .bgin-density-compact {
+    --gutter: 32px;
+    --section-y: 72px;
+    --hero-y: 80px;
+  }
+
+  /* Nav: show hamburger, hide desktop links + CTA */
+  .bgin-nav-toggle { display: flex; }
+  .bgin-nav .links { display: none; }
+  .bgin-nav > .bgin-btn { display: none; }
+
+  /* 2-col → 1-col */
+  .bgin-2col-left,
+  .bgin-2col-right,
+  .bgin-2col {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  /* Side panels: left border → top border */
+  .bgin-side-panel {
+    border-left: 0;
+    padding-left: 0;
+    border-top: 1px solid var(--rule);
+    padding-top: 24px;
+  }
+  .bgin-side-panel-dark {
+    border-left: 0;
+    padding-left: 0;
+    border-top: 1px solid var(--rule-on-dark);
+    padding-top: 32px;
+  }
+
+  /* Card grids */
+  .bgin-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .bgin-grid-5 { grid-template-columns: repeat(3, 1fr); }
+  .bgin-grid-steps { grid-template-columns: repeat(2, 1fr); }
+
+  /* Events list: drop location column */
+  .bgin-events-row {
+    grid-template-columns: 90px 110px 1fr 120px;
+    padding: 20px 24px;
+  }
+  .bgin-events-row > *:nth-child(4) { display: none; }
+
+  /* Past events: drop kind column */
+  .bgin-past-row { grid-template-columns: 90px 1fr 90px; }
+  .bgin-past-row > *:nth-child(2) { display: none; }
+
+  /* WG rows: drop metadata cols, keep main + CTA */
+  .bgin-wg-row {
+    grid-template-columns: 1fr 180px;
+    gap: 24px;
+    padding: 28px 32px;
+  }
+  .bgin-wg-row > *:nth-child(2),
+  .bgin-wg-row > *:nth-child(3) { display: none; }
+
+  /* Featured event: drop right CTA column */
+  .bgin-featured-event-row {
+    grid-template-columns: 160px 1fr;
+    gap: 32px;
+    padding: 32px;
+  }
+  .bgin-featured-event-row > *:last-child { display: none; }
+
+  /* Programme rows: drop speaker column */
+  .bgin-programme-row { grid-template-columns: 100px 1fr; }
+  .bgin-programme-row > *:last-child { display: none; }
+
+  /* Timeline rows: tighten */
+  .bgin-timeline-row { grid-template-columns: 120px 140px 1fr; gap: 24px; }
+
+  /* Font sizes — override inline font-size on .bgin-display */
+  .bgin-display { font-size: clamp(36px, 5.5vw, 64px) !important; }
+
+  /* Footer */
+  .bgin-footer .cols { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+
+/* ============================================================
+   MOBILE  ≤ 640px
+   ============================================================ */
+@media (max-width: 640px) {
+  /* Spacing */
+  .bgin-density-airy,
+  .bgin-density-comfortable,
+  .bgin-density-compact {
+    --gutter: 20px;
+    --section-y: 48px;
+    --hero-y: 48px;
+  }
+
+  /* 2-col tighter gap when stacked */
+  .bgin-2col-left,
+  .bgin-2col-right,
+  .bgin-2col { gap: 24px; }
+
+  /* Card grids */
+  .bgin-grid-3,
+  .bgin-grid-4 { grid-template-columns: 1fr; }
+  .bgin-grid-5 { grid-template-columns: repeat(2, 1fr); }
+  .bgin-grid-steps { grid-template-columns: 1fr; }
+  .bgin-grid-form-2 { grid-template-columns: 1fr; gap: 20px; }
+
+  /* Remove orphaned right-borders in column grids */
+  .bgin-grid-steps > *,
+  .bgin-grid-5 > * { border-right: 0 !important; }
+
+  /* Events list → card layout */
+  .bgin-events-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 20px;
+  }
+  /* Restore hidden location column when stacked */
+  .bgin-events-row > *:nth-child(4) { display: block; }
+
+  /* Past events → compact 2-col */
+  .bgin-past-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 16px 0;
+  }
+  .bgin-past-row > *:nth-child(2) { display: none; }
+  .bgin-past-row > *:nth-child(3) { grid-column: 1 / -1; }
+
+  /* WG rows → full-width stacked */
+  .bgin-wg-row {
+    grid-template-columns: 1fr;
+    padding: 24px 20px;
+    gap: 16px;
+  }
+  .bgin-wg-row > *:nth-child(2),
+  .bgin-wg-row > *:nth-child(3) { display: none; }
+  .bgin-wg-row > *:last-child { text-align: left; }
+
+  /* Featured event → stacked */
+  .bgin-featured-event-row {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px;
+  }
+  .bgin-featured-event-row > *:first-child {
+    border-right: 0 !important;
+    padding-right: 0 !important;
+    text-align: left;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 16px;
+  }
+  /* Restore the CTA column (was hidden at tablet) */
+  .bgin-featured-event-row > *:last-child {
+    display: flex !important;
+    justify-content: flex-start;
+  }
+
+  /* Programme → stacked */
+  .bgin-programme-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .bgin-programme-row > *:last-child { display: block; }
+
+  /* Timeline → stacked */
+  .bgin-timeline-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Font sizes */
+  .bgin-display { font-size: clamp(28px, 8vw, 40px) !important; }
+  .bgin-h2 { font-size: clamp(22px, 6vw, 32px) !important; }
+  .bgin-lede { font-size: 16px !important; }
+
+  /* Footer */
+  .bgin-footer .cols { grid-template-columns: 1fr; gap: 24px; }
+  .bgin-footer .meta { flex-direction: column; gap: 8px; }
+  .bgin-footer { padding: 48px var(--gutter) 24px; }
+
+  /* Subscribe form → stacked */
+  .bgin-subscribe { flex-direction: column; align-items: stretch; }
+  .bgin-subscribe .bgin-btn { align-self: flex-start; }
+
+  /* Inner card padding */
+  .bgin-inner-card-pad { padding: 24px; }
+
+  /* Button rows — allow wrapping */
+  .bgin-btn-row { flex-wrap: wrap; }
+}

@@ -65,7 +65,8 @@ const dateDisplay = `${e.date_day} ${e.date_month} ${e.date_year}`;
 		style="padding-top: 48px; padding-bottom: var(--space-12);"
 	>
 		<div
-			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: end;"
+			class="bgin-2col-left"
+		style="max-width: 1200px; margin: 0 auto; align-items: end;"
 		>
 			<div>
 				<span class="bgin-mono" style="margin-bottom: 16px; display: block; color: var(--brand-blue);">
@@ -116,7 +117,8 @@ const dateDisplay = `${e.date_day} ${e.date_month} ${e.date_year}`;
 				</div>
 
 				<div
-					style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; padding-top: 18px; border-top: 1px solid var(--rule);"
+					class="bgin-grid-form-2"
+				style="margin-bottom: 24px; padding-top: 18px; border-top: 1px solid var(--rule);"
 				>
 					<div>
 						<span
@@ -171,7 +173,8 @@ const dateDisplay = `${e.date_day} ${e.date_month} ${e.date_year}`;
 	<!-- About -->
 	<section class="bgin-section bgin-band">
 		<div
-			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 96px;"
+			class="bgin-2col-right"
+		style="max-width: 1200px; margin: 0 auto;"
 		>
 			<div>
 				<span class="bgin-mono" style="margin-bottom: 18px; display: block;">※ About this event</span>
@@ -188,7 +191,8 @@ const dateDisplay = `${e.date_day} ${e.date_month} ${e.date_year}`;
 				)}
 				{themes.length > 0 && (
 					<div
-						style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--rule);"
+						class="bgin-grid-3"
+					style="margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--rule); gap: 24px;"
 					>
 						{themes.map((t: any) => (
 							<div>
@@ -226,7 +230,7 @@ const dateDisplay = `${e.date_day} ${e.date_month} ${e.date_year}`;
 				<div style="border-top: 1px solid var(--rule);">
 					{programme.map((item: any) => (
 						<article
-							style="display: grid; grid-template-columns: 120px 1fr 240px; gap: 40px; padding: 28px 0; border-bottom: 1px solid var(--rule); align-items: start;"
+							class="bgin-programme-row"
 						>
 							<div>
 								<div
@@ -286,7 +290,7 @@ const dateDisplay = `${e.date_day} ${e.date_month} ${e.date_year}`;
 					<div class="bgin-eyebrow">Hosts &amp; speakers</div>
 					<span class="bgin-mono">Hosted by · {e.host}</span>
 				</div>
-				<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+				<div class="bgin-grid-3">
 					{hosts.map((h: any) => (
 						<article class="bgin-card flush" style="padding: 28px; background: var(--canvas);">
 							<div
@@ -320,7 +324,8 @@ const dateDisplay = `${e.date_day} ${e.date_month} ${e.date_year}`;
 		>
 			<LotusBloom strength="subtle" />
 			<div
-				style="position: relative; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 96px; align-items: center;"
+				class="bgin-2col-left"
+			style="position: relative; max-width: 1200px; margin: 0 auto; align-items: center;"
 			>
 				<div>
 					<div class="bgin-eyebrow on-dark" style="margin-bottom: 18px;">Take part</div>
@@ -434,7 +439,7 @@ const dateDisplay = `${e.date_day} ${e.date_month} ${e.date_year}`;
 					<div class="bgin-eyebrow">Also coming up</div>
 					<a class="bgin-arrow" href="/events">All events <span aria-hidden="true">→</span></a>
 				</div>
-				<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+				<div class="bgin-grid-3">
 					{related.map((rel: any) => (
 						<a
 							href={`/events/${rel.id}`}

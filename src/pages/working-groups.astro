@@ -47,7 +47,8 @@ const seo = getSeoMeta(page, {
 		style="padding-top: var(--hero-y); padding-bottom: var(--space-12);"
 	>
 		<div
-			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: end;"
+			class="bgin-2col-left"
+		style="max-width: 1200px; margin: 0 auto; align-items: end;"
 		>
 			<div>
 				<div class="bgin-eyebrow" style="margin-bottom: 24px;" {...page.edit.sections}>
@@ -58,7 +59,7 @@ const seo = getSeoMeta(page, {
 				</h1>
 				<p class="bgin-lede" style="max-width: 580px;">{hero.lead}</p>
 			</div>
-			<div style="border-left: 1px solid var(--rule); padding-left: 32px;">
+			<div class="bgin-side-panel">
 				<span class="bgin-mono" style="margin-bottom: 18px; display: block;">At a glance</span>
 				<div
 					style="font-family: var(--font-display); font-size: 64px; line-height: 1; color: var(--brand-blue); margin-bottom: 8px;"
@@ -98,7 +99,8 @@ const seo = getSeoMeta(page, {
 							.join(",");
 						return (
 							<article
-								style={`padding: 36px 40px; border-bottom: ${index < groups.length - 1 ? "1px solid var(--rule)" : "0"}; display: grid; grid-template-columns: 1.6fr 1fr 1fr 160px; gap: 40px; align-items: start;`}
+								class="bgin-wg-row"
+						style={`border-bottom: ${index < groups.length - 1 ? "1px solid var(--rule)" : "0"};`}
 								data-filter-item
 								data-filter-tags={filters}
 							>
@@ -190,7 +192,8 @@ const seo = getSeoMeta(page, {
 	<section id="how-to-join" class="bgin-section">
 		<div style="max-width: 1200px; margin: 0 auto;">
 			<div
-				style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 96px; align-items: start; margin-bottom: 56px;"
+				class="bgin-2col-right"
+			style="align-items: start; margin-bottom: 56px;"
 			>
 				<div>
 					<span class="bgin-mono" style="margin-bottom: 18px; display: block;">{join.label}</span>
@@ -203,7 +206,7 @@ const seo = getSeoMeta(page, {
 				</p>
 			</div>
 			<div
-				style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--rule);"
+				class="bgin-grid-steps"
 			>
 				{
 					asArray(join.steps).map((step, index) => (
@@ -235,7 +238,8 @@ const seo = getSeoMeta(page, {
 		style="padding-top: var(--space-12); padding-bottom: var(--space-12);"
 	>
 		<div
-			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 96px; align-items: center;"
+			class="bgin-2col-right"
+		style="max-width: 1200px; margin: 0 auto; align-items: center;"
 		>
 			<div>
 				<div class="bgin-eyebrow on-dark" style="margin-bottom: 18px;">{sprints.eyebrow}</div>
@@ -254,7 +258,7 @@ const seo = getSeoMeta(page, {
 				>
 					{sprints.body_soft}
 				</p>
-				<div style="display: flex; gap: 14px; margin-top: 28px;">
+				<div style="display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap;">
 					<a class="bgin-btn primary" href="/events">View events →</a>
 					<a class="bgin-btn primary on-dark" href="/contact">Stay connected</a>
 				</div>
