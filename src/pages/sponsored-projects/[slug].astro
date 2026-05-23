@@ -1,0 +1,347 @@
+---
+import { getEmDashCollection, getEmDashEntry, getSeoMeta, getSiteSettings } from "emdash";
+import Base from "../../layouts/Base.astro";
+import ProjectImage from "../../components/ProjectImage.astro";
+import { asArray, sortByOrder } from "../../lib/content";
+import { resolveStarterSiteIdentity } from "../../utils/site-identity";
+
+const { slug } = Astro.params;
+
+const projectResult = await getEmDashEntry("projects", slug!);
+if (Astro.cache?.enabled && projectResult.cacheHint) Astro.cache.set(projectResult.cacheHint);
+
+const project = projectResult.entry as any;
+if (!project) return Astro.redirect("/sponsored-projects");
+
+const allResult = await getEmDashCollection("projects", {
+	status: "published",
+	orderBy: { sort_order: "asc" },
+});
+if (Astro.cache?.enabled && allResult.cacheHint) Astro.cache.set(allResult.cacheHint);
+
+const related = sortByOrder(allResult.entries as any[])
+	.filter((p) => p.id !== project.id)
+	.slice(0, 3);
+
+const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
+const seo = getSeoMeta(project, {
+	siteTitle,
+	siteUrl: Astro.url.origin,
+	path: `/sponsored-projects/${slug}`,
+});
+
+const p = project.data;
+const story = asArray(p.story);
+const teamMembers = asArray(p.team_members);
+const timeline = asArray(p.timeline);
+const impactStats = asArray(p.impact_stats);
+---
+
+<Base
+	title={seo.title}
+	pageTitle={seo.ogTitle}
+	description={seo.description}
+	canonical={seo.canonical}
+	active="Sponsored projects"
+	content={{ collection: "projects", id: p.id, slug: slug }}
+>
+	<!-- Breadcrumb -->
+	<div style="padding: 28px var(--gutter) 0;">
+		<div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 12px;">
+			<a
+				href="/sponsored-projects"
+				style="font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); text-decoration: none; letter-spacing: 0.16em; text-transform: uppercase;"
+			>Sponsored projects</a>
+			<span style="color: var(--ink-mute); font-size: 10px;">/</span>
+			<span class="bgin-mono" style="color: var(--ink);">{p.project_code} · {p.title}</span>
+		</div>
+	</div>
+
+	<!-- Hero -->
+	<section class="bgin-section" style="padding-top: 48px; padding-bottom: var(--space-12);">
+		<div style="max-width: 1200px; margin: 0 auto;">
+			<div
+				style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: end; margin-bottom: 48px;"
+			>
+				<div>
+					<span class="bgin-mono" style="margin-bottom: 16px; display: block; color: var(--brand-blue);">
+						● {p.tag} · {p.round}
+					</span>
+					<h1
+						class="bgin-display"
+						style="font-size: 80px; margin-bottom: 24px; letter-spacing: -0.018em;"
+						{...project.edit?.title}
+					>
+						{p.title}
+					</h1>
+					{p.tagline && (
+						<p class="bgin-lede" style="max-width: 580px; font-style: italic;">
+							{p.tagline}
+						</p>
+					)}
+					{!p.tagline && p.summary && (
+						<p class="bgin-lede" style="max-width: 580px;">
+							{p.summary}
+						</p>
+					)}
+				</div>
+				<div
+					style="border-left: 1px solid var(--rule); padding-left: 32px; display: flex; flex-direction: column; gap: 16px; padding-bottom: 8px;"
+				>
+					{p.fund && (
+						<div>
+							<span
+								class="bgin-mono"
+								style="display: block; margin-bottom: 4px; color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em;"
+							>Funded</span>
+							<div
+								class="bgin-display"
+								style="font-size: 28px; color: var(--brand-blue); line-height: 1;"
+							>
+								{p.fund}
+							</div>
+							<span class="bgin-mono" style="margin-top: 4px; font-size: 11px; color: var(--ink-mute);">
+								{p.round}
+							</span>
+						</div>
+					)}
+					<div style="padding-top: 16px; border-top: 1px solid var(--rule);">
+						<span
+							class="bgin-mono"
+							style="display: block; margin-bottom: 4px; color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em;"
+						>Status</span>
+						<div style="font-size: 14px; color: var(--ink);">
+							● {p.display_status}
+						</div>
+					</div>
+					{p.project_byline && (
+						<div>
+							<span
+								class="bgin-mono"
+								style="display: block; margin-bottom: 4px; color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em;"
+							>Team</span>
+							<div style="font-size: 14px; color: var(--ink);">{p.project_byline}</div>
+						</div>
+					)}
+				</div>
+			</div>
+
+			<ProjectImage code={p.project_code} tag={p.tag} large />
+		</div>
+	</section>
+
+	<!-- Story / About -->
+	<section class="bgin-section bgin-band">
+		<div
+			style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.6fr; gap: 96px; align-items: start;"
+		>
+			<div>
+				<span class="bgin-mono" style="margin-bottom: 18px; display: block;">※ The project</span>
+				<h2 class="bgin-h2" style="font-size: 36px;">
+					What we're <em>building.</em>
+				</h2>
+			</div>
+			<div style="font-size: 17px; line-height: 1.65; color: var(--ink);">
+				{story.length > 0 ? (
+					story.map((para: string) => (
+						<p style="margin-top: 0; margin-bottom: 20px;">{para}</p>
+					))
+				) : (
+					<>
+						<p style="margin-top: 0; margin-bottom: 20px;">{p.summary}</p>
+						<p style="margin: 0; color: var(--ink-soft);">{p.impact}</p>
+					</>
+				)}
+			</div>
+		</div>
+	</section>
+
+	<!-- Impact stats (from impact_stats JSON or derived from impact text) -->
+	{impactStats.length > 0 && (
+		<section class="bgin-section">
+			<div style="max-width: 1200px; margin: 0 auto;">
+				<div class="bgin-eyebrow" style="margin-bottom: 28px;">Impact</div>
+				<div
+					style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--rule);"
+				>
+					{impactStats.map((stat: any, index: number) => (
+						<div
+							style={`padding: 32px 24px 0 ${index > 0 ? "24px" : "0"}; border-right: ${index < impactStats.length - 1 ? "1px solid var(--rule)" : "0"};`}
+						>
+							<div
+								class="bgin-display"
+								style="font-size: 52px; line-height: 1; color: var(--brand-blue); margin-bottom: 8px;"
+							>
+								{stat.stat}
+							</div>
+							<div style="font-size: 13.5px; color: var(--ink-soft); line-height: 1.5;">
+								{stat.label}
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+
+	<!-- Impact text (if no structured stats, show the impact text in a featured block) -->
+	{impactStats.length === 0 && p.impact && (
+		<section class="bgin-section">
+			<div style="max-width: 1200px; margin: 0 auto;">
+				<div
+					style="border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; padding: 40px;"
+				>
+					<span class="bgin-mono" style="margin-bottom: 16px; display: block; color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em;">
+						Impact today
+					</span>
+					<div
+						style="font-family: var(--font-display); font-size: 28px; font-weight: 400; line-height: 1.25; color: var(--ink);"
+					>
+						{p.impact}
+					</div>
+				</div>
+			</div>
+		</section>
+	)}
+
+	<!-- Team (only if team_members JSON field is set) -->
+	{teamMembers.length > 0 && (
+		<section class="bgin-section bgin-band">
+			<div style="max-width: 1200px; margin: 0 auto;">
+				<div class="bgin-eyebrow" style="margin-bottom: 28px;">Team</div>
+				<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+					{teamMembers.map((member: any) => (
+						<article class="bgin-card flush" style="padding: 24px;">
+							<div
+								style="width: 48px; height: 48px; border-radius: 999px; background: var(--canvas-shade); border: 1px solid var(--rule); margin-bottom: 16px; display: flex; align-items: center; justify-content: center; color: var(--brand-blue); font-family: var(--font-display); font-size: 18px;"
+							>
+								{String(member.name).split(" ").map((w: string) => w[0]).join("").slice(0, 2)}
+							</div>
+							<h3
+								style="font-family: var(--font-display); font-size: 18px; font-weight: 400; line-height: 1.2; margin: 0 0 4px; color: var(--ink);"
+							>
+								{member.name}
+							</h3>
+							<span class="bgin-mono" style="margin-bottom: 10px; display: block; color: var(--brand-blue); font-size: 10px;">
+								{member.role}
+							</span>
+							<p style="font-size: 13px; line-height: 1.55; color: var(--ink-soft); margin: 0;">
+								{member.bio}
+							</p>
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+
+	<!-- Timeline (only if timeline JSON field is set) -->
+	{timeline.length > 0 && (
+		<section class="bgin-section">
+			<div style="max-width: 1200px; margin: 0 auto;">
+				<div class="bgin-eyebrow" style="margin-bottom: 32px;">Timeline</div>
+				<div style="border-top: 1px solid var(--rule);">
+					{timeline.map((phase: any, index: number) => (
+						<div
+							style={`display: grid; grid-template-columns: 140px 160px 1fr; gap: 40px; padding: 28px 0; border-bottom: 1px solid var(--rule); align-items: start;`}
+						>
+							<span
+								class="bgin-mono"
+								style="color: var(--brand-blue);"
+							>
+								{phase.phase}
+							</span>
+							<span
+								class="bgin-mono"
+								style="color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em;"
+							>
+								{phase.when}
+							</span>
+							<div>
+								<div
+									style="font-family: var(--font-display); font-size: 20px; font-weight: 400; line-height: 1.2; margin-bottom: 8px; color: var(--ink);"
+								>
+									{phase.title}
+								</div>
+								<p style="font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0;">
+									{phase.body}
+								</p>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+
+	<!-- CTA / Links -->
+	<section class="bgin-section bgin-band" style="padding-top: var(--space-12); padding-bottom: var(--space-12);">
+		<div
+			style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; padding: 56px; border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; background: var(--canvas);"
+		>
+			<div>
+				<div class="bgin-eyebrow" style="margin-bottom: 16px;">Get involved</div>
+				<h2 class="bgin-h2" style="font-size: 32px;">
+					Follow this <em>project.</em>
+				</h2>
+				<p style="color: var(--ink-soft); font-size: 15px; line-height: 1.6; margin-top: 16px;">
+					Get updates on this project and others like it by subscribing to the BGI Nexus newsletter.
+				</p>
+			</div>
+			<div style="display: flex; flex-direction: column; gap: 12px;">
+				{p.url && (
+					<a class="bgin-btn primary" href={p.url} target="_blank" rel="noopener">
+						Project website →
+					</a>
+				)}
+				<a class="bgin-btn secondary" href="/contact">Stay connected</a>
+				<a class="bgin-arrow" href="/sponsored-projects" style="margin-top: 4px;">
+					All projects <span aria-hidden="true">→</span>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Related projects -->
+	{related.length > 0 && (
+		<section class="bgin-section" style="padding-bottom: 96px;">
+			<div style="max-width: 1200px; margin: 0 auto;">
+				<div
+					style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 32px;"
+				>
+					<div class="bgin-eyebrow">Other funded projects</div>
+					<a class="bgin-arrow" href="/sponsored-projects">All projects <span aria-hidden="true">→</span></a>
+				</div>
+				<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+					{related.map((rel: any) => (
+						<a
+							href={`/sponsored-projects/${rel.id}`}
+							class="bgin-card hover flush"
+							style="padding: 24px; display: block; text-decoration: none; color: inherit; cursor: pointer;"
+						>
+							<div
+								style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;"
+							>
+								<span class="bgin-mono" style="color: var(--brand-blue);">{rel.data.tag}</span>
+								<span class="bgin-mono" style="color: var(--ink-mute); font-size: 10px;">
+									{rel.data.project_code}
+								</span>
+							</div>
+							<h3
+								style="font-family: var(--font-display); font-size: 20px; font-weight: 400; line-height: 1.15; margin: 0 0 10px; color: var(--ink);"
+							>
+								{rel.data.title}
+							</h3>
+							<p style="font-size: 13px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 18px;">
+								{rel.data.summary}
+							</p>
+							<div style="padding-top: 14px; border-top: 1px solid var(--rule);">
+								<span class="bgin-arrow" style="color: var(--brand-blue);">View project <span aria-hidden="true">→</span></span>
+							</div>
+						</a>
+					))}
+				</div>
+			</div>
+		</section>
+	)}
+</Base>

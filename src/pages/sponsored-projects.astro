@@ -150,7 +150,7 @@ const deployed = projects.reduce((sum, project) => {
 								</div>
 							</div>
 							<div style="display: flex; gap: 14px;">
-								<a class="bgin-btn primary" href={featured.data.url || "#projects"}>Project page →</a>
+								<a class="bgin-btn primary" href={`/sponsored-projects/${featured.id}`}>Project page →</a>
 								<a class="bgin-btn secondary" href="/contact">Stay connected</a>
 							</div>
 						</div>
@@ -222,7 +222,7 @@ const deployed = projects.reduce((sum, project) => {
 									<span class="bgin-mono" style="font-size: 11px; color: var(--ink-mute);">
 										● {project.data.display_status}
 									</span>
-									<a class="bgin-arrow" href={project.data.url || "#projects"}>Project page <span aria-hidden="true">→</span></a>
+									<a class="bgin-arrow" href={`/sponsored-projects/${project.id}`}>Project page <span aria-hidden="true">→</span></a>
 								</div>
 							</div>
 						</article>

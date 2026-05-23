@@ -306,6 +306,31 @@
           "slug": "url",
           "label": "Project URL",
           "type": "string"
+        },
+        {
+          "slug": "tagline",
+          "label": "Tagline",
+          "type": "text"
+        },
+        {
+          "slug": "story",
+          "label": "Story (paragraphs)",
+          "type": "json"
+        },
+        {
+          "slug": "team_members",
+          "label": "Team Members",
+          "type": "json"
+        },
+        {
+          "slug": "timeline",
+          "label": "Timeline",
+          "type": "json"
+        },
+        {
+          "slug": "impact_stats",
+          "label": "Impact Stats",
+          "type": "json"
         }
       ]
     },
@@ -381,6 +406,25 @@
           "slug": "sort_order",
           "label": "Sort Order",
           "type": "integer"
+        }
+      ]
+    },
+    {
+      "slug": "subscribers",
+      "label": "Subscribers",
+      "labelSingular": "Subscriber",
+      "supports": [],
+      "fields": [
+        {
+          "slug": "email",
+          "label": "Email",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "source",
+          "label": "Source",
+          "type": "string"
         }
       ]
     }
@@ -470,7 +514,7 @@
               "secondary_url": "/about"
             },
             "about": {
-              "eyebrow": "※ BGI Nexus",
+              "eyebrow": "\u203b BGI Nexus",
               "title": "Community-driven funding",
               "emphasis": "and infrastructure.",
               "body": "BGI Nexus provides community-driven funding and infrastructure for building beneficial AI that serves humanity and our planet.",
@@ -499,7 +543,7 @@
                   "num": "01",
                   "title": "Sponsored projects",
                   "count": "10",
-                  "label": "funded teams · Round 01",
+                  "label": "funded teams \u00b7 Round 01",
                   "body": "Ten community-selected projects received support to build beneficial AI in health, climate, accessibility, governance, and regenerative systems."
                 },
                 {
@@ -561,14 +605,14 @@
               "emphasis": "Gets Built."
             },
             "what": {
-              "label": "01 · General information",
+              "label": "01 \u00b7 General information",
               "title": "What is",
               "emphasis": "BGI Nexus?",
               "body": "BGI Nexus is community-driven funding and infrastructure for building beneficial AI that serves humanity and our planet.",
               "body_soft": "From idea to impact, BGI Nexus connects builders with funding, expertise, and community to turn beneficial AI projects into reality."
             },
             "principles": {
-              "label": "02 · What the community supports",
+              "label": "02 \u00b7 What the community supports",
               "title": "Beneficial AI",
               "emphasis": "in practice.",
               "body": "The funded cohort shows the breadth of beneficial AI in practice: climate resilience, carbon-credit trust, glucose-data ownership, regenerative biodiversity, accessibility, community governance, agricultural knowledge, and ecological knowledge preservation.",
@@ -597,7 +641,7 @@
             },
             "spiral": {
               "lotus": "subtle",
-              "label": "03 · Ecosystem",
+              "label": "03 \u00b7 Ecosystem",
               "title": "Part of the",
               "emphasis": "SingularityNET ecosystem.",
               "body": "BGI Nexus is part of the SingularityNET ecosystem, connecting beneficial AI builders with the people and infrastructure needed to move from idea to impact.",
@@ -637,7 +681,7 @@
               "lead": "Join community calls, grant-progress updates, open Q&A, and working-group sessions focused on beneficial AI."
             },
             "working_groups": {
-              "label": "※ Working groups",
+              "label": "\u203b Working groups",
               "title": "From conversation",
               "emphasis": "to action.",
               "after": "",
@@ -668,7 +712,7 @@
               "lead": "The BGI Nexus working groups are built for people who want to move from conversation to coordinated action around practical topics for beneficial AGI."
             },
             "join": {
-              "label": "※ What to expect",
+              "label": "\u203b What to expect",
               "title": "The kickoff opens",
               "emphasis": "the work.",
               "body": "The kickoff session introduces initial working-group topics, connects contributors with one another, and sets the next phase of collaboration for the BGI Nexus community.",
@@ -702,7 +746,7 @@
               "body": "Each topic is intended to expand into ongoing collaboration and quarterly meetups, giving the community a recurring rhythm for practical work.",
               "body_soft": "The kickoff session marks the beginning of a series of collaborative working groups focused on guiding and governing AGI toward beneficial outcomes for humanity."
             },
-            "directory_note": "Kickoff session · 02 Dec 2025"
+            "directory_note": "Kickoff session \u00b7 02 Dec 2025"
           }
         }
       },
@@ -721,7 +765,7 @@
               "lead": "BGI Nexus funded ten projects building beneficial AI across health, climate, accessibility, governance, agriculture, and ecological knowledge."
             },
             "round": {
-              "label": "※ Round 01 · 2024",
+              "label": "\u203b Round 01 \u00b7 2024",
               "title": "Community-selected",
               "emphasis": "projects,",
               "after": "real-world impact.",
@@ -729,7 +773,7 @@
               "body_soft": "From social and environmental solutions to safer and more compassionate AI systems, each project contributes to a more democratic ecosystem of innovation that benefits people, societies, and the biosphere."
             },
             "funding": {
-              "eyebrow": "※ Funding model",
+              "eyebrow": "\u203b Funding model",
               "title": "Community-driven.",
               "emphasis": "Impact-focused.",
               "body": "Get updates on funded projects, grant rounds, and community events through the BGI Nexus newsletter and public channels."
@@ -752,15 +796,26 @@
               "lead": "Questions or want to get involved? Contact BGI Nexus directly or follow the community channels for updates."
             },
             "registration": {
-              "label": "※ Stay Connected",
+              "label": "\u203b Stay Connected",
               "title": "Get updates on funded projects,",
               "emphasis": "grant rounds, and community events.",
               "body": "Subscribe for BGI Nexus updates, community events, and future grant-round announcements.",
-              "connect_options": ["Contributor", "Builder", "Researcher", "Funder", "Curious"],
-              "update_options": ["Working groups", "Events", "Projects", "General"]
+              "connect_options": [
+                "Contributor",
+                "Builder",
+                "Researcher",
+                "Funder",
+                "Curious"
+              ],
+              "update_options": [
+                "Working groups",
+                "Events",
+                "Projects",
+                "General"
+              ]
             },
             "faq_intro": {
-              "label": "※ Quick links",
+              "label": "\u203b Quick links",
               "title": "Before you",
               "emphasis": "write.",
               "body": "The public site highlights the newsletter, direct email, and social channels as the best ways to stay connected."
@@ -1042,14 +1097,14 @@
         "status": "published",
         "data": {
           "project_code": "P-01",
-          "tag": "Technology",
+          "tag": "Health",
           "title": "Productivity EEG-AI Agents",
           "project_byline": "BGI Team",
           "fund": "$50,000",
           "summary": "Brain-signal-powered productivity system using EEG data and AI for cognitive enhancement.",
           "impact": "Achieved 15% average productivity improvement in 200+ users through EEG-AI integration.",
           "display_status": "Active build",
-          "round": "Round 01 · 2024",
+          "round": "Round 01 \u00b7 2024",
           "featured": true,
           "url": "https://productivity-eeg.ai",
           "sort_order": 10
@@ -1061,14 +1116,14 @@
         "status": "published",
         "data": {
           "project_code": "P-02",
-          "tag": "Technology",
+          "tag": "Governance",
           "title": "Acropolis OS - Autonomous Community AGI",
           "project_byline": "BGI Team",
           "fund": "$50,000",
           "summary": "Operating system using AGI for democratic decision-making in autonomous communities.",
           "impact": "Supporting governance for 8 autonomous communities with AI-driven decision tools.",
           "display_status": "Active build",
-          "round": "Round 01 · 2024",
+          "round": "Round 01 \u00b7 2024",
           "featured": false,
           "url": "https://acropolisos.org",
           "sort_order": 20
@@ -1080,14 +1135,14 @@
         "status": "published",
         "data": {
           "project_code": "P-03",
-          "tag": "Technology",
+          "tag": "Climate",
           "title": "NigerGuard: AI Climate Resilience-Vulnerable States",
           "project_byline": "BGI Team",
           "fund": "$46,000",
           "summary": "AI-powered climate resilience platform for vulnerable regions with early warning systems.",
           "impact": "Protecting 250,000+ people across vulnerable regions with early warning systems.",
           "display_status": "Active build",
-          "round": "Round 01 · 2024",
+          "round": "Round 01 \u00b7 2024",
           "featured": false,
           "url": "https://nigerguard.org",
           "sort_order": 30
@@ -1099,14 +1154,14 @@
         "status": "published",
         "data": {
           "project_code": "P-04",
-          "tag": "Technology",
+          "tag": "Climate",
           "title": "AURORA: Decentralised AI for Carbon Credit Trust",
           "project_byline": "BGI Team",
           "fund": "$50,000",
           "summary": "Decentralized AI platform bringing transparency to carbon credit markets through automated verification.",
           "impact": "Verified $2.3M in carbon credits with 99.2% accuracy using AI validation.",
           "display_status": "Active build",
-          "round": "Round 01 · 2024",
+          "round": "Round 01 \u00b7 2024",
           "featured": false,
           "url": "https://aurora-carbon.org",
           "sort_order": 40
@@ -1118,14 +1173,14 @@
         "status": "published",
         "data": {
           "project_code": "P-05",
-          "tag": "Technology",
+          "tag": "Health",
           "title": "GlucoseDAO",
           "project_byline": "BGI Team",
           "fund": "$50,000",
           "summary": "Open health platform democratizing glucose data ownership while advancing diabetes research.",
           "impact": "1,200+ users contributing anonymized glucose data for diabetes research.",
           "display_status": "Active build",
-          "round": "Round 01 · 2024",
+          "round": "Round 01 \u00b7 2024",
           "featured": false,
           "url": "https://glucosedao.org",
           "sort_order": 50
@@ -1137,14 +1192,14 @@
         "status": "published",
         "data": {
           "project_code": "P-06",
-          "tag": "Technology",
+          "tag": "Ecology",
           "title": "BIONEXUS GAIA: AI for Regenerative Biodiversity",
           "project_byline": "BGI Team",
           "fund": "$50,000",
           "summary": "Advanced AI system for biodiversity regeneration and ecosystem recovery monitoring.",
           "impact": "Monitoring 50+ restoration sites across 8 countries with AI-driven insights.",
           "display_status": "Active build",
-          "round": "Round 01 · 2024",
+          "round": "Round 01 \u00b7 2024",
           "featured": false,
           "url": "https://bionexusgaia.org",
           "sort_order": 60
@@ -1156,14 +1211,14 @@
         "status": "published",
         "data": {
           "project_code": "P-07",
-          "tag": "Technology",
+          "tag": "Ecology",
           "title": "Project Lovelock - Living Libraries Network",
           "project_byline": "BGI Team",
           "fund": "$48,888",
           "summary": "Decentralized ecological knowledge repositories preserving indigenous wisdom and scientific biodiversity data.",
           "impact": "Preserving knowledge from 30+ indigenous communities and creating biodiversity databases.",
           "display_status": "Active build",
-          "round": "Round 01 · 2024",
+          "round": "Round 01 \u00b7 2024",
           "featured": false,
           "url": "https://projectlovelock.org",
           "sort_order": 70
@@ -1175,14 +1230,14 @@
         "status": "published",
         "data": {
           "project_code": "P-08",
-          "tag": "Technology",
+          "tag": "Access",
           "title": "Sign Language Translator AI (SLTA)",
           "project_byline": "BGI Team",
           "fund": "$50,000",
           "summary": "AI-powered sign language translation system bridging communication gaps through real-time visual recognition.",
           "impact": "Achieved 95% accuracy rate across 15 sign language variants, serving deaf communities globally.",
           "display_status": "Active build",
-          "round": "Round 01 · 2024",
+          "round": "Round 01 \u00b7 2024",
           "featured": false,
           "url": "https://slta.ai",
           "sort_order": 80
@@ -1194,14 +1249,14 @@
         "status": "published",
         "data": {
           "project_code": "P-09",
-          "tag": "Technology",
+          "tag": "Access",
           "title": "Think Inclusion Conferencing App",
           "project_byline": "BGI Team",
           "fund": "$45,000",
           "summary": "Inclusive design conferencing platform ensuring global events are accessible to people with disabilities.",
           "impact": "Hosted 25+ accessible events reaching 10,000+ participants worldwide.",
           "display_status": "Active build",
-          "round": "Round 01 · 2024",
+          "round": "Round 01 \u00b7 2024",
           "featured": false,
           "url": "https://thinkinclusion.app",
           "sort_order": 90
@@ -1213,14 +1268,14 @@
         "status": "published",
         "data": {
           "project_code": "P-10",
-          "tag": "Technology",
+          "tag": "Language",
           "title": "Farmlingua",
           "project_byline": "BGI Team",
           "fund": "$45,000",
           "summary": "Multilingual AI platform for smallholder farmers, breaking down language barriers in agricultural knowledge sharing.",
           "impact": "Supporting 500+ smallholder farmers across 12 countries with localized agricultural guidance.",
           "display_status": "Active build",
-          "round": "Round 01 · 2024",
+          "round": "Round 01 \u00b7 2024",
           "featured": false,
           "url": "https://farmlingua.org",
           "sort_order": 100

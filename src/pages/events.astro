@@ -285,10 +285,36 @@ const seo = getSeoMeta(page, {
 
 	<script>
 		document.querySelectorAll("[data-subscribe-form]").forEach((form) => {
-			form.addEventListener("submit", (event) => {
+			form.addEventListener("submit", async (event) => {
 				event.preventDefault();
-				const button = form.querySelector("button");
-				if (button) button.textContent = "Subscribed";
+				const emailInput = form.querySelector<HTMLInputElement>("input[type='email']");
+				const button = form.querySelector<HTMLButtonElement>("button");
+				const email = emailInput?.value?.trim() || "";
+				if (!button) return;
+				const original = button.textContent || "Subscribe";
+				button.textContent = "Subscribing…";
+				button.disabled = true;
+				try {
+					const res = await fetch("/api/subscribe", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ email }),
+					});
+					const data = await res.json();
+					if (data.success) {
+						button.textContent = "Subscribed ✓";
+						if (emailInput) emailInput.value = "";
+					} else {
+						button.textContent = data.error || "Error — try again";
+						setTimeout(() => { button.textContent = original; button.disabled = false; }, 3000);
+						return;
+					}
+				} catch {
+					button.textContent = "Error — try again";
+					setTimeout(() => { button.textContent = original; button.disabled = false; }, 3000);
+					return;
+				}
+				setTimeout(() => { button.textContent = original; button.disabled = false; }, 4000);
 			});
 		});
 	</script>
