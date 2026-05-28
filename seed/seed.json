@@ -8,7 +8,10 @@
   },
   "settings": {
     "title": "BGI Nexus",
-    "tagline": "Beneficial AI"
+    "tagline": "A global community building beneficial AI and AGI through working groups, hackathons, and collective action.",
+    "social": {
+      "linkedin": "groups/12964136"
+    }
   },
   "collections": [
     {

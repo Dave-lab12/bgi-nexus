@@ -36,9 +36,11 @@ const {
 	content,
 } = Astro.props;
 
-const { siteTitle, siteTagline, siteLogo } = resolveStarterSiteIdentity(
+const { siteTitle, siteTagline, siteLogo, siteFavicon } = resolveStarterSiteIdentity(
 	await getSiteSettings(),
 );
+const faviconUrl = siteFavicon ?? "/assets/bgi-nexus-logo-circle.jpg";
+const ogImage = image ?? siteFavicon ?? `${Astro.url.origin}/assets/bgi-nexus-logo-circle.jpg`;
 const fullTitle = title.includes(siteTitle) ? title : `${title} · ${siteTitle}`;
 const pageDescription = description ?? siteTagline;
 const menu = await getMenu("primary");
@@ -81,6 +83,21 @@ const pageCtx = createPublicPageContext({
 		<title>{fullTitle}</title>
 		{pageDescription && <meta name="description" content={pageDescription} />}
 		{canonical && <link rel="canonical" href={canonical} />}
+		<!-- Favicon -->
+		<link rel="icon" href={faviconUrl} type="image/jpeg" />
+		<link rel="apple-touch-icon" href={faviconUrl} />
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={siteTitle} />
+		<meta property="og:title" content={pageTitle ?? title} />
+		{pageDescription && <meta property="og:description" content={pageDescription} />}
+		<meta property="og:image" content={ogImage} />
+		{canonical && <meta property="og:url" content={canonical} />}
+		<!-- Twitter card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={pageTitle ?? title} />
+		{pageDescription && <meta name="twitter:description" content={pageDescription} />}
+		<meta name="twitter:image" content={ogImage} />
 		<EmDashHead page={pageCtx} />
 	</head>
 	<body class={`bgin-density-${density}`}>

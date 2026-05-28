@@ -13,12 +13,13 @@ export interface StarterSiteIdentitySettings {
 }
 
 const DEFAULT_SITE_TITLE = "BGI Nexus";
-const DEFAULT_SITE_TAGLINE = "Beneficial AI";
+const DEFAULT_SITE_TAGLINE = "A global community building beneficial AI and AGI through working groups, hackathons, and collective action.";
 
 export function resolveStarterSiteIdentity(settings?: StarterSiteIdentitySettings) {
 	return {
 		siteTitle: settings?.title ?? DEFAULT_SITE_TITLE,
 		siteTagline: settings?.tagline ?? DEFAULT_SITE_TAGLINE,
 		siteLogo: settings?.logo?.url ? settings.logo : null,
+		siteFavicon: settings?.favicon?.url ?? null,
 	};
 }
