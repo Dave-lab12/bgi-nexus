@@ -7,9 +7,8 @@ import {
 } from "emdash";
 import Base from "../layouts/Base.astro";
 import LotusBloom from "../components/LotusBloom.astro";
-import ProjectImage from "../components/ProjectImage.astro";
 import UpcomingEventTile from "../components/UpcomingEventTile.astro";
-import { asArray, sectionsFrom, sortByOrder, termsFrom } from "../lib/content";
+import { asArray, sectionsFrom, sortByOrder } from "../lib/content";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
 
 const setCache = (cacheHint: unknown) => {
@@ -21,36 +20,20 @@ const eventsResult = await getEmDashCollection("events", {
 	status: "published",
 	orderBy: { sort_order: "asc" },
 });
-const groupsResult = await getEmDashCollection("working_groups", {
-	status: "published",
-	orderBy: { sort_order: "asc" },
-});
-const projectsResult = await getEmDashCollection("projects", {
-	status: "published",
-	orderBy: { sort_order: "asc" },
-});
-
 setCache(pageResult.cacheHint);
 setCache(eventsResult.cacheHint);
-setCache(groupsResult.cacheHint);
-setCache(projectsResult.cacheHint);
 
 const page = pageResult.entry as any;
 const sections = sectionsFrom(page);
 const hero = sections.hero ?? {};
 const about = sections.about ?? {};
-const pillars = asArray(sections.pillars?.items);
 const quote = sections.quote ?? {};
 const contact = sections.contact ?? {};
 const tickerItems = asArray(sections.ticker?.items);
 const events = sortByOrder(eventsResult.entries as any[]);
-const groups = sortByOrder(groupsResult.entries as any[]);
-const projects = sortByOrder(projectsResult.entries as any[]);
 const upcomingEvents = events.filter((event) => !event.data.past);
 const featuredEvent =
 	upcomingEvents.find((event) => event.data.featured) ?? upcomingEvents[0];
-const homeProjects = projects.slice(0, 6);
-const projectTags = ["All", ...termsFrom(homeProjects)];
 const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
 const seo = page
 	? getSeoMeta(page, {
@@ -122,13 +105,18 @@ const today = new Date().toLocaleDateString("en-GB", {
 				</div> -->
 				<h1
 					class="bgin-display"
-					style="font-size: 80px; margin-bottom: 28px;"
+					style="font-size: 80px; margin-bottom: 20px;"
 					{...page?.edit?.title}
 				>
 					{hero.headline_line_1}<br />
 					{hero.headline_line_2}
-					<em>{hero.headline_emphasis}</em>
+					{hero.headline_emphasis}
 				</h1>
+				{hero.sub_headline && (
+					<p style="font-family: var(--font-body); font-size: 22px; font-weight: 600; color: var(--ink); margin: 0 0 20px; letter-spacing: -0.01em;">
+						{hero.sub_headline}
+					</p>
+				)}
 				<p
 					class="bgin-lede"
 					style="max-width: 540px; margin-bottom: 40px;"
@@ -142,6 +130,11 @@ const today = new Date().toLocaleDateString("en-GB", {
 					<a class="bgin-btn secondary" href={hero.secondary_url}
 						>{hero.secondary_label}</a
 					>
+					{hero.tertiary_label && (
+						<a class="bgin-btn secondary" href={hero.tertiary_url}
+							>{hero.tertiary_label}</a
+						>
+					)}
 				</div>
 			</div>
 			<UpcomingEventTile event={featuredEvent} kind="live" />
@@ -167,9 +160,14 @@ const today = new Date().toLocaleDateString("en-GB", {
 			</div>
 			<div style="font-size: 17px; line-height: 1.7; color: var(--ink);">
 				<p style="margin-top: 0; margin-bottom: 18px;">{about.body}</p>
-				<p style="margin: 0 0 28px; color: var(--ink-soft);">
+				<p style="margin: 0 0 18px; color: var(--ink-soft);">
 					{about.body_soft}
 				</p>
+				{about.body_2 && (
+					<p style="margin: 0 0 28px; color: var(--ink-soft);">
+						{about.body_2}
+					</p>
+				)}
 				<div
 					class="bgin-grid-3"
 					style="padding-top: 32px; border-top: 1px solid var(--rule);"
@@ -191,143 +189,31 @@ const today = new Date().toLocaleDateString("en-GB", {
 		</div>
 	</section>
 
-	<section class="bgin-section bgin-band">
-		<div style="max-width: 1280px; margin: 0 auto;">
-			<div
-				style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 48px;"
-			>
-				<div>
-					<div class="bgin-eyebrow" style="margin-bottom: 12px;">
-						{sections.pillars?.eyebrow}
-					</div>
-					<h2 class="bgin-h2" style="font-size: 40px;">
-						{sections.pillars?.title}
-						<em>{sections.pillars?.emphasis}</em>
-					</h2>
-				</div>
-			</div>
-			<div class="bgin-grid-3">
-				{
-					pillars.map((pillar) => (
-						<article class="bgin-card hover" style="padding: 28px;">
-							<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
-								<span class="bgin-mono">{pillar.num}</span>
-								<div style="text-align: right;">
-									<div
-										class="bgin-display"
-										style="font-size: 32px; line-height: 1; color: var(--brand-blue);"
-									>
-										{pillar.count}
-									</div>
-									<span
-										class="bgin-mono"
-										style="font-size: 10px; color: var(--ink-mute); letter-spacing: 0.08em; text-transform: none; margin-top: 4px; display: block;"
-									>
-										{pillar.label}
-									</span>
-								</div>
-							</div>
-							<h3 style="font-family: var(--font-display); font-size: 26px; font-weight: 400; line-height: 1.12; margin: 0 0 12px; color: var(--ink);">
-								{pillar.title}
-							</h3>
-							<p style="font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0;">
-								{pillar.body}
-							</p>
-						</article>
-					))
-				}
-			</div>
-		</div>
-	</section>
-
 	<section
 		id="working-groups"
-		class="bgin-section"
-		style="max-width: 1280px; margin: 0 auto;"
+		class="bgin-section bgin-band"
+		style=""
 	>
 		<div
 			class="bgin-2col-right"
-			style="align-items: end; margin-bottom: 48px;"
+			style="max-width: 1280px; margin: 0 auto; align-items: start;"
 		>
 			<div>
 				<div class="bgin-eyebrow" style="margin-bottom: 12px;">
 					Working groups
 				</div>
 				<h2 class="bgin-h2" style="font-size: 40px;">
-					Initial topics for <em>beneficial AGI.</em>
+					Working Groups
 				</h2>
 			</div>
-			<p
-				style="font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 0; max-width: 620px;"
-			>
-				{sections.working_groups?.intro}
-			</p>
-		</div>
-		<div class="bgin-grid-3">
-			{
-				groups.map((group) => (
-					<article
-						class="bgin-card hover"
-						style={`border-top-color: ${group.data.active ? "var(--brand-blue)" : "var(--rule)"}; border-top-width: 3px; border-top-style: solid; cursor: pointer;`}
-					>
-						<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
-							<span class="bgin-mono">
-								WG · {group.id.replace("wg-", "").toUpperCase()}
-							</span>
-							<span
-								style={`display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; color: ${group.data.active ? "var(--brand-blue)" : "var(--ink-mute)"};`}
-							>
-								<span
-									class="bgin-dot"
-									style={`background: ${group.data.active ? "var(--brand-blue)" : "var(--ink-mute)"};`}
-								/>
-								{group.data.active ? "Active" : "Open"}
-							</span>
-						</div>
-						<h3 style="font-family: var(--font-display); font-size: 24px; font-weight: 400; line-height: 1.15; margin: 0 0 14px; color: var(--ink);">
-							{group.data.name}
-						</h3>
-						<p style="font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 20px;">
-							{group.data.summary}
-						</p>
-						<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-top: 16px; border-top: 1px solid var(--rule); margin-bottom: 16px;">
-							<div>
-								<span
-									class="bgin-mono"
-									style="letter-spacing: 0.08em; text-transform: none; font-size: 11px; color: var(--ink-mute); display: block; margin-bottom: 4px;"
-								>
-									Cycle
-								</span>
-								<div style="font-size: 13px; color: var(--ink-soft);">
-									{group.data.cycle}
-								</div>
-							</div>
-							<div>
-								<span
-									class="bgin-mono"
-									style="letter-spacing: 0.08em; text-transform: none; font-size: 11px; color: var(--ink-mute); display: block; margin-bottom: 4px;"
-								>
-									Seats
-								</span>
-								<div style="font-size: 13px; color: var(--ink-soft);">
-									{group.data.seats}
-								</div>
-							</div>
-						</div>
-						<div style="display: flex; justify-content: space-between; align-items: center;">
-							<a class="bgin-arrow" href="/working-groups">
-								Read more <span aria-hidden="true">→</span>
-							</a>
-							<span
-								class="bgin-mono"
-								style="font-size: 10px; color: var(--ink-mute); letter-spacing: 0.1em;"
-							>
-								↗ open
-							</span>
-						</div>
-					</article>
-				))
-			}
+			<div>
+				<p
+					style="font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 0 0 28px; max-width: 620px;"
+				>
+					{sections.working_groups?.intro}
+				</p>
+				<a class="bgin-btn primary" href="/working-groups">Find out more →</a>
+			</div>
 		</div>
 	</section>
 
@@ -472,111 +358,6 @@ const today = new Date().toLocaleDateString("en-GB", {
 				<a class="bgin-btn primary on-dark" href={quote.cta_url}
 					>{quote.cta_label}</a
 				>
-			</div>
-		</div>
-	</section>
-
-	<section id="sponsored-projects" class="bgin-section bgin-band">
-		<div style="max-width: 1280px; margin: 0 auto;">
-			<div
-				class="bgin-2col-right"
-				style="align-items: end; margin-bottom: 36px;"
-			>
-				<div>
-					<div class="bgin-eyebrow" style="margin-bottom: 12px;">
-						Sponsored projects
-					</div>
-					<h2 class="bgin-h2" style="font-size: 40px;">
-						What building beneficial AI <em>looks like</em>, in
-						practice.
-					</h2>
-				</div>
-				<p
-					style="font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 0; max-width: 620px;"
-				>
-					{sections.projects?.intro}
-				</p>
-			</div>
-			<div class="bgin-filter" data-filter-scope="home-projects">
-				<div
-					style="display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;"
-				>
-					{
-						projectTags.map((tag) => (
-							<button
-								class={`bgin-chip${tag === "All" ? " active" : ""}`}
-								data-filter-value={tag}
-							>
-								{tag}
-							</button>
-						))
-					}
-				</div>
-				<div class="bgin-grid-3">
-					{
-						homeProjects.map((project) => (
-							<article
-								class="bgin-card hover flush"
-								style="padding: 24px; cursor: pointer;"
-								data-filter-item
-								data-filter-tags={project.data.tag}
-							>
-								<div style="margin-bottom: 18px;">
-									<ProjectImage
-										code={project.data.project_code}
-										image={project.data.image}
-										tag={project.data.tag}
-										title={project.data.title}
-									/>
-								</div>
-								<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-									<span class="bgin-mono">
-										{project.data.tag.toUpperCase()}
-									</span>
-									<span
-										class="bgin-mono"
-										style="color: var(--ink-mute); letter-spacing: 0.08em; text-transform: none; font-size: 11px;"
-									>
-										by {project.data.project_byline}
-									</span>
-								</div>
-								<h3 style="font-family: var(--font-display); font-size: 22px; font-weight: 400; line-height: 1.15; margin: 0 0 10px; color: var(--ink);">
-									{project.data.title}
-								</h3>
-								<p style="font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 18px;">
-									{project.data.impact}
-								</p>
-								<div style="padding-top: 14px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center;">
-									<span
-										class="bgin-mono"
-										style="font-size: 10px; color: var(--ink-mute);"
-									>
-										● {project.data.display_status}
-									</span>
-									<a
-										class="bgin-arrow"
-										href={`/sponsored-projects/${project.id}`}
-									>
-										Project page{" "}
-										<span aria-hidden="true">→</span>
-									</a>
-								</div>
-							</article>
-						))
-					}
-				</div>
-				<div
-					style="margin-top: 28px; display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-top: 1px solid var(--rule);"
-				>
-					<span class="bgin-mono" data-filter-count>
-						Showing {homeProjects.length} of {projects.length} sponsored
-						projects
-					</span>
-					<a class="bgin-arrow" href="/sponsored-projects"
-						>All sponsored projects <span aria-hidden="true">→</span
-						></a
-					>
-				</div>
 			</div>
 		</div>
 	</section>

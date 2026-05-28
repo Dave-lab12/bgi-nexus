@@ -22,11 +22,9 @@ if (!page) return Astro.redirect("/404");
 
 const events = sortByOrder(eventsResult.entries as any[]);
 const upcoming = events.filter((event) => !event.data.past);
-const past = events.filter((event) => event.data.past);
 const featured = upcoming.find((event) => event.data.featured) ?? upcoming[0];
 const sections = sectionsFrom(page);
 const hero = sections.hero ?? {};
-const workingGroups = sections.working_groups ?? {};
 const subscribe = sections.subscribe ?? {};
 const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
 const seo = getSeoMeta(page, {
@@ -65,7 +63,7 @@ const seo = getSeoMeta(page, {
 				<span class="bgin-mono">Upcoming · {upcoming.length} events scheduled</span>
 				<div style="display: flex; gap: 12px;">
 					<a class="bgin-btn primary" href="#all-events">See all events</a>
-					<a class="bgin-btn secondary" href="#working-groups-block">Working groups</a>
+					<a class="bgin-btn secondary" href="/working-groups">Working groups</a>
 				</div>
 			</div>
 		</div>
@@ -133,31 +131,6 @@ const seo = getSeoMeta(page, {
 			</section>
 		)
 	}
-
-	<section id="working-groups-block" class="bgin-section">
-		<div
-			class="bgin-2col-right"
-		style="max-width: 1200px; margin: 0 auto; align-items: start;"
-		>
-			<div>
-				<span class="bgin-mono" style="margin-bottom: 18px; display: block;">
-					{workingGroups.label}
-				</span>
-				<h2 class="bgin-h2" style="font-size: 36px;">
-					{workingGroups.title} <em>{workingGroups.emphasis}</em> {workingGroups.after}
-				</h2>
-			</div>
-			<div>
-				<p style="font-size: 17px; line-height: 1.65; color: var(--ink); margin: 0;">
-					{workingGroups.body}
-				</p>
-				<div style="display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap;">
-					<a class="bgin-btn primary" href="/working-groups">All working groups →</a>
-					<a class="bgin-arrow" href="/working-groups">How to join <span aria-hidden="true">→</span></a>
-				</div>
-			</div>
-		</div>
-	</section>
 
 	<section id="all-events" class="bgin-section bgin-band">
 		<div style="max-width: 1200px; margin: 0 auto;">
@@ -231,43 +204,6 @@ const seo = getSeoMeta(page, {
 			</div>
 		</div>
 	</section>
-
-	{
-		past.length > 0 && (
-			<section class="bgin-section" style="padding-top: 64px;">
-				<div style="max-width: 1200px; margin: 0 auto;">
-					<div
-						style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 28px;"
-					>
-						<span class="bgin-mono">※ Past events</span>
-						<a class="bgin-arrow" href="#all-events">Full archive <span aria-hidden="true">→</span></a>
-					</div>
-					<div style="border-top: 1px solid var(--rule);">
-						{past.map((event) => (
-							<div
-								class="bgin-past-row"
-							>
-								<div class="bgin-display" style="font-size: 22px; color: var(--ink-soft);">
-									{event.data.date_day} {event.data.date_month}
-								</div>
-								<span class="bgin-mono" style="color: var(--ink-mute);">{event.data.kind}</span>
-								<div style="font-family: var(--font-display); font-size: 18px; color: var(--ink-soft);">
-									{event.data.title}
-								</div>
-								<a
-									href={`/events/${event.id}`}
-									class="bgin-arrow"
-									style="color: var(--ink-mute); text-align: right; text-decoration: none;"
-								>
-									View <span aria-hidden="true">→</span>
-								</a>
-							</div>
-						))}
-					</div>
-				</div>
-			</section>
-		)
-	}
 
 	<section class="bgin-section" style="padding-top: 64px; padding-bottom: 96px;">
 		<div style="max-width: 1000px; margin: 0 auto; text-align: center;">

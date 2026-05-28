@@ -101,7 +101,7 @@ body {
   margin: 0;
 }
 .bgin-display em {
-  font-style: italic;
+  font-style: normal;
   color: var(--italic-accent, var(--brand-blue));
 }
 .bgin-impact .bgin-display {
@@ -121,7 +121,7 @@ body {
   color: var(--ink);
 }
 .bgin-h2 em {
-  font-style: italic;
+  font-style: normal;
   color: var(--italic-accent, var(--brand-blue));
 }
 .bgin-impact .bgin-h2 {
@@ -253,8 +253,8 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 20px var(--gutter);
-  border-bottom: 1px solid var(--rule);
-  background: rgba(255, 252, 246, 0.92);
+  border-bottom: 1px solid rgba(245, 239, 226, 0.12);
+  background: #0f1e3d;
   backdrop-filter: blur(8px);
   position: sticky;
   top: 0;
@@ -274,7 +274,7 @@ body {
 .bgin-nav .brand-name {
   font-family: var(--font-display);
   font-size: 18px;
-  color: var(--ink);
+  color: var(--ink-on-dark);
   letter-spacing: 0.01em;
 }
 .bgin-nav .links {
@@ -285,17 +285,17 @@ body {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 500;
-  color: var(--ink);
+  color: rgba(245, 239, 226, 0.82);
   text-decoration: none;
   border: 0;
   padding: 0;
   transition: color var(--dur-base) var(--ease-standard);
 }
 .bgin-nav .links a:hover {
-  color: var(--brand-blue);
+  color: var(--brand-blue-bright);
 }
 .bgin-nav .links a.active {
-  color: var(--brand-blue);
+  color: var(--brand-blue-bright);
 }
 
 /* ----- Footer band ----- */
@@ -418,7 +418,8 @@ body {
 
 /* ----- Ticker (Direction B) ----- */
 .bgin-ticker {
-  background: var(--ink);
+  background: #0f1e3d;
+  border-bottom: 1px solid var(--nexus-teal);
   color: var(--ink-on-dark);
   padding: 12px var(--gutter);
   display: flex;
@@ -670,7 +671,7 @@ textarea.bgin-input {
   display: block;
   width: 22px;
   height: 2px;
-  background: var(--ink);
+  background: var(--ink-on-dark);
   border-radius: 2px;
   transition:
     transform var(--dur-base) var(--ease-standard),
@@ -690,7 +691,7 @@ textarea.bgin-input {
   display: none;
   position: fixed;
   inset: 0;
-  background: var(--canvas);
+  background: #0f1e3d;
   z-index: 28;
   padding: 88px 28px 40px;
   flex-direction: column;
@@ -703,16 +704,16 @@ textarea.bgin-input {
   font-family: var(--font-display);
   font-size: 28px;
   font-weight: 400;
-  color: var(--ink);
+  color: var(--ink-on-dark);
   text-decoration: none;
   border: 0;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule-on-dark);
   padding: 18px 0;
   line-height: 1.2;
 }
 .bgin-nav-mobile a:hover,
 .bgin-nav-mobile a.active {
-  color: var(--brand-blue);
+  color: var(--brand-blue-bright);
 }
 .bgin-nav-mobile .bgin-btn {
   margin-top: 24px;

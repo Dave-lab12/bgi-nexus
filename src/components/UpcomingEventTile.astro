@@ -34,8 +34,9 @@ const body =
 const duration = data?.duration || "90 min";
 const location = data?.location || "Virtual";
 const time = data?.time || "12:00 UTC";
-const eventHref = eventId ? `/events/${eventId}` : "/events";
-const linkText = isLive ? "Register" : "View event";
+const externalLink = data?.link_url?.trim();
+const eventHref = externalLink || (eventId ? `/events/${eventId}` : "/events");
+const linkText = isLive ? (data?.link_text || "Register") : "View event";
 const status = data?.display_status || "Free · open registration";
 ---
 

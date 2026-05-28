@@ -34,10 +34,6 @@ const seo = getSeoMeta(page, {
 	siteUrl: Astro.url.origin,
 	path: "/sponsored-projects",
 });
-const deployed = projects.reduce((sum, project) => {
-	const amount = Number(String(project.data.fund ?? "").replace(/[^0-9.]/g, ""));
-	return sum + (Number.isFinite(amount) ? amount : 0);
-}, 0);
 ---
 
 <Base
@@ -71,7 +67,7 @@ const deployed = projects.reduce((sum, project) => {
 				<span class="bgin-mono">Round 01 · 2024</span>
 				<div>
 					<div class="bgin-display" style="font-size: 52px; line-height: 1; color: var(--brand-blue);">
-						{projects.length}
+						9
 					</div>
 					<span
 						class="bgin-mono"
@@ -81,7 +77,7 @@ const deployed = projects.reduce((sum, project) => {
 				</div>
 				<div>
 					<div class="bgin-display" style="font-size: 36px; line-height: 1; color: var(--ink);">
-						${deployed.toLocaleString("en-US")}
+						$445,000
 					</div>
 					<span
 						class="bgin-mono"
@@ -140,26 +136,12 @@ const deployed = projects.reduce((sum, project) => {
 							<h2 class="bgin-h2" style="font-size: 40px; margin-bottom: 16px;">
 								{featured.data.title}
 							</h2>
-							<p style="font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 0 0 20px;">
+							<p style="font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 0 0 24px;">
 								{featured.data.summary}
 							</p>
-							<div
-								style="padding: 20px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px;"
-							>
-								<span
-									class="bgin-mono"
-									style="margin-bottom: 8px; display: block; color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em;"
-									>Impact today</span
-								>
-								<div
-									style="font-family: var(--font-display); font-size: 22px; line-height: 1.2; color: var(--ink);"
-								>
-									{featured.data.impact}
-								</div>
-							</div>
 							<div style="display: flex; gap: 14px;">
 								<a class="bgin-btn primary" href={`/sponsored-projects/${featured.id}`}>Project page →</a>
-								<a class="bgin-btn secondary" href="/contact">Stay connected</a>
+								<a class="bgin-btn secondary" href="/contact">Get involved</a>
 							</div>
 						</div>
 					</article>
@@ -219,19 +201,7 @@ const deployed = projects.reduce((sum, project) => {
 								<p style="font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 18px;">
 									{project.data.summary}
 								</p>
-								<div
-									style="padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 16px;"
-								>
-									<span
-										class="bgin-mono"
-										style="margin-bottom: 6px; display: block; color: var(--ink-mute); text-transform: none; letter-spacing: 0.08em; font-size: 11px;"
-										>Impact</span
-									>
-									<div style="font-size: 13px; line-height: 1.5; color: var(--ink);">
-										{project.data.impact}
-									</div>
-								</div>
-								<div style="display: flex; justify-content: space-between; align-items: center;">
+								<div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 14px; border-top: 1px solid var(--rule);">
 									<span class="bgin-mono" style="font-size: 11px; color: var(--ink-mute);">
 										● {project.data.display_status}
 									</span>

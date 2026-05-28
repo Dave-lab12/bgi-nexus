@@ -482,8 +482,16 @@
             "ticker": {
               "items": [
                 {
+                  "who": "Virtual conference",
+                  "what": "17:30 · 01 June"
+                },
+                {
+                  "who": "Hackathon",
+                  "what": "26-28 June"
+                },
+                {
                   "who": "Funded projects",
-                  "what": "10 community-selected teams"
+                  "what": "9 community-selected teams"
                 },
                 {
                   "who": "Funding deployed",
@@ -509,33 +517,37 @@
             },
             "hero": {
               "eyebrow": "Beneficial AI",
-              "headline_line_1": "Where Beneficial AI",
-              "headline_line_2": "Gets",
-              "headline_emphasis": "Built.",
-              "lead": "From idea to impact. We connect builders with funding, expertise, and community to turn beneficial AI projects into reality.",
+              "headline_line_1": "Collective action toward",
+              "headline_line_2": "Beneficial General",
+              "headline_emphasis": "Intelligence",
+              "sub_headline": "Create. Align. Support.",
+              "lead": "BGI Nexus is a community platform to support the development of beneficial AI and AGI that serves all of humanity — through working groups, hackathons, and community-led action!",
               "primary_label": "Join a working group",
               "primary_url": "/working-groups",
-              "secondary_label": "What is BGI?",
-              "secondary_url": "/about"
+              "secondary_label": "Enter the hackathon",
+              "secondary_url": "/events",
+              "tertiary_label": "About BGI",
+              "tertiary_url": "/about"
             },
             "about": {
               "eyebrow": "\u203b BGI Nexus",
-              "title": "Community-driven funding",
-              "emphasis": "and infrastructure.",
+              "title": "Coordination, community,",
+              "emphasis": "and action.",
               "body": "BGI Nexus provides community-driven funding and infrastructure for building beneficial AI that serves humanity and our planet.",
               "body_soft": "The initiative connects builders with resources, expertise, and a wider community so promising beneficial AI ideas can move from proposal to real-world impact.",
+              "body_2": "The path to beneficial AGI runs through people with diverse experience and expertise working in the same direction: technical builders, governance thinkers, domain specialists, and communities with real stakes in the outcome. BGI Nexus creates the space and structure for that collaboration to take root and move fast, through working groups, hands-on hypersprints, and an active global community.",
               "principles": [
                 {
-                  "word": "Funding",
-                  "body": "Community-selected support for teams building beneficial AI projects."
+                  "word": "Working groups",
+                  "body": "Ongoing coordination around technical, sociotechnical, and governance questions. Open to contributors at every level."
                 },
                 {
-                  "word": "Expertise",
-                  "body": "A practical network for mentorship, review, and shared learning."
+                  "word": "Hypersprints & hackathons",
+                  "body": "Time-bounded collaborative builds for our cutting edge AGI tech stack. Technical and non-technical submissions welcome!"
                 },
                 {
                   "word": "Community",
-                  "body": "Open channels, events, and working groups for people ready to contribute."
+                  "body": "Open channels, events, and peer support for builders, thinkers, and researchers."
                 }
               ]
             },
@@ -611,16 +623,16 @@
             },
             "what": {
               "label": "01 \u00b7 General information",
-              "title": "What is",
-              "emphasis": "BGI Nexus?",
-              "body": "BGI Nexus is community-driven funding and infrastructure for building beneficial AI that serves humanity and our planet.",
-              "body_soft": "From idea to impact, BGI Nexus connects builders with funding, expertise, and community to turn beneficial AI projects into reality."
+              "title": "What is BGI?",
+              "emphasis": "",
+              "body": "BGI Nexus is where beneficial AI gets built.",
+              "body_soft": "We connect bold ideas with the expertise and community needed to turn them into real-world impact. As a global, community-driven initiative, BGI Nexus supports the development of beneficial AI and AGI through collaborative building and transparent governance so that the power of AI can serve humanity, the biosphere, and future generations."
             },
             "principles": {
-              "label": "02 \u00b7 What the community supports",
-              "title": "Beneficial AI",
-              "emphasis": "in practice.",
-              "body": "The funded cohort shows the breadth of beneficial AI in practice: climate resilience, carbon-credit trust, glucose-data ownership, regenerative biodiversity, accessibility, community governance, agricultural knowledge, and ecological knowledge preservation.",
+              "label": "02 \u00b7 Our principles",
+              "title": "Principles of BGI",
+              "emphasis": "",
+              "body": "At BGI Nexus, we believe AI should be developed in the service of flourishing life. That means building technologies guided by purpose, openness, human agency, fairness, and shared responsibility. Our principles encourage a shift away from extractive, short-term thinking and toward systems that are regenerative, inclusive, and designed to strengthen people, communities, and the living world.",
               "items": [
                 {
                   "word": "Humanity",
@@ -646,14 +658,14 @@
             },
             "spiral": {
               "lotus": "subtle",
-              "label": "03 \u00b7 Ecosystem",
-              "title": "Part of the",
-              "emphasis": "SingularityNET ecosystem.",
-              "body": "BGI Nexus is part of the SingularityNET ecosystem, connecting beneficial AI builders with the people and infrastructure needed to move from idea to impact.",
-              "body_soft": "The public channels, events, and newsletter help community members follow grant rounds, funded projects, and opportunities to contribute.",
+              "label": "03 \u00b7 Spiral of Flourishing",
+              "title": "Spiral of Flourishing",
+              "emphasis": "",
+              "body": "The Spiral of Flourishing expresses our vision for human-AI symbiosis. It offers a living framework for shaping AI in ways that preserve wonder, deepen connection, strengthen resilience, and open new possibilities for meaning and creativity.",
+              "body_soft": "By linking values with design, it helps guide the development of technologies that do not replace what is most valuable in human experience, but become a faithful ally to it.",
               "primary_label": "View projects",
               "primary_url": "/sponsored-projects",
-              "secondary_label": "Stay connected",
+              "secondary_label": "Get involved",
               "secondary_url": "/contact"
             },
             "cta": {
@@ -693,7 +705,7 @@
               "body": "The BGI Nexus working groups are built for people who want to move from conversation to coordinated action, with practical collaboration around guiding and governing AGI toward beneficial outcomes for humanity."
             },
             "subscribe": {
-              "eyebrow": "Stay Connected",
+              "eyebrow": "Get involved",
               "title": "Get updates on funded projects,",
               "emphasis": "grant rounds, and community events.",
               "body": "Subscribe for BGI Nexus updates and invitations to future community sessions."
@@ -830,6 +842,141 @@
       }
     ],
     "events": [
+      {
+        "id": "event-healthy-human-ai-ecosystems-jun-2026",
+        "slug": "healthy-human-ai-ecosystems-jun-2026",
+        "status": "published",
+        "data": {
+          "title": "Healthy Human-AI Ecosystems",
+          "date_day": "01",
+          "date_month": "JUN",
+          "date_year": "2026",
+          "kind": "Virtual conference",
+          "location": "Virtual",
+          "duration": "17:30 - 22:00",
+          "time": "17:30 UTC",
+          "host": "BGI Nexus",
+          "tag": "Event",
+          "display_status": "Open registration",
+          "body": "AI and agents for the workplace and DAOs that augment collaborative workflows. We are inviting builders, researchers and community members to explore the integration of AI agents into the systems humans use to collaborate and build together.",
+          "featured": true,
+          "past": false,
+          "link_text": "Register",
+          "link_url": "https://mailchi.mp/singularitynet.io/x4xss53zgt",
+          "sort_order": 1
+        }
+      },
+      {
+        "id": "event-working-group-session-jun-03-2026",
+        "slug": "working-group-session-jun-03-2026",
+        "status": "published",
+        "data": {
+          "title": "Working Group Session",
+          "date_day": "03",
+          "date_month": "JUN",
+          "date_year": "2026",
+          "kind": "Working group",
+          "location": "Virtual",
+          "duration": "Session",
+          "time": "17:00 UTC",
+          "host": "BGI Nexus",
+          "tag": "Working groups",
+          "display_status": "Open to members",
+          "body": "Working Groups meet.",
+          "featured": false,
+          "past": false,
+          "sort_order": 2
+        }
+      },
+      {
+        "id": "event-deep-dive-what-is-bgi-jun-2026",
+        "slug": "deep-dive-what-is-bgi-jun-2026",
+        "status": "published",
+        "data": {
+          "title": "Deep Dive into 'What is BGI'",
+          "date_day": "10",
+          "date_month": "JUN",
+          "date_year": "2026",
+          "kind": "Community session",
+          "location": "Virtual",
+          "duration": "Session",
+          "time": "17:00 UTC",
+          "host": "BGI Nexus",
+          "tag": "Event",
+          "display_status": "Open",
+          "body": "A deep dive into the question: What is Beneficial General Intelligence?",
+          "featured": false,
+          "past": false,
+          "sort_order": 3
+        }
+      },
+      {
+        "id": "event-omegaclaw-workshop-jun-2026",
+        "slug": "omegaclaw-workshop-jun-2026",
+        "status": "published",
+        "data": {
+          "title": "OmegaClaw Workshop & Tutorial",
+          "date_day": "17",
+          "date_month": "JUN",
+          "date_year": "2026",
+          "kind": "Workshop",
+          "location": "Virtual",
+          "duration": "Session",
+          "time": "17:00 UTC",
+          "host": "BGI Nexus",
+          "tag": "Event",
+          "display_status": "Open",
+          "body": "Starting and using the OmegaClaw Docker + TG.",
+          "featured": false,
+          "past": false,
+          "sort_order": 4
+        }
+      },
+      {
+        "id": "event-hackathon-ama-jun-2026",
+        "slug": "hackathon-ama-jun-2026",
+        "status": "published",
+        "data": {
+          "title": "Hackathon AMA / Dive into Hackpack",
+          "date_day": "24",
+          "date_month": "JUN",
+          "date_year": "2026",
+          "kind": "AMA",
+          "location": "Virtual",
+          "duration": "Session",
+          "time": "17:00 UTC",
+          "host": "BGI Nexus",
+          "tag": "Event",
+          "display_status": "Open",
+          "body": "Ask Me Anything session and a deep dive into the hackathon pack.",
+          "featured": false,
+          "past": false,
+          "sort_order": 5
+        }
+      },
+      {
+        "id": "event-bgi-mini-hackathon-jun-2026",
+        "slug": "bgi-mini-hackathon-jun-2026",
+        "status": "published",
+        "data": {
+          "title": "BGI Mini-Hackathon",
+          "date_day": "26",
+          "date_month": "JUN",
+          "date_year": "2026",
+          "day_range": "26-28",
+          "kind": "Hackathon",
+          "location": "Virtual",
+          "duration": "3 days",
+          "time": "All day",
+          "host": "BGI Nexus",
+          "tag": "Hackathon",
+          "display_status": "Registration open",
+          "body": "BGI Mini-Hackathon — a virtual collaborative build event.",
+          "featured": false,
+          "past": false,
+          "sort_order": 6
+        }
+      },
       {
         "id": "event-agi-human-flourishing-weekly",
         "slug": "bgi-nexus-community-call-february-2026",
@@ -1137,7 +1284,7 @@
       {
         "id": "project-nigerguard",
         "slug": "nigerguard",
-        "status": "published",
+        "status": "draft",
         "data": {
           "project_code": "P-03",
           "tag": "Climate",
