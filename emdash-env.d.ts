@@ -21,22 +21,6 @@ export interface Channel {
   bylines?: ContentBylineCredit[];
 }
 
-export interface ContactMessage {
-  id: string;
-  slug: string | null;
-  status: string;
-  name: string;
-  email: string;
-  connect_as?: string;
-  interested_in?: string;
-  message?: string;
-  title?: string;
-  createdAt: Date;
-  updatedAt: Date;
-  publishedAt: Date | null;
-  bylines?: ContentBylineCredit[];
-}
-
 export interface Event {
   id: string;
   slug: string | null;
@@ -59,6 +43,10 @@ export interface Event {
   time?: string;
   link_text?: string;
   link_url?: string;
+  lede?: string;
+  programme?: unknown;
+  hosts?: unknown;
+  themes?: unknown;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -91,20 +79,6 @@ export interface Page {
   bylines?: ContentBylineCredit[];
 }
 
-export interface Post {
-  id: string;
-  slug: string | null;
-  status: string;
-  title: string;
-  featured_image?: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
-  content?: PortableTextBlock[];
-  excerpt?: string;
-  createdAt: Date;
-  updatedAt: Date;
-  publishedAt: Date | null;
-  bylines?: ContentBylineCredit[];
-}
-
 export interface SponsoredProject {
   id: string;
   slug: string | null;
@@ -112,6 +86,7 @@ export interface SponsoredProject {
   project_code?: string;
   tag?: string;
   title: string;
+  image?: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
   project_byline?: string;
   fund?: string;
   summary?: string;
@@ -121,7 +96,11 @@ export interface SponsoredProject {
   featured?: boolean;
   sort_order?: number;
   url?: string;
-  image?: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
+  tagline?: string;
+  story?: unknown;
+  team_members?: unknown;
+  timeline?: unknown;
+  impact_stats?: unknown;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -162,11 +141,9 @@ export interface WorkingGroup {
 declare module "emdash" {
   interface EmDashCollections {
     channels: Channel;
-    contact_messages: ContactMessage;
     events: Event;
     faqs: Faq;
     pages: Page;
-    posts: Post;
     projects: SponsoredProject;
     subscribers: Subscriber;
     working_groups: WorkingGroup;

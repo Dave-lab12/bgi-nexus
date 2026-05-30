@@ -486,35 +486,15 @@
               "items": [
                 {
                   "who": "Virtual conference",
-                  "what": "17:30 · 01 June"
+                  "what": "17:30 01 June"
                 },
                 {
                   "who": "Hackathon",
                   "what": "26-28 June"
                 },
                 {
-                  "who": "Funded projects",
-                  "what": "9 community-selected teams"
-                },
-                {
-                  "who": "Funding deployed",
-                  "what": "$500,000 toward beneficial AI"
-                },
-                {
-                  "who": "Countries",
-                  "what": "8 represented across the cohort"
-                },
-                {
-                  "who": "Contributors",
-                  "what": "953 people in the wider community"
-                },
-                {
-                  "who": "Grant round",
-                  "what": "Round 01 funded in 2024"
-                },
-                {
-                  "who": "Community",
-                  "what": "events, working groups, and open Q&A"
+                  "who": "Get involved",
+                  "what": "bginexus.community"
                 }
               ]
             },
@@ -604,8 +584,8 @@
               "intro": "BGI Nexus supports builders creating beneficial AI projects with real-world impact across health, climate resilience, accessibility, governance, agriculture, and ecological knowledge."
             },
             "contact": {
-              "title": "Stay",
-              "emphasis": "connected.",
+              "title": "Get",
+              "emphasis": "involved.",
               "body": "Get updates on funded projects, grant rounds, and community events, or contact the BGI Nexus team directly."
             }
           }
@@ -628,8 +608,9 @@
               "label": "01 \u00b7 General information",
               "title": "What is BGI?",
               "emphasis": "",
-              "body": "BGI Nexus is where beneficial AI gets built.",
-              "body_soft": "We connect bold ideas with the expertise and community needed to turn them into real-world impact. As a global, community-driven initiative, BGI Nexus supports the development of beneficial AI and AGI through collaborative building and transparent governance so that the power of AI can serve humanity, the biosphere, and future generations."
+              "body": "BGI Nexus is a community hub for people building toward beneficial general intelligence \u2014 developers, researchers, and thinkers working together to ensure AI serves the flourishing of life, not just efficiency.",
+              "body_soft": "We create the conditions for meaningful collaboration: virtual events, sprints, and working groups where technical and non-technical contributors build alongside each other. Our work spans code and frameworks, governance and ethics, practical tools and big questions.",
+              "body_2": "The goal is not consensus \u2014 it's coordination across genuine difference, toward AI that is inclusive, accountable, and worth building."
             },
             "principles": {
               "label": "02 \u00b7 Our principles",

@@ -205,15 +205,14 @@ h1.display {
   line-height: var(--lh-heading);
 }
 
-/* Italic emphasis inside display headlines uses the brand blue.
-   This is the brand's signature mark. */
+/* Emphasis inside display headlines uses the brand blue (no italic). */
 .display-xl em,
 .display-l em,
 .display-m em,
 .display-s em,
 h1.display em,
 h2.section-title em {
-  font-style: italic;
+  font-style: normal;
   color: var(--accent);
 }
 

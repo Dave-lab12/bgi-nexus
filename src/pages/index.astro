@@ -321,52 +321,11 @@ const today = new Date().toLocaleDateString("en-GB", {
 	</section>
 
 	<section
-		class="bgin-section bgin-impact"
-		style="padding: 96px var(--gutter); position: relative; overflow: hidden;"
-	>
-		<LotusBloom strength={quote.lotus ?? "subtle"} />
-		<div
-			class="bgin-2col-left"
-			style="position: relative; max-width: 1280px; margin: 0 auto; align-items: center;"
-		>
-			<div>
-				<div class="bgin-eyebrow on-dark" style="margin-bottom: 24px;">
-					{quote.eyebrow}
-				</div>
-				<blockquote
-					class="bgin-display"
-					style="font-size: 44px; line-height: 1.15; color: var(--ink-on-dark); margin: 0;"
-				>
-					{quote.line_1}<br />
-					{quote.line_2}<br />
-					{quote.line_3}
-					<em>{quote.emphasis}</em>
-				</blockquote>
-			</div>
-			<div class="bgin-side-panel-dark">
-				<span
-					class="bgin-mono on-dark"
-					style="margin-bottom: 14px; display: block;"
-				>
-					{quote.side_label}
-				</span>
-				<p
-					style="color: rgba(245,239,226,0.75); font-size: 15px; line-height: 1.7; margin: 0 0 32px;"
-				>
-					{quote.side_body}
-				</p>
-				<a class="bgin-btn primary on-dark" href={quote.cta_url}
-					>{quote.cta_label}</a
-				>
-			</div>
-		</div>
-	</section>
-
-	<section
 		id="contact"
-		class="bgin-section"
-		style="padding-top: 64px; padding-bottom: 96px;"
+		class="bgin-section bgin-impact"
+		style="padding-top: 64px; padding-bottom: 96px; position: relative; overflow: hidden;"
 	>
+		<LotusBloom strength="subtle" />
 		<div
 			class="bgin-2col bgin-inner-card-pad"
 			style="max-width: 1280px; margin: 0 auto; align-items: center; border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; background: var(--canvas);"

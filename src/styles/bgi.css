@@ -100,7 +100,8 @@ body {
   color: var(--ink);
   margin: 0;
 }
-.bgin-display em {
+.bgin-display em,
+h1 em, h2 em, h3 em {
   font-style: normal;
   color: var(--italic-accent, var(--brand-blue));
 }

@@ -13,7 +13,6 @@ const page = pageResult.entry as any;
 if (!page) return Astro.redirect("/404");
 
 const sections = sectionsFrom(page);
-const hero = sections.hero ?? {};
 const what = sections.what ?? {};
 const principles = sections.principles ?? {};
 const spiral = sections.spiral ?? {};
@@ -35,31 +34,8 @@ const seo = getSeoMeta(page, {
 	content={{ collection: "pages", id: page.data.id, slug: "about" }}
 >
 	<section
-		class="bgin-section"
-		style="padding-top: var(--hero-y); padding-bottom: var(--space-12);"
-	>
-		<div style="max-width: 1200px; margin: 0 auto;">
-			<div
-				class="bgin-eyebrow"
-				style="margin-bottom: 24px;"
-				{...page.edit.sections}
-			>
-				{hero.eyebrow}
-			</div>
-			<h1
-				class="bgin-display"
-				style="font-size: 88px; max-width: 1100px; margin-bottom: 0;"
-				{...page.edit.title}
-			>
-				{hero.headline}
-				<em>{hero.emphasis}</em>
-			</h1>
-		</div>
-	</section>
-
-	<section
 		class="bgin-section bgin-band"
-		style="padding-top: var(--space-12); padding-bottom: var(--space-12);"
+		style="padding-top: var(--hero-y); padding-bottom: var(--space-12);"
 	>
 		<div
 			class="bgin-2col-right"
@@ -79,9 +55,14 @@ const seo = getSeoMeta(page, {
 			</div>
 			<div style="font-size: 18px; line-height: 1.65; color: var(--ink);">
 				<p style="margin-top: 0; margin-bottom: 20px;">{what.body}</p>
-				<p style="margin: 0; color: var(--ink-soft);">
+				<p style="margin: 0 0 20px; color: var(--ink-soft);">
 					{what.body_soft}
 				</p>
+				{what.body_2 && (
+					<p style="margin: 0; color: var(--ink-soft);">
+						{what.body_2}
+					</p>
+				)}
 			</div>
 		</div>
 	</section>

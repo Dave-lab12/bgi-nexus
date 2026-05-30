@@ -6,6 +6,7 @@ import { sqlite } from "emdash/db";
 
 export default defineConfig({
 	output: "server",
+
 	adapter: node({
 		mode: "standalone",
 	}),
@@ -13,7 +14,7 @@ export default defineConfig({
 		optimizeDeps: {
 			esbuildOptions: {
 				define: {
-					"process.env.NODE_ENV": JSON.stringify("development"),
+					"process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "production")
 				},
 			},
 		},
@@ -25,6 +26,7 @@ export default defineConfig({
 	integrations: [
 		react(),
 		emdash({
+			site: process.env.EMDASH_SITE_URL || 'https://bginexus.io',
 			database: sqlite({ url: "file:./data.db" }),
 			storage: local({
 				directory: "./uploads",

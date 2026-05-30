@@ -22,7 +22,6 @@ const page = pageResult.entry as any;
 if (!page) return Astro.redirect("/404");
 
 const projects = sortByOrder(projectsResult.entries as any[]);
-const featured = projects.find((project) => project.data.featured) ?? projects[0];
 const tags = ["All", ...termsFrom(projects)];
 const sections = sectionsFrom(page);
 const hero = sections.hero ?? {};
@@ -48,44 +47,14 @@ const seo = getSeoMeta(page, {
 		class="bgin-section"
 		style="padding-top: var(--hero-y); padding-bottom: var(--space-12);"
 	>
-		<div
-			class="bgin-2col-left"
-		style="max-width: 1200px; margin: 0 auto; align-items: end;"
-		>
-			<div>
-				<div class="bgin-eyebrow" style="margin-bottom: 24px;" {...page.edit.sections}>
-					{hero.eyebrow}
-				</div>
-				<h1 class="bgin-display" style="font-size: 88px; margin-bottom: 28px;" {...page.edit.title}>
-					{hero.headline} <em>{hero.emphasis}</em>
-				</h1>
-				<p class="bgin-lede" style="max-width: 620px;">{hero.lead}</p>
+		<div style="max-width: 1200px; margin: 0 auto;">
+			<div class="bgin-eyebrow" style="margin-bottom: 24px;" {...page.edit.sections}>
+				{hero.eyebrow}
 			</div>
-			<div
-				style="border-left: 1px solid var(--rule); padding-left: 32px; display: flex; flex-direction: column; gap: 18px;"
-			>
-				<span class="bgin-mono">Round 01 · 2024</span>
-				<div>
-					<div class="bgin-display" style="font-size: 52px; line-height: 1; color: var(--brand-blue);">
-						9
-					</div>
-					<span
-						class="bgin-mono"
-						style="margin-top: 4px; font-size: 12px; color: var(--ink-soft); text-transform: none; letter-spacing: 0.08em;"
-						>funded teams</span
-					>
-				</div>
-				<div>
-					<div class="bgin-display" style="font-size: 36px; line-height: 1; color: var(--ink);">
-						$445,000
-					</div>
-					<span
-						class="bgin-mono"
-						style="margin-top: 4px; font-size: 12px; color: var(--ink-soft); text-transform: none; letter-spacing: 0.08em;"
-						>deployed to community-selected projects</span
-					>
-				</div>
-			</div>
+			<h1 class="bgin-display" style="font-size: 88px; margin-bottom: 28px;" {...page.edit.title}>
+				{hero.headline} <em>{hero.emphasis}</em>
+			</h1>
+			<p class="bgin-lede" style="max-width: 620px;">{hero.lead}</p>
 		</div>
 	</section>
 
@@ -102,53 +71,13 @@ const seo = getSeoMeta(page, {
 				</div>
 				<div style="font-size: 17px; line-height: 1.65; color: var(--ink);">
 					<p style="margin-top: 0;">{round.body}</p>
-					<p style="margin: 0; color: var(--ink-soft); font-style: italic;">
+					<p style="margin: 0; color: var(--ink-soft);">
 						{round.body_soft}
 					</p>
 				</div>
 			</div>
 		</div>
 	</section>
-
-	{
-		featured && (
-			<section class="bgin-section">
-				<div style="max-width: 1280px; margin: 0 auto;">
-					<span class="bgin-mono" style="margin-bottom: 24px; display: block;">
-						● Featured · in active build
-					</span>
-					<article
-						class="bgin-2col-left bgin-inner-card-pad"
-					style="background: var(--canvas); border: 1px solid var(--rule); border-top: 3px solid var(--brand-blue); border-radius: 6px; align-items: center;"
-					>
-						<ProjectImage
-							code={featured.data.project_code}
-							image={featured.data.image}
-							tag={featured.data.tag}
-							title={featured.data.title}
-							large
-						/>
-						<div>
-							<div style="display: flex; justify-content: space-between; margin-bottom: 16px;">
-								<span class="bgin-mono" style="color: var(--brand-blue);">{featured.data.tag}</span>
-								<span class="bgin-mono" style="color: var(--ink-mute);">{featured.data.round}</span>
-							</div>
-							<h2 class="bgin-h2" style="font-size: 40px; margin-bottom: 16px;">
-								{featured.data.title}
-							</h2>
-							<p style="font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 0 0 24px;">
-								{featured.data.summary}
-							</p>
-							<div style="display: flex; gap: 14px;">
-								<a class="bgin-btn primary" href={`/sponsored-projects/${featured.id}`}>Project page →</a>
-								<a class="bgin-btn secondary" href="/contact">Get involved</a>
-							</div>
-						</div>
-					</article>
-				</div>
-			</section>
-		)
-	}
 
 	<section id="projects" class="bgin-section bgin-band">
 		<div class="bgin-filter" data-filter-scope="projects" style="max-width: 1280px; margin: 0 auto;">
@@ -198,13 +127,10 @@ const seo = getSeoMeta(page, {
 								>
 									{project.data.title}
 								</h3>
-								<p style="font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 18px;">
+								<p style="font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 18px; flex: 1;">
 									{project.data.summary}
 								</p>
-								<div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 14px; border-top: 1px solid var(--rule);">
-									<span class="bgin-mono" style="font-size: 11px; color: var(--ink-mute);">
-										● {project.data.display_status}
-									</span>
+								<div style="padding-top: 14px; border-top: 1px solid var(--rule); margin-top: auto;">
 									<a class="bgin-arrow" href={`/sponsored-projects/${project.id}`}>Project page <span aria-hidden="true">→</span></a>
 								</div>
 							</div>
